@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://do8sprmqepf0p"]
+
+[ext_resource type="Script" path="res://Background.cs" id="1_0cqdy"]
+[ext_resource type="PackedScene" uid="uid://biabqw11xwmsc" path="res://player_chase.tscn" id="2_dk55d"]
+
+[node name="Background" type="Node"]
+script = ExtResource("1_0cqdy")
+
+[node name="PlayerChase" parent="." instance=ExtResource("2_dk55d")]
+position = Vector2(128, 78)
