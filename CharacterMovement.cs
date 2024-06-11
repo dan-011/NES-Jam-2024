@@ -18,6 +18,22 @@ namespace General {
 			position = pos;
 		}
 
+		public Vector2 GetVel() {
+			return vel;
+		}
+
+		public void SetVel(Vector2 velocity) {
+			vel = velocity;
+		}
+
+		public Vector2 GetGoalVel() {
+			return goalVel;
+		}
+
+		public void SetGoalVel(Vector2 goalVelocity) {
+			goalVel = goalVelocity;
+		}
+
 		public void Update(float dt) {
 			UpdateVel(dt);
 			UpdatePos(dt);
@@ -35,7 +51,7 @@ namespace General {
 
 		public void Boost() {
 			if(AtStart()) {
-				vel.X = 200;
+				vel.X = 400;
 			}
 		}
 
@@ -65,30 +81,23 @@ namespace General {
 
 		private void UpdateVel(float dt) {
 			float xVelUpdate = gravity * dt + vel.X;
-            if((xVelUpdate < 0 || xVelUpdate == 0) && vel.X > 0) { // hit peak
-                if(boostTime == 0) {
-                    boostTime = Time.GetTicksMsec();
-                }
-            }
-            if(Time.GetTicksMsec() - boostTime > 1000) {
-
-            }
-			if((xVelUpdate < 0 || xVelUpdate == 0) && vel.X > 0) {
-				if(waitTicks == 0) {
-					vel.X = xVelUpdate;
+			bool wait = false;
+			if((xVelUpdate < 0 || xVelUpdate == 0) && vel.X > 0) { // hit peak
+				if(boostTime < 0) {
+					boostTime = (long)Time.GetTicksMsec();
+					wait = true;
 				}
-				else {
-					vel.X = 0;
-					waitTicks--;
-				}
+				wait = (long)Time.GetTicksMsec() - boostTime < 500;
+				if(vel.X == 0f) vel.X = 0.333f;
 			}
-			else if(xVelUpdate > 0 || (xVelUpdate < 0 && vel.X < 0)){
+			if(!wait) {
+				boostTime = -1;
 				vel.X = xVelUpdate;
 			}
 			if(AtStart() && vel.X < 0) {
-                boostTime = 0;
-                vel.X = 0;
-            }
+				boostTime = 0;
+				vel.X = 0;
+			}
 			vel.Y = Interpolate(goalVel.Y, vel.Y, dt*approachVal);
 		}
 
@@ -102,9 +111,8 @@ namespace General {
 		private Vector2 goalVel;
 		private Vector2 maxVel;
 		private float approachVal = 300f;
-		private float gravity = -500f;
+		private float gravity = -1300f;
 		private Vector2 startPos;
-		private int waitTicks = 10;
-        private ulong boostTime = 0;
+		private long boostTime = -1;
 	}
 }

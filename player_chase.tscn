@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://biabqw11xwmsc"]
+[gd_scene load_steps=5 format=3 uid="uid://biabqw11xwmsc"]
 
 [ext_resource type="Script" path="res://PlayerChase.cs" id="1_etr5o"]
-[ext_resource type="Texture2D" uid="uid://4xt13bfplehc" path="res://Assets/chase/nes-rail.png" id="2_5htce"]
+[ext_resource type="Texture2D" uid="uid://bj6j00l64tj8q" path="res://Assets/chase/nes-rail - Copy.png" id="2_0tma3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0kupk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_5htce")
+"texture": ExtResource("2_0tma3")
 }],
 "loop": true,
 "name": &"fly",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cacwl"]
+size = Vector2(20, 24)
 
 [node name="PlayerChase" type="Area2D"]
 script = ExtResource("1_etr5o")
@@ -22,6 +25,6 @@ metadata/_edit_group_ = true
 sprite_frames = SubResource("SpriteFrames_0kupk")
 animation = &"fly"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-build_mode = 1
-polygon = PackedVector2Array(0, -22, 11, -22, 18, -15, 17, -13, 17, -5, 16, -4, 16, -1, 14, 1, 11, 3, 12, 4, 12, 9, 10, 12, 10, 18, 9, 19, 3, 19, 1, 18, 0, 20, -3, 21, -4, 21, -4, 15, -5, 14, -6, 14, -9, 17, -13, 19, -13, 22, -16, 23, -18, 23, -20, 21, -20, 18, -18, 16, -16, 16, -11, 11, -10, 7, -7, 5, -7, 3, -8, 3, -12, 7, -16, 10, -18, 10, -18, 4, -16, 4, -9, -3, -7, -5, -7, -13, -9, -12, -11, -12, -12, -13, -12, -16, -11, -19, -9, -20, -6, -21, -4, -22)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_cacwl")

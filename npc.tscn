@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://0714yfj03j0i"]
+
+[ext_resource type="Texture2D" uid="uid://cssobvmsvnq3n" path="res://Assets/chase/bike.png" id="1_0aukq"]
+[ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbpfs"]
+size = Vector2(55, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_76x1d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0aukq")
+}],
+"loop": true,
+"name": &"bike",
+"speed": 5.0
+}]
+
+[node name="NPC" type="Area2D"]
+script = ExtResource("1_kt8dl")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_dbpfs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_76x1d")
+animation = &"bike"
