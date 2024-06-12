@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://biabqw11xwmsc"]
 
 [ext_resource type="Script" path="res://PlayerChase.cs" id="1_etr5o"]
-[ext_resource type="Texture2D" uid="uid://bj6j00l64tj8q" path="res://Assets/chase/nes-rail - Copy.png" id="2_0tma3"]
+[ext_resource type="Texture2D" uid="uid://c3pcovfr7uyic" path="res://Assets/chase/player.png" id="2_6ooad"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0kupk"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_cutkk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0tma3")
+"texture": ExtResource("2_6ooad")
 }],
 "loop": true,
 "name": &"fly",
@@ -22,8 +22,9 @@ script = ExtResource("1_etr5o")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_0kupk")
+sprite_frames = SubResource("SpriteFrames_cutkk")
 animation = &"fly"
+frame_progress = 0.215093
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)

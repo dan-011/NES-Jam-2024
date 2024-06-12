@@ -22,3 +22,5 @@
     * this would be where you configure gadgets
     * Gadgets made for a certain situation determine how many NPCs you experience
         * gadgets can come with decisions
+
+Up Next: gadgets and health

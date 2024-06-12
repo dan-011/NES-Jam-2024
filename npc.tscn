@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://0714yfj03j0i"]
+[gd_scene load_steps=8 format=3 uid="uid://0714yfj03j0i"]
 
 [ext_resource type="Texture2D" uid="uid://cssobvmsvnq3n" path="res://Assets/chase/bike.png" id="1_0aukq"]
 [ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
@@ -17,7 +17,27 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Curve2D" id="Curve2D_6iihy"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -96, -75, -22.181, 0.577097, 22.181, -0.577097, -6.99999, 82.7446, -16.9897, 5.77097, 16.9897, -5.77097, 56, -76.2228, -18.8775, 4.03968, 18.8775, -4.03968, 64, 72.962, -17.4617, 0.577097, 17.4617, -0.577097, 78, -77.4457, -15.5739, -4.03968, 15.5739, 4.03968, 90, 75.4076, -19.3494, -15.5816, 19.3494, 15.5816, 100, -77.4457, -9.43874, -0.577097, 9.43874, 0.577097, 106, 75.4076, -9.91068, -2.88549, 9.91068, 2.88549, 115, -73.7772, -8.02293, -2.88549, 8.02293, 2.88549, 121, 75.4076, 0, 0, 0, 0, 130, -87.2283)
+}
+point_count = 11
+
+[sub_resource type="Curve2D" id="Curve2D_4bfog"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -80, -40, 0, 0, 0, 0, -58, -30, 0, 0, 0, 0, -69, -10, 0, 0, 0, 0, -77, 41, 0, 0, 0, 0, -41, 48, 0, 0, 0, 0, -42, 74, 0, 0, 0, 0, -37, 80, 0, 0, 0, 0, -5, 65, 0, 0, 0, 0, 10, 23, 0, 0, 0, 0, -111, -12, 0, 0, 0, 0, -22, -15, 0, 0, 0, 0, -1, 3, 0, 0, 0, 0, 81, 32, 0, 0, 0, 0, 67, 54, 0, 0, 0, 0, -55, 57, 0, 0, 0, 0, -57, 90, 0, 0, 0, 0, -30, 6, 0, 0, 0, 0, -11, 63, 0, 0, 0, 0, 12, 53, 0, 0, 0, 0, 28, -55, 0, 0, 0, 0, 65, -10, 0, 0, 0, 0, 72, 73, 0, 0, 0, 0, -10, 106, 0, 0, 0, 0, -5, 13, 0, 0, 0, 0, -34, 95, 0, 0, 0, 0, -83, 48, 0, 0, 0, 0, -17, 14, 0, 0, 0, 0, -22, -19, 0, 0, 0, 0, 64, 46, 0, 0, 0, 0, 64, 45, 0, 0, 0, 0, 104, 107, 0, 0, 0, 0, 81, 11, 0, 0, 0, 0, -12, 5, 0, 0, 0, 0, -53, 36, 0, 0, 0, 0, 21, 7, 0, 0, 0, 0, 23, 43, 0, 0, 0, 0, 70, 31, 0, 0, 0, 0, -17, 66, 0, 0, 0, 0, -176, 30, 0, 0, 0, 0, -57, -2, 0, 0, 0, 0, 35, 34, 0, 0, 0, 0, 21, 50, 0, 0, 0, 0, -83, 46, 0, 0, 0, 0, -102, 62, 0, 0, 0, 0, 50, 39, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 63, 2)
+}
+point_count = 47
+
+[sub_resource type="Curve2D" id="Curve2D_8yogv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -102, -53, 0, 0, 0, 0, -85, -53)
+}
+point_count = 2
+
 [node name="NPC" type="Area2D"]
+position = Vector2(105, 76)
 script = ExtResource("1_kt8dl")
 metadata/_edit_group_ = true
 
@@ -28,3 +48,27 @@ shape = SubResource("RectangleShape2D_dbpfs")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_76x1d")
 animation = &"bike"
+
+[node name="ZigZagPath" type="Path2D" parent="."]
+position = Vector2(-7.62939e-06, 27.3333)
+scale = Vector2(1, 0.817778)
+curve = SubResource("Curve2D_6iihy")
+
+[node name="MobPosition" type="PathFollow2D" parent="ZigZagPath"]
+position = Vector2(-96, -75)
+rotation = 1.05711
+
+[node name="IrradicPath" type="Path2D" parent="."]
+position = Vector2(30.0857, 0)
+scale = Vector2(0.710714, 1)
+curve = SubResource("Curve2D_4bfog")
+
+[node name="MobPosition" type="PathFollow2D" parent="IrradicPath"]
+position = Vector2(-80, -40)
+rotation = 0.426627
+
+[node name="StraightPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_8yogv")
+
+[node name="MobPosition" type="PathFollow2D" parent="StraightPath"]
+position = Vector2(-102, -53)

@@ -3,11 +3,12 @@ using System;
 
 namespace General {
 	public class CharacterMovement {
-		public CharacterMovement(Vector2 pos, float maxXSpeed = 200, float maxYSpeed = 200) {
+		public CharacterMovement(Vector2 pos, float maxXSpeed = 200, float maxYSpeed = 200, bool _isNPC = false) {
 			startPos = pos;
 			position = pos;
 			maxVel.X = maxXSpeed;
 			maxVel.Y = maxYSpeed;
+			isNPC = _isNPC;
 		}
 
 		public Vector2 GetPos() {
@@ -74,33 +75,40 @@ namespace General {
 
 		private void UpdatePos(float dt) {
 			position.X += vel.X * dt;
-			if(position.X > startPos.X) position.X += vel.X * dt;
-			else position.X = startPos.X;
+			if(!isNPC) {
+				if(position.X > startPos.X) position.X += vel.X * dt;
+				else position.X = startPos.X;
+			}
 			position.Y += vel.Y * dt;
 		}
 
 		private void UpdateVel(float dt) {
-			float xVelUpdate = gravity * dt + vel.X;
-			bool wait = false;
-			if((xVelUpdate < 0 || xVelUpdate == 0) && vel.X > 0) { // hit peak
-				if(boostTime < 0) {
-					boostTime = (long)Time.GetTicksMsec();
-					wait = true;
+			if(isNPC) {
+				vel.X = Interpolate(goalVel.X, vel.X, dt*approachVal);
+			}
+			else {
+				float xVelUpdate = gravity * dt + vel.X;
+				bool wait = false;
+				if((xVelUpdate < 0 || xVelUpdate == 0) && vel.X > 0) { // hit peak
+					if(boostTime < 0) {
+						boostTime = (long)Time.GetTicksMsec();
+						wait = true;
+					}
+					wait = (long)Time.GetTicksMsec() - boostTime < 500;
+					if(vel.X == 0f) vel.X = 0.333f;
 				}
-				wait = (long)Time.GetTicksMsec() - boostTime < 500;
-				if(vel.X == 0f) vel.X = 0.333f;
-			}
-			if(!wait) {
-				boostTime = -1;
-				vel.X = xVelUpdate;
-			}
-			if(AtStart() && vel.X < 0) {
-				boostTime = 0;
-				vel.X = 0;
+				if(!wait) {
+					boostTime = -1;
+					vel.X = xVelUpdate;
+				}
+				if(AtStart() && vel.X < 0) {
+					boostTime = 0;
+					vel.X = 0;
+				}
 			}
 			vel.Y = Interpolate(goalVel.Y, vel.Y, dt*approachVal);
 		}
-
+		
 		private bool AtStart() {
 			return Math.Abs(position.X - startPos.X) < 0.00000001;
 		}
@@ -114,5 +122,6 @@ namespace General {
 		private float gravity = -1300f;
 		private Vector2 startPos;
 		private long boostTime = -1;
+		private bool isNPC;
 	}
 }
