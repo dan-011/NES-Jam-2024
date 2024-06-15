@@ -12,6 +12,8 @@
     * NPCs have shooting patterns
     * Create classes that define the shooting patterns and classes that NPCs can take from at random
         * These classes should have a means of making them more difficult
+    * Randomly select when an NPC will dodge a trap
+        * Should be gagued with a number (first level has zero avoidance factor)
 
 * Gadgets
     * gadgets can be collected throughout the level
