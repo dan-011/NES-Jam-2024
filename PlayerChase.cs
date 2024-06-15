@@ -16,23 +16,27 @@ public partial class PlayerChase : Area2D
 
 	public override void _Ready()
 	{
-		Vector2 startPos = new Vector2(Position.X - 20, 100);
+		Vector2 startPos = new Vector2(Position.X, 100);
 		Position = startPos;
 		movement = new CharacterMovement(startPos, 400, 400);
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		screenSize = GetViewportRect().Size;
+
+		animation.Play("idle");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		InputHandling();
 		if(delta > 0.0065) {
 			if(delta > 0.007) delta = 0.007;
-			InputHandling();
 			movement.Update((float)delta);
 			Position = movement.GetPos();
 			movement.SetPos(Position);
 			HandleBounds();
+			AnimationHandling();
 		}
 	}
 
@@ -54,6 +58,21 @@ public partial class PlayerChase : Area2D
 		}
 	}
 
+	private void AnimationHandling() {
+		if(movement.GetVel().Y == 0 && !animation.Animation.Equals("idle")) {
+			animation.Stop();
+			animation.Play("idle");
+		}
+		else if(movement.GetVel().Y < 0 && !animation.Animation.Equals("up")) {
+			animation.Stop();
+			animation.Play("up");
+		}
+		else if(movement.GetVel().Y > 0 && !animation.Animation.Equals("down")) {
+			animation.Stop();
+			animation.Play("down");
+		}
+	}
+
 	private void HandleBounds() {
 		Vector2 dims = collisionShape.Shape.GetRect().Size;
 		if(Position.Y < (dims.Y / 2) + 5) {
@@ -67,10 +86,16 @@ public partial class PlayerChase : Area2D
 		}
 		else canGoDown = true;
 	}
+	
+	private void OnAreaEntered(Area2D area)
+	{
+		GD.Print("Player hit");
+	}
 
 	private CharacterMovement movement;
 	private Vector2 screenSize;
 	private CollisionShape2D collisionShape;
+	private AnimatedSprite2D animation;
 	private bool canGoDown = true;
 	private bool canGoUp = true;
 }

@@ -1,16 +1,41 @@
-[gd_scene load_steps=8 format=3 uid="uid://0714yfj03j0i"]
+[gd_scene load_steps=12 format=3 uid="uid://0714yfj03j0i"]
 
-[ext_resource type="Texture2D" uid="uid://cssobvmsvnq3n" path="res://Assets/chase/bike.png" id="1_0aukq"]
 [ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
+[ext_resource type="Texture2D" uid="uid://bu8ubqp3thibs" path="res://Assets/chase/bike-sheet.png" id="2_nhlu8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dbpfs"]
 size = Vector2(55, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nwd6"]
+atlas = ExtResource("2_nhlu8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fqbq"]
+atlas = ExtResource("2_nhlu8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ln2b3"]
+atlas = ExtResource("2_nhlu8")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkjbx"]
+atlas = ExtResource("2_nhlu8")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_76x1d"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_0aukq")
+"texture": SubResource("AtlasTexture_0nwd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fqbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ln2b3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkjbx")
 }],
 "loop": true,
 "name": &"bike",
@@ -38,6 +63,7 @@ point_count = 2
 
 [node name="NPC" type="Area2D"]
 position = Vector2(105, 76)
+collision_layer = 2
 script = ExtResource("1_kt8dl")
 metadata/_edit_group_ = true
 
@@ -48,6 +74,8 @@ shape = SubResource("RectangleShape2D_dbpfs")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_76x1d")
 animation = &"bike"
+frame_progress = 0.111224
+speed_scale = 1.75
 
 [node name="ZigZagPath" type="Path2D" parent="."]
 position = Vector2(-7.62939e-06, 27.3333)
@@ -72,3 +100,5 @@ curve = SubResource("Curve2D_8yogv")
 
 [node name="MobPosition" type="PathFollow2D" parent="StraightPath"]
 position = Vector2(-102, -53)
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

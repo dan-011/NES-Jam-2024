@@ -17,6 +17,14 @@
     * gadgets can be collected throughout the level
     * combine gadgets to make new gadgets
     * can have a pack, but only 2 gadgets at a time (a and b buttons)
+    * Gadgets (collaborated with Dylan Cassidy):
+        * Smoke bomb - randomly makes enemy fire go in other directions
+        * Oil - slows down the enemy
+        * Cannon? - makes the enemy veer off into a direction
+        * hologram - draws enemy fire
+        * Reactor - absorbs enemy fire to then dish out energy blast (diameter dependent on amount of fire absorbed)
+        * Shield - no explanation needed
+        * teleporter - jumps user to a spot where an enemy isn't
 * Dungeon level
     * we can make the dungeon level as just an in-between levels
     * this would be where you configure gadgets

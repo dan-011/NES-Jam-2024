@@ -52,7 +52,7 @@ namespace General {
 
 		public void Boost() {
 			if(AtStart()) {
-				vel.X = 400;
+				vel.X = 350;
 			}
 		}
 

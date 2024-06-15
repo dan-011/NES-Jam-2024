@@ -1,0 +1,128 @@
+[gd_scene load_steps=19 format=3 uid="uid://bhdsgykj0y4xl"]
+
+[ext_resource type="Script" path="res://BombGadget.cs" id="1_tndb6"]
+[ext_resource type="Texture2D" uid="uid://b01eop5qhd1l3" path="res://Assets/gadgets/smoke_bomb_old.png" id="2_c176o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdo4l"]
+atlas = ExtResource("2_c176o")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6p6b"]
+atlas = ExtResource("2_c176o")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7hrs"]
+atlas = ExtResource("2_c176o")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_taxor"]
+atlas = ExtResource("2_c176o")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0xlr"]
+atlas = ExtResource("2_c176o")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w3vh"]
+atlas = ExtResource("2_c176o")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqlix"]
+atlas = ExtResource("2_c176o")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk0w3"]
+atlas = ExtResource("2_c176o")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h4ye"]
+atlas = ExtResource("2_c176o")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l3er"]
+atlas = ExtResource("2_c176o")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb8aw"]
+atlas = ExtResource("2_c176o")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x53bj"]
+atlas = ExtResource("2_c176o")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw160"]
+atlas = ExtResource("2_c176o")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f72d"]
+atlas = ExtResource("2_c176o")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iw7js"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdo4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6p6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7hrs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_taxor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0xlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w3vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqlix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk0w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5h4ye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l3er")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb8aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x53bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw160")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4f72d")
+}],
+"loop": false,
+"name": &"bomb",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tyhk6"]
+radius = 8.0
+
+[node name="BombGadget" type="Area2D"]
+script = ExtResource("1_tndb6")
+metadata/_edit_group_ = true
+
+[node name="BombAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iw7js")
+animation = &"bomb"
+speed_scale = 2.0
+
+[node name="BombCollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tyhk6")
+disabled = true
+
+[connection signal="animation_finished" from="BombAnimation" to="." method="OnBombAnimationFinished"]
