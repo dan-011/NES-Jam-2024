@@ -14,6 +14,7 @@
         * These classes should have a means of making them more difficult
     * Randomly select when an NPC will dodge a trap
         * Should be gagued with a number (first level has zero avoidance factor)
+    * Maybe when an NPC leaves the screen it recycles back to the beginning
 
 * Gadgets
     * gadgets can be collected throughout the level
@@ -22,6 +23,7 @@
     * Gadgets (collaborated with Dylan Cassidy):
         * Smoke bomb - randomly makes enemy fire go in other directions
         * Oil - slows down the enemy
+            * Make emeny head the same color when hit
         * Cannon? - makes the enemy veer off into a direction
         * hologram - draws enemy fire
         * Reactor - absorbs enemy fire to then dish out energy blast (diameter dependent on amount of fire absorbed)
@@ -32,5 +34,12 @@
     * this would be where you configure gadgets
     * Gadgets made for a certain situation determine how many NPCs you experience
         * gadgets can come with decisions
+
+* Remaining Sprites Needed:
+    * Oil
+    * cannon
+    * sheild
+    * holorgram
+
 
 Up Next: gadgets and health

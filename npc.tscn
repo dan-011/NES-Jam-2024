@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://0714yfj03j0i"]
+[gd_scene load_steps=22 format=3 uid="uid://0714yfj03j0i"]
 
 [ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
+[ext_resource type="PackedScene" uid="uid://biw01lw88mc5c" path="res://enemy_bullet.tscn" id="2_lam11"]
 [ext_resource type="Texture2D" uid="uid://bu8ubqp3thibs" path="res://Assets/chase/bike-sheet.png" id="2_nhlu8"]
+[ext_resource type="Texture2D" uid="uid://m8nlvyn5mc1h" path="res://Assets/chase/enemy-fire.png" id="3_0lp05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dbpfs"]
 size = Vector2(55, 36)
@@ -61,10 +63,67 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b2pb"]
+atlas = ExtResource("3_0lp05")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bixtu"]
+atlas = ExtResource("3_0lp05")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1uoe"]
+atlas = ExtResource("3_0lp05")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4scss"]
+atlas = ExtResource("3_0lp05")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jurs7"]
+atlas = ExtResource("3_0lp05")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awooj"]
+atlas = ExtResource("3_0lp05")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uj5pa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5b2pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bixtu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1uoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4scss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jurs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awooj")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 8.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_gerhu"]
+_data = {
+"points": PackedVector2Array(-18.354, 15.3507, 18.354, -15.3507, -99, -38, 0, 0, 0, 0, -90, -14, 0, 0, 0, 0, -82, 14, 0, 0, 0, 0, -86, 55, 0, 0, 0, 0, -83, 77, 0, 0, 0, 0, -60, 88, -14.6832, 22.3586, 14.6832, -22.3586, -45, 84, 0, 0, 0, 0, -51, 68, 0, 0, 0, 0, -53, 34, 0, 0, 0, 0, -53, 0, 0, 0, 0, 0, -51, -33, -27.6979, 0, 27.6979, 0, -37, -38, 0, 0, 0, 0, -27, -30, 0, 0, 0, 0, -23, 21, 0, 0, 0, 0, -21, 74, 0, 0, 0, 0, 4, -18)
+}
+point_count = 16
+
 [node name="NPC" type="Area2D"]
 position = Vector2(105, 76)
 collision_layer = 2
 script = ExtResource("1_kt8dl")
+NPCBulletScene = ExtResource("2_lam11")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -86,12 +145,12 @@ curve = SubResource("Curve2D_6iihy")
 position = Vector2(-96, -75)
 rotation = 1.05711
 
-[node name="IrradicPath" type="Path2D" parent="."]
+[node name="IrradicPathOld" type="Path2D" parent="."]
 position = Vector2(30.0857, 0)
 scale = Vector2(0.710714, 1)
 curve = SubResource("Curve2D_4bfog")
 
-[node name="MobPosition" type="PathFollow2D" parent="IrradicPath"]
+[node name="MobPosition" type="PathFollow2D" parent="IrradicPathOld"]
 position = Vector2(-80, -40)
 rotation = 0.426627
 
@@ -101,4 +160,21 @@ curve = SubResource("Curve2D_8yogv")
 [node name="MobPosition" type="PathFollow2D" parent="StraightPath"]
 position = Vector2(-102, -53)
 
+[node name="FireAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uj5pa")
+animation = &"fire"
+frame = 5
+frame_progress = 0.27893
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="IrradicPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_gerhu")
+
+[node name="MobPosition" type="PathFollow2D" parent="IrradicPath"]
+position = Vector2(-99, -38)
+rotation = -0.696524
+
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="animation_finished" from="FireAnimation" to="." method="OnFireAnimationFinished"]
+[connection signal="timeout" from="FireTimer" to="." method="OnFireTimerTimeout"]

@@ -8,6 +8,8 @@ public partial class Background : Node
 	
 	[Export]
 	public PackedScene BombGadgetScene {get; set;}
+	[Export]
+	public PackedScene BubbleScene {get; set;}
 
 	[Signal]
 	public delegate void GadgetFinishedEventHandler();
@@ -15,13 +17,18 @@ public partial class Background : Node
 	PlayerChase player;
 	AnimatedSprite2D backgroundAnimation;
 	Timer npcTimer;
+	Timer bubbleTimer;
 
 	public override void _Ready()
 	{
+		GD.Seed(Time.GetTicksMsec());
 		player = GetNode<PlayerChase>("PlayerChase");
 		backgroundAnimation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		npcTimer = GetNode<Timer>("NPCTimer");
-		ResetTimer();
+		bubbleTimer = GetNode<Timer>("GadgetSpawnTimer");
+		ResetTimer(npcTimer, 0);
+		bubbleTimer.WaitTime = 1;
+		ResetTimer(bubbleTimer, 5);
 		backgroundAnimation.Play();
 	}
 
@@ -33,7 +40,7 @@ public partial class Background : Node
 	}
 
 	private void InputHandling() {
-		if(Input.IsActionJustPressed("gadget")) {
+		if(!player.GetPlayerMovement().GetIsBoosting() && Input.IsActionJustPressed("gadget")) {
 			BombGadget gadget = BombGadgetScene.Instantiate<BombGadget>();
 			AddChild(gadget);
 			gadget.SetStartPos(new Vector2(player.Position.X-10, player.Position.Y));
@@ -50,11 +57,20 @@ public partial class Background : Node
 	{
 		NPC npc = NPCScene.Instantiate<NPC>();
 		AddChild(npc);
-		ResetTimer();
+		ResetTimer(npcTimer, 10);
 	}
 
-	private void ResetTimer() {
-		npcTimer.WaitTime = (GD.Randi() % 3) + 3;
-		npcTimer.Start();
+	private void ResetTimer(Timer timer, int minLength) {
+		timer.WaitTime = (GD.Randi() % 10) + minLength;
+		timer.Start();
 	}
+	
+		
+	private void OnGadgetSpawnTimerTimeout()
+	{
+		Bubble bubble = BubbleScene.Instantiate<Bubble>();
+		AddChild(bubble);
+		ResetTimer(bubbleTimer, 10);
+	}
+
 }

@@ -2,6 +2,7 @@ using General;
 using Godot;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection.PortableExecutable;
 using static General.CharacterMovement;
 
 
@@ -35,9 +36,13 @@ public partial class PlayerChase : Area2D
 			movement.Update((float)delta);
 			Position = movement.GetPos();
 			movement.SetPos(Position);
+			GameData.Instance.SetPlayerPos(Position);
 			HandleBounds();
 			AnimationHandling();
 		}
+	}
+	public CharacterMovement GetPlayerMovement() {
+		return movement;
 	}
 
 	private void InputHandling() {
@@ -56,20 +61,34 @@ public partial class PlayerChase : Area2D
 		if(Input.IsActionJustPressed("boost")) {
 			movement.Boost();
 		}
+		else if(Input.IsActionJustPressed("gadget")) {
+			isThrowing = true;
+			animation.Stop();
+			animation.Play("throw");
+		}
 	}
 
 	private void AnimationHandling() {
-		if(movement.GetVel().Y == 0 && !animation.Animation.Equals("idle")) {
-			animation.Stop();
-			animation.Play("idle");
+		if(movement.GetIsBoosting()) {
+			if(!animation.Animation.Equals("boost")) {
+				animation.Stop();
+				animation.Play("boost");
+				GD.Print("boost");
+			}
 		}
-		else if(movement.GetVel().Y < 0 && !animation.Animation.Equals("up")) {
-			animation.Stop();
-			animation.Play("up");
-		}
-		else if(movement.GetVel().Y > 0 && !animation.Animation.Equals("down")) {
-			animation.Stop();
-			animation.Play("down");
+		else if(!isThrowing) {
+			if(movement.GetVel().Y == 0 && !animation.Animation.Equals("idle")) {
+				animation.Stop();
+				animation.Play("idle");
+			}
+			else if(movement.GetVel().Y < 0 && !animation.Animation.Equals("up")) {
+				animation.Stop();
+				animation.Play("up");
+			}
+			else if(movement.GetVel().Y > 0 && !animation.Animation.Equals("down")) {
+				animation.Stop();
+				animation.Play("down");
+			}
 		}
 	}
 
@@ -91,6 +110,15 @@ public partial class PlayerChase : Area2D
 	{
 		GD.Print("Player hit");
 	}
+	
+		
+	private void OnAnimationFinished()
+	{
+		if(animation.Animation.Equals("throw")) {
+			isThrowing = false;
+		}
+	}
+
 
 	private CharacterMovement movement;
 	private Vector2 screenSize;
@@ -98,4 +126,5 @@ public partial class PlayerChase : Area2D
 	private AnimatedSprite2D animation;
 	private bool canGoDown = true;
 	private bool canGoUp = true;
+	private bool isThrowing = false;
 }

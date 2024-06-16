@@ -2,19 +2,26 @@ using General;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Transactions;
 using static General.CharacterMovement;
 
 public partial class NPC : Area2D
 {
+	[Export]
+	public PackedScene NPCBulletScene {get; set;}
 	// Called when the node enters the scene tree for the first time.
 	// We're going to want a way to control difficulty through things like speed
 	public override void _Ready()
 	{
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		fireAnimation = GetNode<AnimatedSprite2D>("FireAnimation");
+		fireAnimation.Visible = false;
+		fireTimer = GetNode<Timer>("FireTimer");
 		List<PathFollow2D> paths = new List<PathFollow2D>();
 		paths.Add(GetNode<PathFollow2D>("ZigZagPath/MobPosition"));
 		paths.Add(GetNode<PathFollow2D>("IrradicPath/MobPosition"));
 		paths.Add(GetNode<PathFollow2D>("StraightPath/MobPosition"));
+		ResetTimer(fireTimer, 5, 3);
 
 		int idx = Math.Abs((int)GD.Randi()) % paths.Count;
 
@@ -25,9 +32,9 @@ public partial class NPC : Area2D
 		
 		pathPosition.ProgressRatio = GD.Randf();
 		//Position = new Vector2(-19, pathPosition.Position.Y);
-		Position = new Vector2(10, 100); // DEBUG
+		Position = new Vector2(-31, 100); // DEBUG
 		movement = new CharacterMovement(Position, _isNPC: true);
-		movement.SetGoalVel(new Vector2(2, 0));
+		movement.SetGoalVel(new Vector2(100, 0));
 		
 		animation.Play();
 	}
@@ -35,6 +42,12 @@ public partial class NPC : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if(Position.X > 32) {
+			Vector2 vel = movement.GetVel();
+			vel.X = 2;
+			movement.SetGoalVel(vel);
+			movement.SetVel(vel);
+		}
 		if(delta > 0.0065) {
 			if(delta > 0.007) delta = 0.007;
 			movement.Update((float)delta);
@@ -55,8 +68,37 @@ public partial class NPC : Area2D
 		}
 	}
 
+	private void ResetTimer(Timer timer, int modVal, int minVal) {
+		timer.WaitTime = (Math.Abs((int)GD.Randi()) % modVal) + minVal;
+		timer.Start();
+	}
+	
+		
+	private void OnFireTimerTimeout()
+	{
+		fireAnimation.Visible = true;
+		fireAnimation.Play();
+		EnemyBullet bullet = NPCBulletScene.Instantiate<EnemyBullet>();
+		AddChild(bullet);
+		Vector2 startPos = new Vector2(Position.X + 32, Position.Y + 16);
+		bullet.Position = startPos;
+		bullet.SetPoints(startPos, GameData.Instance.GetPlayerPos());
+	}
+	
+		
+	private void OnFireAnimationFinished()
+	{
+		fireAnimation.Stop();
+		fireAnimation.Visible = false;
+		ResetTimer(fireTimer, 1, 1);
+	}
+
+
+
 	private CharacterMovement movement;
 	private PathFollow2D pathPosition;
 	private AnimatedSprite2D animation;
+	private AnimatedSprite2D fireAnimation;
 	private int offset = 0;
+	private Timer fireTimer;
 }

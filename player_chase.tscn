@@ -1,9 +1,35 @@
-[gd_scene load_steps=31 format=3 uid="uid://biabqw11xwmsc"]
+[gd_scene load_steps=45 format=3 uid="uid://biabqw11xwmsc"]
 
 [ext_resource type="Script" path="res://PlayerChase.cs" id="1_etr5o"]
 [ext_resource type="Texture2D" uid="uid://b1o31yrr8ugwm" path="res://Assets/chase/player-down2.png" id="2_l5usi"]
 [ext_resource type="Texture2D" uid="uid://c8ikt5gqkxnw0" path="res://Assets/chase/player-animated2.png" id="2_sehbd"]
+[ext_resource type="Texture2D" uid="uid://dwi7dbnfctmlq" path="res://Assets/chase/boost-player.png" id="2_wwrbm"]
 [ext_resource type="Texture2D" uid="uid://col3r5bwgkeq3" path="res://Assets/chase/player-up.png" id="3_v0pmu"]
+[ext_resource type="Texture2D" uid="uid://ctmsbt08xfwrn" path="res://Assets/chase/player-throw.png" id="4_ngm3a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bg5d"]
+atlas = ExtResource("2_wwrbm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3l38"]
+atlas = ExtResource("2_wwrbm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7c1n"]
+atlas = ExtResource("2_wwrbm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apxsl"]
+atlas = ExtResource("2_wwrbm")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvxek"]
+atlas = ExtResource("2_wwrbm")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jung"]
+atlas = ExtResource("2_wwrbm")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_48ebk"]
 atlas = ExtResource("2_l5usi")
@@ -69,6 +95,30 @@ region = Rect2(192, 0, 32, 32)
 atlas = ExtResource("2_sehbd")
 region = Rect2(224, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_omdbm"]
+atlas = ExtResource("4_ngm3a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8y3m"]
+atlas = ExtResource("4_ngm3a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fot6j"]
+atlas = ExtResource("4_ngm3a")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o15nf"]
+atlas = ExtResource("4_ngm3a")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sva7u"]
+atlas = ExtResource("4_ngm3a")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gng7o"]
+atlas = ExtResource("4_ngm3a")
+region = Rect2(160, 0, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcvpw"]
 atlas = ExtResource("3_v0pmu")
 region = Rect2(0, 0, 32, 32)
@@ -103,6 +153,29 @@ region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cutkk"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bg5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3l38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7c1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apxsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvxek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jung")
+}],
+"loop": true,
+"name": &"boost",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_48ebk")
@@ -163,6 +236,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_omdbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8y3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fot6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o15nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sva7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gng7o")
+}],
+"loop": false,
+"name": &"throw",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mcvpw")
 }, {
 "duration": 1.0,
@@ -192,7 +288,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cacwl"]
-size = Vector2(20, 24)
+size = Vector2(12, 23)
 
 [node name="PlayerChase" type="Area2D"]
 collision_mask = 2
@@ -201,11 +297,14 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cutkk")
-animation = &"up"
+animation = &"boost"
+frame = 3
+frame_progress = 0.175058
 speed_scale = 2.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -1)
+position = Vector2(2, -0.5)
 shape = SubResource("RectangleShape2D_cacwl")
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

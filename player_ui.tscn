@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2nf10kbeabpl"]
+
+[ext_resource type="Script" path="res://PlayerUI.cs" id="1_3l1ce"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="1_rohul"]
+[ext_resource type="Texture2D" uid="uid://bul04gucpic0s" path="res://Assets/ui/health.png" id="2_x168k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6der5"]
+atlas = ExtResource("2_x168k")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le36m"]
+atlas = ExtResource("2_x168k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnsss"]
+atlas = ExtResource("2_x168k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldub1"]
+atlas = ExtResource("2_x168k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u1bc5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6der5")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le36m")
+}],
+"loop": true,
+"name": &"full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnsss")
+}],
+"loop": true,
+"name": &"one-third",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldub1")
+}],
+"loop": true,
+"name": &"two-thirds",
+"speed": 5.0
+}]
+
+[node name="PlayerUI" type="CanvasLayer"]
+script = ExtResource("1_3l1ce")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 179.0
+offset_top = 25.0
+offset_right = 253.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource("1_rohul")
+theme_override_font_sizes/font_size = 11
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HealthAnimation0" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_u1bc5")
+animation = &"full"
+
+[node name="HealthAnimation1" type="AnimatedSprite2D" parent="."]
+position = Vector2(49, 16)
+sprite_frames = SubResource("SpriteFrames_u1bc5")
+animation = &"full"
+
+[node name="HealthAnimation2" type="AnimatedSprite2D" parent="."]
+position = Vector2(82, 16)
+sprite_frames = SubResource("SpriteFrames_u1bc5")
+animation = &"full"

@@ -1,0 +1,105 @@
+[gd_scene load_steps=15 format=3 uid="uid://bmybtl343xrrl"]
+
+[ext_resource type="Texture2D" uid="uid://cwrng0fm13olh" path="res://Assets/gadgets/bubble.png" id="1_wab36"]
+[ext_resource type="Script" path="res://Bubble.cs" id="1_xbmvo"]
+[ext_resource type="Texture2D" uid="uid://clgfmhgevd5nl" path="res://Assets/gadgets/smoke_bomb.png" id="2_j41tb"]
+[ext_resource type="Texture2D" uid="uid://0wf3qcjp0q3m" path="res://Assets/gadgets/bubble-pop.png" id="3_bi8u1"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="4_2mxhv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hy1ar"]
+atlas = ExtResource("3_bi8u1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyxsp"]
+atlas = ExtResource("3_bi8u1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2al86"]
+atlas = ExtResource("3_bi8u1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2y3k"]
+atlas = ExtResource("3_bi8u1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvpy1"]
+atlas = ExtResource("3_bi8u1")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0v33t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wab36")
+}],
+"loop": true,
+"name": &"bubble",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hy1ar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyxsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2al86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2y3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvpy1")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqnqi"]
+atlas = ExtResource("2_j41tb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rdras"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqnqi")
+}],
+"loop": true,
+"name": &"bomb",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jb00y"]
+radius = 12.0416
+
+[node name="Bubble" type="Area2D"]
+script = ExtResource("1_xbmvo")
+metadata/_edit_group_ = true
+
+[node name="CompositeSprites" type="Node2D" parent="."]
+
+[node name="Bubble" type="AnimatedSprite2D" parent="CompositeSprites"]
+sprite_frames = SubResource("SpriteFrames_0v33t")
+animation = &"bubble"
+speed_scale = 4.0
+
+[node name="SmokeBomb" type="AnimatedSprite2D" parent="CompositeSprites"]
+sprite_frames = SubResource("SpriteFrames_rdras")
+animation = &"bomb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jb00y")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("4_2mxhv")
+theme_override_font_sizes/font_size = 8
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="animation_finished" from="CompositeSprites/Bubble" to="." method="OnBubbleAnimationFinished"]

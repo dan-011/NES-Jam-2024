@@ -53,6 +53,7 @@ namespace General {
 		public void Boost() {
 			if(AtStart()) {
 				vel.X = 350;
+				isBoosting = true;
 			}
 		}
 
@@ -64,7 +65,12 @@ namespace General {
 		public void ReleaseX() {
 			goalVel.X = 0;
 		}
-
+		public bool GetIsBoosting() {
+			return isBoosting;
+		}
+		public void SetIsBoosting(bool boosting) {
+			isBoosting = boosting;
+		}
 		// private methods
 		private float Interpolate(float goal, float cur, float dt) {
 			double diff = goal - cur;
@@ -102,6 +108,7 @@ namespace General {
 					vel.X = xVelUpdate;
 				}
 				if(AtStart() && vel.X < 0) {
+					isBoosting = false;
 					boostTime = 0;
 					vel.X = 0;
 				}
@@ -123,5 +130,54 @@ namespace General {
 		private Vector2 startPos;
 		private long boostTime = -1;
 		private bool isNPC;
+		private bool isBoosting = false;
 	}
+	
+	public sealed class GameData {
+		private static GameData instance = null;
+		private static readonly object padlock = new object();
+
+		GameData()
+		{
+			health = 100f;
+			score = 0;
+		}
+
+		public void DecrementHealth(float val) {
+			health -= val;
+		}
+		public float GetHealth() {
+			return health;
+		}
+		public void AddScore(uint val) {
+			score += val;
+		}
+		public uint GetScore() {
+			return score;
+		}
+		public Vector2 GetPlayerPos() {
+			return playerPos;
+		}
+		public void SetPlayerPos(Vector2 pos) {
+			playerPos = pos;
+		}
+		public static GameData Instance
+		{
+			get
+			{
+				lock (padlock)
+				{
+					if (instance == null)
+					{
+						instance = new GameData();
+					}
+					return instance;
+				}
+			}
+		}
+
+		private float health;
+		private uint score;
+		private Vector2 playerPos;
+}
 }
