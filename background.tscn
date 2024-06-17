@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://do8sprmqepf0p"]
+[gd_scene load_steps=79 format=3 uid="uid://do8sprmqepf0p"]
 
 [ext_resource type="Script" path="res://Background.cs" id="1_0cqdy"]
 [ext_resource type="PackedScene" uid="uid://biabqw11xwmsc" path="res://player_chase.tscn" id="2_dk55d"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://boewnvinudoj5" path="res://Assets/background/background.png" id="3_sb46y"]
 [ext_resource type="PackedScene" uid="uid://bmybtl343xrrl" path="res://bubble.tscn" id="4_6rt4o"]
 [ext_resource type="PackedScene" uid="uid://b2nf10kbeabpl" path="res://player_ui.tscn" id="7_bp0vx"]
+[ext_resource type="Texture2D" uid="uid://ceibnxt23bmni" path="res://Assets/gadgets/bullet.png" id="8_gio3p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig03e"]
 atlas = ExtResource("3_sb46y")
@@ -464,6 +465,42 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xovs"]
+atlas = ExtResource("8_gio3p")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7h28"]
+atlas = ExtResource("8_gio3p")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30xu2"]
+atlas = ExtResource("8_gio3p")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wc6o"]
+atlas = ExtResource("8_gio3p")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1c6l7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xovs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7h28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30xu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wc6o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Background" type="Node"]
 script = ExtResource("1_0cqdy")
 NPCScene = ExtResource("2_lfecv")
@@ -490,6 +527,11 @@ position = Vector2(128, 78)
 [node name="GadgetSpawnTimer" type="Timer" parent="."]
 
 [node name="PlayerUI" parent="." instance=ExtResource("7_bp0vx")]
+
+[node name="DebugBullet" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-656, -37)
+sprite_frames = SubResource("SpriteFrames_1c6l7")
 
 [connection signal="timeout" from="NPCTimer" to="." method="OnNPCTimerTimeout"]
 [connection signal="timeout" from="GadgetSpawnTimer" to="." method="OnGadgetSpawnTimerTimeout"]

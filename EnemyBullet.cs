@@ -16,11 +16,13 @@ public partial class EnemyBullet : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(delta > 0.0065) {
-			if(delta > 0.007) delta = 0.007;
+		deltaSum += delta;
+		if(deltaSum >= 0.0167f) {
+			deltaSum = 0;
+			delta = 0.0167f;
 			movement.Update((float)delta);
-			Position = movement.GetPos();
-			movement.SetPos(Position);
+			GlobalPosition = movement.GetPos();
+			movement.SetPos(GlobalPosition);
 		}
 	}
 
@@ -32,7 +34,8 @@ public partial class EnemyBullet : Area2D
 		vel.X *= scale/norm;
 		vel.Y *= scale/norm;
 
-		Position = start;
+		GlobalPosition = start;
+		movement.SetPos(GlobalPosition);
 		movement.SetGoalVel(vel);
 		movement.SetVel(vel);
 	}
@@ -51,4 +54,5 @@ public partial class EnemyBullet : Area2D
 
 	private CharacterMovement movement;
 	private AnimatedSprite2D animation;
+	private double deltaSum = 0;
 }

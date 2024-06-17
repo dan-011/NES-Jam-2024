@@ -48,12 +48,14 @@ public partial class NPC : Area2D
 			movement.SetGoalVel(vel);
 			movement.SetVel(vel);
 		}
-		if(delta > 0.0065) {
-			if(delta > 0.007) delta = 0.007;
+		deltaSum += delta;
+		if(deltaSum >= 0.0167f) {
+			deltaSum = 0;
+			delta = 0.0167f;
 			movement.Update((float)delta);
-			Position = movement.GetPos();
+			GlobalPosition = movement.GetPos();
 			UpdatePath();
-			movement.SetPos(Position);
+			movement.SetPos(GlobalPosition);
 		}
 	}
 	private void UpdatePath() {
@@ -80,8 +82,8 @@ public partial class NPC : Area2D
 		fireAnimation.Play();
 		EnemyBullet bullet = NPCBulletScene.Instantiate<EnemyBullet>();
 		AddChild(bullet);
-		Vector2 startPos = new Vector2(Position.X + 32, Position.Y + 16);
-		bullet.Position = startPos;
+		Vector2 startPos = new Vector2(GlobalPosition.X + 30, GlobalPosition.Y + 12);
+		bullet.GlobalPosition = startPos;
 		bullet.SetPoints(startPos, GameData.Instance.GetPlayerPos());
 	}
 	
@@ -101,4 +103,5 @@ public partial class NPC : Area2D
 	private AnimatedSprite2D fireAnimation;
 	private int offset = 0;
 	private Timer fireTimer;
+	private double deltaSum = 0;
 }

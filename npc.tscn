@@ -110,7 +110,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"fire",
-"speed": 8.0
+"speed": 25.0
 }]
 
 [sub_resource type="Curve2D" id="Curve2D_gerhu"]
@@ -164,7 +164,7 @@ position = Vector2(-102, -53)
 sprite_frames = SubResource("SpriteFrames_uj5pa")
 animation = &"fire"
 frame = 5
-frame_progress = 0.27893
+frame_progress = 1.0
 
 [node name="FireTimer" type="Timer" parent="."]
 
@@ -173,7 +173,7 @@ curve = SubResource("Curve2D_gerhu")
 
 [node name="MobPosition" type="PathFollow2D" parent="IrradicPath"]
 position = Vector2(-99, -38)
-rotation = -0.696524
+rotation = -0.696527
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="FireAnimation" to="." method="OnFireAnimationFinished"]

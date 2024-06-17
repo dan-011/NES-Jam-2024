@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Background : Node
 {
@@ -26,15 +27,19 @@ public partial class Background : Node
 		backgroundAnimation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		npcTimer = GetNode<Timer>("NPCTimer");
 		bubbleTimer = GetNode<Timer>("GadgetSpawnTimer");
-		ResetTimer(npcTimer, 0);
+		ResetTimer(npcTimer, 1);
 		bubbleTimer.WaitTime = 1;
 		ResetTimer(bubbleTimer, 5);
 		backgroundAnimation.Play();
+		debugBullet = GetNode<AnimatedSprite2D>("DebugBullet");
+		debugBullet.Play();
 	}
+	private AnimatedSprite2D debugBullet;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		debugBullet.GlobalPosition = player.GlobalPosition;
 		InputHandling();
 		if(Input.IsActionPressed("debug_close")) GetTree().Quit();
 	}

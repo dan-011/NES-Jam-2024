@@ -125,7 +125,7 @@ namespace General {
 		private Vector2 vel;
 		private Vector2 goalVel;
 		private Vector2 maxVel;
-		private float approachVal = 300f;
+		private float approachVal = 700f;
 		private float gravity = -1300f;
 		private Vector2 startPos;
 		private long boostTime = -1;

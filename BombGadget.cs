@@ -11,8 +11,8 @@ public partial class BombGadget : Area2D
 		animation = GetNode<AnimatedSprite2D>("BombAnimation");
 		movement = new CharacterMovement(Position, _isNPC: true);
 		collisionShape = GetNode<CollisionShape2D>("BombCollisionShape");
-		movement.SetGoalVel(new Vector2(-80, 20));
-		movement.SetVel(new Vector2(-80, 0));
+		movement.SetGoalVel(new Vector2(horizontalVel, 50));
+		movement.SetVel(new Vector2(horizontalVel, 0));
 
 		animation.Frame = 0;
 	}
@@ -21,11 +21,13 @@ public partial class BombGadget : Area2D
 	public override void _Process(double delta)
 	{
 		if(animation.Frame == 3) collisionShape.Disabled = false;
-		if(delta > 0.0065) {
-			if(delta > 0.007) delta = 0.007;
+		deltaSum += delta;
+		if(deltaSum >= 0.0167f) {
+			deltaSum = 0;
+			delta = 0.0167f;
 			if(animation.Frame == 3 && movement.GetVel().Y != 0) {
-				movement.SetVel(new Vector2(-80, 0));
-				movement.SetGoalVel(new Vector2(-80, 0));
+				movement.SetVel(new Vector2(horizontalVel, 0));
+				movement.SetGoalVel(new Vector2(horizontalVel, 0));
 			}
 			movement.Update((float)delta);
 			Position = movement.GetPos();
@@ -50,4 +52,6 @@ public partial class BombGadget : Area2D
 	private AnimatedSprite2D animation;
 	private CharacterMovement movement;
 	private CollisionShape2D collisionShape;
+	private float horizontalVel = -135f;
+	double deltaSum = 0;
 }

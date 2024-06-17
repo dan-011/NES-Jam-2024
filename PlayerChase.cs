@@ -19,11 +19,12 @@ public partial class PlayerChase : Area2D
 	{
 		Vector2 startPos = new Vector2(Position.X, 100);
 		Position = startPos;
-		movement = new CharacterMovement(startPos, 400, 400);
+		movement = new CharacterMovement(startPos, 400, 800);
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		screenSize = GetViewportRect().Size;
 
+		
 		animation.Play("idle");
 	}
 
@@ -31,12 +32,15 @@ public partial class PlayerChase : Area2D
 	public override void _Process(double delta)
 	{
 		InputHandling();
-		if(delta > 0.0065) {
-			if(delta > 0.007) delta = 0.007;
+		deltaSum += delta;
+		if(deltaSum >= 0.0167f) {
+			deltaSum = 0;
+			delta = 0.0167f;
 			movement.Update((float)delta);
 			Position = movement.GetPos();
 			movement.SetPos(Position);
-			GameData.Instance.SetPlayerPos(Position);
+			// Vector2 globalCenter = new Vector2(GlobalPosition.X + collisionShape.Position.X + collisionShape)
+			GameData.Instance.SetPlayerPos(GlobalPosition);
 			HandleBounds();
 			AnimationHandling();
 		}
@@ -61,7 +65,7 @@ public partial class PlayerChase : Area2D
 		if(Input.IsActionJustPressed("boost")) {
 			movement.Boost();
 		}
-		else if(Input.IsActionJustPressed("gadget")) {
+		else if(!movement.GetIsBoosting() && Input.IsActionJustPressed("gadget")) {
 			isThrowing = true;
 			animation.Stop();
 			animation.Play("throw");
@@ -127,4 +131,6 @@ public partial class PlayerChase : Area2D
 	private bool canGoDown = true;
 	private bool canGoUp = true;
 	private bool isThrowing = false;
+	private double deltaSum = 0;
+
 }

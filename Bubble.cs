@@ -36,8 +36,10 @@ public partial class Bubble : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(delta > 0.0065) {
-			if(delta > 0.007) delta = 0.007;
+		deltaSum += delta;
+		if(deltaSum >= 0.0167f) {
+			deltaSum = 0;
+			delta = 0.0167f;
 			movement.Update((float)delta);
 			Position = movement.GetPos();
 			HandleBounds();
@@ -78,4 +80,5 @@ public partial class Bubble : Area2D
 	private Label label;
 	private CharacterMovement movement;
 	private Timer spawnTimer;
+	private double deltaSum = 0;
 }

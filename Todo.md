@@ -41,5 +41,17 @@
     * sheild
     * holorgram
 
+Sunday TODO:
+* Draw above sprites
+* Implement gadget interactions
+* implement UI
+
+Monday TODO:
+* Create title screen and connect to game
+* add music
+* Add sfx
+
+Bugs:
+* bullets not approaching character
 
 Up Next: gadgets and health
