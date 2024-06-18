@@ -1,5 +1,15 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Xml.Schema;
+
+enum Gadgets {
+		Bomb,
+		Shield,
+		Reactor,
+		Oil,
+		Hologram
+}
 
 namespace General {
 	public class CharacterMovement {
@@ -52,7 +62,7 @@ namespace General {
 
 		public void Boost() {
 			if(AtStart()) {
-				vel.X = 350;
+				vel.X = 300;
 				isBoosting = true;
 			}
 		}
@@ -136,11 +146,24 @@ namespace General {
 	public sealed class GameData {
 		private static GameData instance = null;
 		private static readonly object padlock = new object();
+		private List<uint> inventory;
 
 		GameData()
 		{
 			health = 100f;
 			score = 0;
+			isShielding = false;
+			isWhiteOut = false;
+			pauseAction = false;
+			isReactor = false;
+			inventory = new List<uint>();
+			inventory.Add(0);
+			inventory.Add(0);
+			inventory.Add(0);
+			inventory.Add(0);
+			inventory.Add(0);
+			selectedGadget = 0;
+			totalItems = 0;
 		}
 
 		public void DecrementHealth(float val) {
@@ -161,6 +184,62 @@ namespace General {
 		public void SetPlayerPos(Vector2 pos) {
 			playerPos = pos;
 		}
+		public void SetIsShielding(bool sheilding) {
+			isShielding = sheilding;
+		}
+		public bool GetIsShielding() {
+			return isShielding;
+		}
+		public void SetIsWhiteOut(bool whiteout) {
+			isWhiteOut = whiteout;
+		}
+		public bool GetIsWhiteOut() {
+			return isWhiteOut;
+		}
+		public void PauseAction() {
+			pauseAction = true;
+		}
+		public void PlayAction() {
+			pauseAction = false;
+		}
+		public bool GetIsPaused() {
+			return pauseAction;
+		}
+		public bool GetIsReactor() {
+			return isReactor;
+		}
+		public void SetIsReactor(bool reactor) {
+			isReactor = reactor;
+		}
+		public uint GetInvetoryAmount(int gadget) {
+			return inventory[gadget];
+		}
+		public void AddToInventory(int gadget, uint amount) {
+			if(inventory[gadget] + amount > 999) totalItems += 999 - inventory[gadget];
+			else totalItems += amount;
+			inventory[gadget] = Math.Min(999, inventory[gadget] + amount);
+
+		}
+		public void UseItem(int gadget) {
+			if(inventory[gadget] == 0) return;
+			inventory[gadget]--;
+			totalItems--;
+			
+		}
+		public uint GetTotalItems() {
+			return totalItems;
+		}
+		public bool CanUseItem(int gadget) {
+			return inventory[gadget] > 0;
+		}
+
+		public void SetSelectedGadget(int select) {
+			selectedGadget = select;
+		}
+		public int GetSelectedGadget() {
+			return selectedGadget;
+		}
+
 		public static GameData Instance
 		{
 			get
@@ -179,5 +258,11 @@ namespace General {
 		private float health;
 		private uint score;
 		private Vector2 playerPos;
+		private bool isShielding;
+		private bool isWhiteOut;
+		private bool pauseAction;
+		private bool isReactor;
+		private int selectedGadget;
+		private uint totalItems;
 }
 }

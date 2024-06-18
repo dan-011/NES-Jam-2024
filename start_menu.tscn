@@ -1,0 +1,402 @@
+[gd_scene load_steps=18 format=3 uid="uid://cymchg2pvkfcn"]
+
+[ext_resource type="Texture2D" uid="uid://dmysu4d3mxcug" path="res://Assets/ui/pause-background.png" id="1_6eum0"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_m16tl"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="3_55iat"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="4_2oe6p"]
+[ext_resource type="Texture2D" uid="uid://chvg3sdtnu7xi" path="res://Assets/gadgets/item-slots.png" id="5_yakkr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1geu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6eum0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7c38f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_55iat")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgc8c"]
+atlas = ExtResource("5_yakkr")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvij3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgc8c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tavv7"]
+atlas = ExtResource("5_yakkr")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w0v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tavv7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx2nr"]
+atlas = ExtResource("5_yakkr")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cod62"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx2nr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mql8s"]
+atlas = ExtResource("5_yakkr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rk0ig"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mql8s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2xm5"]
+atlas = ExtResource("5_yakkr")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ljm24"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2xm5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="StartMenu" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 70.0
+offset_bottom = 70.0
+scale = Vector2(4.88744, 3.8274)
+color = Color(0, 0, 0, 1)
+
+[node name="GeneralMenu" type="CanvasLayer" parent="."]
+
+[node name="PlayerImage" type="AnimatedSprite2D" parent="GeneralMenu"]
+position = Vector2(162, 123)
+sprite_frames = SubResource("SpriteFrames_1geu5")
+
+[node name="PauseLabel" type="Label" parent="GeneralMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -73.0
+offset_right = 40.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m16tl")
+text = "PAUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeLabel" type="Label" parent="GeneralMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -17.0
+offset_right = 21.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "Resume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlsLabel" type="Label" parent="GeneralMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -1.0
+offset_right = 37.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GadgetGuideLabel" type="Label" parent="GeneralMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = 15.0
+offset_right = 21.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "Gadgets Guide"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitGameLabel" type="Label" parent="GeneralMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = 31.0
+offset_right = 21.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "Exit Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeSelect" type="AnimatedSprite2D" parent="GeneralMenu"]
+position = Vector2(72, 106)
+sprite_frames = SubResource("SpriteFrames_7c38f")
+
+[node name="ControlsSelect" type="AnimatedSprite2D" parent="GeneralMenu"]
+visible = false
+position = Vector2(64, 122)
+sprite_frames = SubResource("SpriteFrames_7c38f")
+
+[node name="GadgetsGuideSelect" type="AnimatedSprite2D" parent="GeneralMenu"]
+visible = false
+position = Vector2(44, 138)
+sprite_frames = SubResource("SpriteFrames_7c38f")
+
+[node name="ExitGameSelect" type="AnimatedSprite2D" parent="GeneralMenu"]
+visible = false
+position = Vector2(60, 154)
+sprite_frames = SubResource("SpriteFrames_7c38f")
+
+[node name="GadgetsGuideMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BombDescription" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 59.0
+offset_top = 33.0
+offset_right = 221.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "Smoke Bomb:  creates  smoke
+puff to  crash  enemy  bikes"
+
+[node name="ShieldDescription" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 59.0
+offset_top = 60.0
+offset_right = 216.0
+offset_bottom = 83.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "Shield:  protects  against
+enemy  fire  for  5  seconds"
+
+[node name="ReactorDescription" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 59.0
+offset_top = 88.0
+offset_right = 226.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "Reactor:  absorbs  10 lasers
+to  destroy  all  enemies"
+
+[node name="OilDescription" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 59.0
+offset_top = 117.0
+offset_right = 209.0
+offset_bottom = 140.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "Oil  Ball:  blinds  enemies
+from  aiming  fire"
+
+[node name="HologramDescription" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 59.0
+offset_top = 145.0
+offset_right = 251.0
+offset_bottom = 168.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "Hologram:  creates  decoy
+to  draw  enemy  fire"
+
+[node name="BombImage" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 43)
+sprite_frames = SubResource("SpriteFrames_tvij3")
+
+[node name="ShieldImage" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 71)
+sprite_frames = SubResource("SpriteFrames_w0v7s")
+
+[node name="ReactorImage" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 99)
+sprite_frames = SubResource("SpriteFrames_cod62")
+
+[node name="OilImage" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 128)
+sprite_frames = SubResource("SpriteFrames_rk0ig")
+
+[node name="HologramImage" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 156)
+sprite_frames = SubResource("SpriteFrames_ljm24")
+
+[node name="BackLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 192.0
+offset_top = 172.0
+offset_right = 232.0
+offset_bottom = 195.0
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="BackSelect" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(187, 176)
+sprite_frames = SubResource("SpriteFrames_7c38f")
+
+[node name="ControlsMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ControlsLabel" type="Label" parent="ControlsMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 35.0
+offset_right = 32.0
+offset_bottom = 58.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "CONTROLS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlsInfoA" type="Label" parent="ControlsMenu"]
+offset_left = 35.0
+offset_top = 62.0
+offset_right = 230.0
+offset_bottom = 215.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "A  (X key):
+Use  selected 
+gadget"
+
+[node name="ControlsInfoB" type="Label" parent="ControlsMenu"]
+offset_left = 131.0
+offset_top = 61.0
+offset_right = 326.0
+offset_bottom = 214.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "B (Z key):
+Boost  forward"
+
+[node name="ControlsInfoStart" type="Label" parent="ControlsMenu"]
+offset_left = 35.0
+offset_top = 105.0
+offset_right = 230.0
+offset_bottom = 258.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "START (S key): 
+Pause  game"
+
+[node name="ControlsInfoSelect" type="Label" parent="ControlsMenu"]
+offset_left = 131.0
+offset_top = 104.0
+offset_right = 326.0
+offset_bottom = 257.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "SELECT  (A key):  
+Switch gadget"
+
+[node name="ControlsInfoDPad" type="Label" parent="ControlsMenu"]
+offset_left = 66.0
+offset_top = 139.0
+offset_right = 261.0
+offset_bottom = 292.0
+theme_override_fonts/font = ExtResource("4_2oe6p")
+theme_override_font_sizes/font_size = 8
+text = "D-Pad (Arrow Keys): 
+move  player"
+
+[node name="BackSelect" type="AnimatedSprite2D" parent="ControlsMenu"]
+position = Vector2(187, 176)
+sprite_frames = SubResource("SpriteFrames_7c38f")
+
+[node name="BackLabel" type="Label" parent="ControlsMenu"]
+offset_left = 192.0
+offset_top = 172.0
+offset_right = 232.0
+offset_bottom = 195.0
+theme_override_fonts/font = ExtResource("2_m16tl")
+theme_override_font_sizes/font_size = 8
+text = "BACK"

@@ -1,10 +1,81 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmybtl343xrrl"]
+[gd_scene load_steps=25 format=3 uid="uid://bmybtl343xrrl"]
 
 [ext_resource type="Texture2D" uid="uid://cwrng0fm13olh" path="res://Assets/gadgets/bubble.png" id="1_wab36"]
 [ext_resource type="Script" path="res://Bubble.cs" id="1_xbmvo"]
 [ext_resource type="Texture2D" uid="uid://clgfmhgevd5nl" path="res://Assets/gadgets/smoke_bomb.png" id="2_j41tb"]
 [ext_resource type="Texture2D" uid="uid://0wf3qcjp0q3m" path="res://Assets/gadgets/bubble-pop.png" id="3_bi8u1"]
+[ext_resource type="Texture2D" uid="uid://dhmhr4t0ipkcr" path="res://Assets/gadgets/shield-symbol.png" id="3_kuof4"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="4_2mxhv"]
+[ext_resource type="Texture2D" uid="uid://dfkiia5hdkswd" path="res://Assets/gadgets/reactor.png" id="4_22bam"]
+[ext_resource type="Texture2D" uid="uid://jrr28ldnq0bo" path="res://Assets/gadgets/hologram-symbol.png" id="5_xqnpg"]
+[ext_resource type="Texture2D" uid="uid://cdehmb7bltxtk" path="res://Assets/gadgets/oil.png" id="6_r3n2q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqnqi"]
+atlas = ExtResource("2_j41tb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rdras"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqnqi")
+}],
+"loop": true,
+"name": &"bomb",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oh2tm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_kuof4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m54u3"]
+atlas = ExtResource("4_22bam")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yqfu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m54u3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0eip0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_xqnpg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ooi5c"]
+atlas = ExtResource("6_r3n2q")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lxeeq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ooi5c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hy1ar"]
 atlas = ExtResource("3_bi8u1")
@@ -57,21 +128,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pqnqi"]
-atlas = ExtResource("2_j41tb")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_rdras"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pqnqi")
-}],
-"loop": true,
-"name": &"bomb",
-"speed": 5.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_jb00y"]
 radius = 12.0416
 
@@ -81,14 +137,32 @@ metadata/_edit_group_ = true
 
 [node name="CompositeSprites" type="Node2D" parent="."]
 
+[node name="SmokeBomb" type="AnimatedSprite2D" parent="CompositeSprites"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_rdras")
+animation = &"bomb"
+
+[node name="Shield" type="AnimatedSprite2D" parent="CompositeSprites"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_oh2tm")
+
+[node name="Reactor" type="AnimatedSprite2D" parent="CompositeSprites"]
+visible = false
+position = Vector2(11, 4)
+sprite_frames = SubResource("SpriteFrames_yqfu8")
+
+[node name="Hologram" type="AnimatedSprite2D" parent="CompositeSprites"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_0eip0")
+
+[node name="Oil" type="AnimatedSprite2D" parent="CompositeSprites"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_lxeeq")
+
 [node name="Bubble" type="AnimatedSprite2D" parent="CompositeSprites"]
 sprite_frames = SubResource("SpriteFrames_0v33t")
 animation = &"bubble"
 speed_scale = 4.0
-
-[node name="SmokeBomb" type="AnimatedSprite2D" parent="CompositeSprites"]
-sprite_frames = SubResource("SpriteFrames_rdras")
-animation = &"bomb"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jb00y")

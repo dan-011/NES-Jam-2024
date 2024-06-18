@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://s3m7kehylkf7"]
+
+[ext_resource type="Texture2D" uid="uid://cdehmb7bltxtk" path="res://Assets/gadgets/oil.png" id="1_2kfm0"]
+[ext_resource type="Script" path="res://OilGadget.cs" id="1_caoor"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvkf1"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4cf2"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw3y1"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vui0y"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0vbv"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k11q5"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igo14"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0svg"]
+atlas = ExtResource("1_2kfm0")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_webpp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvkf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4cf2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw3y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vui0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0vbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k11q5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igo14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0svg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tpl7d"]
+radius = 4.0
+
+[node name="OilGadget" type="Area2D"]
+collision_mask = 3
+script = ExtResource("1_caoor")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_webpp")
+frame = 7
+frame_progress = 0.976374
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tpl7d")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

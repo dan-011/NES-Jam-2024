@@ -11,6 +11,7 @@ public partial class BombGadget : Area2D
 		animation = GetNode<AnimatedSprite2D>("BombAnimation");
 		movement = new CharacterMovement(Position, _isNPC: true);
 		collisionShape = GetNode<CollisionShape2D>("BombCollisionShape");
+		collisionShape.Disabled = true;
 		movement.SetGoalVel(new Vector2(horizontalVel, 50));
 		movement.SetVel(new Vector2(horizontalVel, 0));
 
@@ -20,6 +21,7 @@ public partial class BombGadget : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if(GameData.Instance.GetIsPaused()) return;
 		if(animation.Frame == 3) collisionShape.Disabled = false;
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {

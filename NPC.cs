@@ -14,9 +14,11 @@ public partial class NPC : Area2D
 	public override void _Ready()
 	{
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		animation.Animation = "bike";
 		fireAnimation = GetNode<AnimatedSprite2D>("FireAnimation");
 		fireAnimation.Visible = false;
 		fireTimer = GetNode<Timer>("FireTimer");
+		oiledAnimation = GetNode<AnimatedSprite2D>("OiledAnimation");
 		List<PathFollow2D> paths = new List<PathFollow2D>();
 		paths.Add(GetNode<PathFollow2D>("ZigZagPath/MobPosition"));
 		paths.Add(GetNode<PathFollow2D>("IrradicPath/MobPosition"));
@@ -35,6 +37,9 @@ public partial class NPC : Area2D
 		Position = new Vector2(-31, 100); // DEBUG
 		movement = new CharacterMovement(Position, _isNPC: true);
 		movement.SetGoalVel(new Vector2(100, 0));
+
+		whiteOutDeathTimer = GetNode<Timer>("WhiteOutDeath");
+		whiteOutDeathTimer.WaitTime = 4;
 		
 		animation.Play();
 	}
@@ -42,9 +47,13 @@ public partial class NPC : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Position.X > 32) {
+		if(GameData.Instance.GetIsWhiteOut()) {
+			HandleWhiteOut();
+		}
+		if(GameData.Instance.GetIsPaused()) return;
+		if(Position.X > 20) {
 			Vector2 vel = movement.GetVel();
-			vel.X = 2;
+			vel.X = 0;
 			movement.SetGoalVel(vel);
 			movement.SetVel(vel);
 		}
@@ -54,19 +63,28 @@ public partial class NPC : Area2D
 			delta = 0.0167f;
 			movement.Update((float)delta);
 			GlobalPosition = movement.GetPos();
-			UpdatePath();
+			if(!dying) UpdatePath();
 			movement.SetPos(GlobalPosition);
 		}
 	}
 	private void UpdatePath() {
 		pathPosition.ProgressRatio += 0.0005f;
-		Position = new Vector2(Position.X, pathPosition.Position.Y + 100 + offset);
+		GlobalPosition = new Vector2(Position.X, pathPosition.Position.Y + 100 + offset);
 	}
 		
 	private void OnAreaEntered(Area2D area)
 	{
 		if(area is BombGadget) {
-			GD.Print("Enemy Hit");
+			Die();
+		}
+		else if(area is OilGadget) {
+			oiledAnimation.Visible = true;
+		}
+	}
+
+	private void HandleWhiteOut() {
+		if(whiteOutDeathTimer.WaitTime > 3) {
+			whiteOutDeathTimer.Start(3);
 		}
 	}
 
@@ -84,7 +102,7 @@ public partial class NPC : Area2D
 		AddChild(bullet);
 		Vector2 startPos = new Vector2(GlobalPosition.X + 30, GlobalPosition.Y + 12);
 		bullet.GlobalPosition = startPos;
-		bullet.SetPoints(startPos, GameData.Instance.GetPlayerPos());
+		bullet.SetPoints(startPos, GameData.Instance.GetPlayerPos(), oiledAnimation.Visible);
 	}
 	
 		
@@ -95,13 +113,38 @@ public partial class NPC : Area2D
 		ResetTimer(fireTimer, 1, 1);
 	}
 
+	private void Die() {
+		fireTimer.Stop();
+		movement.SetVel(new Vector2(100, 100));
+		movement.SetGoalVel(new Vector2(100, 100));
+		oiledAnimation.Visible = false;
+		animation.Animation = "death";
+		animation.Play();
+		dying = true;
+		GameData.Instance.AddScore((uint)(Math.Abs((int)GD.Randi()) % 12));
+	}
 
+	private void CheckBounds() {
+		if(GlobalPosition.X > 256 || GlobalPosition.Y < 0 || GlobalPosition.Y > 224) {
+			QueueFree();
+		}
+	}
+
+	
+	private void OnWhiteOutDeathTimerTimeout()
+	{
+		Die();
+		whiteOutDeathTimer.WaitTime = 4;
+	}
 
 	private CharacterMovement movement;
 	private PathFollow2D pathPosition;
 	private AnimatedSprite2D animation;
 	private AnimatedSprite2D fireAnimation;
+	private AnimatedSprite2D oiledAnimation;
 	private int offset = 0;
 	private Timer fireTimer;
+	private Timer whiteOutDeathTimer;
 	private double deltaSum = 0;
+	private bool dying = false;
 }

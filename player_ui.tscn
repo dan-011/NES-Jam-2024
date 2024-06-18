@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2nf10kbeabpl"]
+[gd_scene load_steps=36 format=3 uid="uid://b2nf10kbeabpl"]
 
 [ext_resource type="Script" path="res://PlayerUI.cs" id="1_3l1ce"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="1_rohul"]
 [ext_resource type="Texture2D" uid="uid://bul04gucpic0s" path="res://Assets/ui/health.png" id="2_x168k"]
+[ext_resource type="Texture2D" uid="uid://chvg3sdtnu7xi" path="res://Assets/gadgets/item-slots.png" id="4_6yjt4"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="5_ti1xf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6der5"]
 atlas = ExtResource("2_x168k")
@@ -55,6 +57,191 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt0ib"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agg62"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rykx5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt0ib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agg62")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc8ep"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1mjw"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_igad3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc8ep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1mjw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2f3x"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqjwv"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_opu14"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2f3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqjwv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eic2p"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auvuv"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3k822"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eic2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auvuv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgc6o"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c70w6"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2pob"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgc6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c70w6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhpgs"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rmm7j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhpgs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1qoc"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nyrtg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1qoc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj6xm"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsysg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj6xm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7uci"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71cgr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7uci")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_addvv"]
+atlas = ExtResource("4_6yjt4")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g1sgc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_addvv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("1_3l1ce")
 
@@ -83,3 +270,103 @@ animation = &"full"
 position = Vector2(82, 16)
 sprite_frames = SubResource("SpriteFrames_u1bc5")
 animation = &"full"
+
+[node name="BombSlot" type="AnimatedSprite2D" parent="."]
+position = Vector2(162, 12)
+sprite_frames = SubResource("SpriteFrames_rykx5")
+
+[node name="ShieldSlot" type="AnimatedSprite2D" parent="."]
+position = Vector2(183, 12)
+sprite_frames = SubResource("SpriteFrames_igad3")
+
+[node name="ReactorSlot" type="AnimatedSprite2D" parent="."]
+position = Vector2(203, 12)
+sprite_frames = SubResource("SpriteFrames_opu14")
+
+[node name="OilSlot" type="AnimatedSprite2D" parent="."]
+position = Vector2(223, 12)
+sprite_frames = SubResource("SpriteFrames_3k822")
+
+[node name="HologramSlot" type="AnimatedSprite2D" parent="."]
+position = Vector2(243, 12)
+sprite_frames = SubResource("SpriteFrames_k2pob")
+
+[node name="BombSelector" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(162, 12)
+sprite_frames = SubResource("SpriteFrames_rmm7j")
+
+[node name="ShieldSelector" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(183, 12)
+sprite_frames = SubResource("SpriteFrames_nyrtg")
+
+[node name="ReactorSelector" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(203, 12)
+sprite_frames = SubResource("SpriteFrames_jsysg")
+
+[node name="OilSelector" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(223, 12)
+sprite_frames = SubResource("SpriteFrames_71cgr")
+
+[node name="HologramSelector" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(243, 12)
+sprite_frames = SubResource("SpriteFrames_g1sgc")
+
+[node name="BombAmount" type="Label" parent="."]
+offset_left = 148.0
+offset_top = 20.0
+offset_right = 196.0
+offset_bottom = 43.0
+scale = Vector2(0.495679, 0.538422)
+theme_override_fonts/font = ExtResource("5_ti1xf")
+theme_override_font_sizes/font_size = 16
+text = "10"
+horizontal_alignment = 2
+
+[node name="ShieldAmount" type="Label" parent="."]
+offset_left = 169.0
+offset_top = 20.0
+offset_right = 217.0
+offset_bottom = 43.0
+scale = Vector2(0.495679, 0.538422)
+theme_override_fonts/font = ExtResource("5_ti1xf")
+theme_override_font_sizes/font_size = 16
+text = "10"
+horizontal_alignment = 2
+
+[node name="ReactorAmount" type="Label" parent="."]
+offset_left = 189.0
+offset_top = 20.0
+offset_right = 237.0
+offset_bottom = 43.0
+scale = Vector2(0.495679, 0.538422)
+theme_override_fonts/font = ExtResource("5_ti1xf")
+theme_override_font_sizes/font_size = 16
+text = "10"
+horizontal_alignment = 2
+
+[node name="OilAmount" type="Label" parent="."]
+offset_left = 209.0
+offset_top = 20.0
+offset_right = 257.0
+offset_bottom = 43.0
+scale = Vector2(0.495679, 0.538422)
+theme_override_fonts/font = ExtResource("5_ti1xf")
+theme_override_font_sizes/font_size = 16
+text = "10"
+horizontal_alignment = 2
+
+[node name="HologramAmount" type="Label" parent="."]
+offset_left = 229.0
+offset_top = 20.0
+offset_right = 277.0
+offset_bottom = 43.0
+scale = Vector2(0.495679, 0.538422)
+theme_override_fonts/font = ExtResource("5_ti1xf")
+theme_override_font_sizes/font_size = 16
+text = "10"
+horizontal_alignment = 2

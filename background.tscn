@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://do8sprmqepf0p"]
+[gd_scene load_steps=81 format=3 uid="uid://do8sprmqepf0p"]
 
 [ext_resource type="Script" path="res://Background.cs" id="1_0cqdy"]
 [ext_resource type="PackedScene" uid="uid://biabqw11xwmsc" path="res://player_chase.tscn" id="2_dk55d"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bhdsgykj0y4xl" path="res://bomb_gadget.tscn" id="3_mjawn"]
 [ext_resource type="Texture2D" uid="uid://boewnvinudoj5" path="res://Assets/background/background.png" id="3_sb46y"]
 [ext_resource type="PackedScene" uid="uid://bmybtl343xrrl" path="res://bubble.tscn" id="4_6rt4o"]
+[ext_resource type="PackedScene" uid="uid://s3m7kehylkf7" path="res://oil_gadget.tscn" id="5_mqa0c"]
 [ext_resource type="PackedScene" uid="uid://b2nf10kbeabpl" path="res://player_ui.tscn" id="7_bp0vx"]
 [ext_resource type="Texture2D" uid="uid://ceibnxt23bmni" path="res://Assets/gadgets/bullet.png" id="8_gio3p"]
+[ext_resource type="PackedScene" uid="uid://bduwfye24u0xk" path="res://white_out.tscn" id="9_ihiei"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig03e"]
 atlas = ExtResource("3_sb46y")
@@ -506,6 +508,7 @@ script = ExtResource("1_0cqdy")
 NPCScene = ExtResource("2_lfecv")
 BombGadgetScene = ExtResource("3_mjawn")
 BubbleScene = ExtResource("4_6rt4o")
+OilGadgetScene = ExtResource("5_mqa0c")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 257.0
@@ -532,6 +535,8 @@ position = Vector2(128, 78)
 visible = false
 position = Vector2(-656, -37)
 sprite_frames = SubResource("SpriteFrames_1c6l7")
+
+[node name="WhiteOut" parent="." instance=ExtResource("9_ihiei")]
 
 [connection signal="timeout" from="NPCTimer" to="." method="OnNPCTimerTimeout"]
 [connection signal="timeout" from="GadgetSpawnTimer" to="." method="OnGadgetSpawnTimerTimeout"]

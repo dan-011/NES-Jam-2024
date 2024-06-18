@@ -1,12 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://0714yfj03j0i"]
+[gd_scene load_steps=44 format=3 uid="uid://0714yfj03j0i"]
 
 [ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
 [ext_resource type="PackedScene" uid="uid://biw01lw88mc5c" path="res://enemy_bullet.tscn" id="2_lam11"]
 [ext_resource type="Texture2D" uid="uid://bu8ubqp3thibs" path="res://Assets/chase/bike-sheet.png" id="2_nhlu8"]
 [ext_resource type="Texture2D" uid="uid://m8nlvyn5mc1h" path="res://Assets/chase/enemy-fire.png" id="3_0lp05"]
+[ext_resource type="Texture2D" uid="uid://d4dafpww7r03u" path="res://Assets/chase/enemy-die.png" id="4_ko12r"]
+[ext_resource type="Texture2D" uid="uid://ddn6fl3xvs3vd" path="res://Assets/chase/enemy-oiled.asprite.png" id="6_h000b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbpfs"]
-size = Vector2(55, 36)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbivc"]
+size = Vector2(0.954407, 18.3461)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0nwd6"]
 atlas = ExtResource("2_nhlu8")
@@ -23,6 +25,82 @@ region = Rect2(128, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hkjbx"]
 atlas = ExtResource("2_nhlu8")
 region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5s3f"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoxkn"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akapq"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi3cq"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjsfw"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ol3o"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s6j0"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upn63"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tschj"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwgxh"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvcxc"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5re1i"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhdax"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylnqy"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxdqc"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ghoo"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(960, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1lpc"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(1024, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w1bu"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(1088, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cqlk"]
+atlas = ExtResource("4_ko12r")
+region = Rect2(1152, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_76x1d"]
 animations = [{
@@ -42,6 +120,68 @@ animations = [{
 "loop": true,
 "name": &"bike",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5s3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoxkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akapq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi3cq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjsfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ol3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s6j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upn63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tschj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwgxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvcxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5re1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhdax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylnqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxdqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ghoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1lpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w1bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqlk")
+}],
+"loop": true,
+"name": &"death",
+"speed": 10.0
 }]
 
 [sub_resource type="Curve2D" id="Curve2D_6iihy"]
@@ -119,6 +259,17 @@ _data = {
 }
 point_count = 16
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_jok77"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_h000b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="NPC" type="Area2D"]
 position = Vector2(105, 76)
 collision_layer = 2
@@ -127,13 +278,13 @@ NPCBulletScene = ExtResource("2_lam11")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 2)
-shape = SubResource("RectangleShape2D_dbpfs")
+position = Vector2(1.50001, 3.78354)
+scale = Vector2(11.5255, 2.15671)
+shape = SubResource("RectangleShape2D_hbivc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_76x1d")
-animation = &"bike"
-frame_progress = 0.111224
+animation = &"death"
 speed_scale = 1.75
 
 [node name="ZigZagPath" type="Path2D" parent="."]
@@ -175,6 +326,13 @@ curve = SubResource("Curve2D_gerhu")
 position = Vector2(-99, -38)
 rotation = -0.696527
 
+[node name="OiledAnimation" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_jok77")
+
+[node name="WhiteOutDeath" type="Timer" parent="."]
+
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="FireAnimation" to="." method="OnFireAnimationFinished"]
 [connection signal="timeout" from="FireTimer" to="." method="OnFireTimerTimeout"]
+[connection signal="timeout" from="WhiteOutDeath" to="." method="OnWhiteOutDeathTimerTimeout"]

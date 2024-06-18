@@ -10,13 +10,21 @@ public partial class Bubble : Area2D
 	{
 		bubbleAnimation = GetNode<AnimatedSprite2D>("CompositeSprites/Bubble");
 		bubbleAnimation.Animation = "bubble";
-		int chooseGadget = Math.Abs((int)GD.Randi()) % (GetNode<Node2D>("CompositeSprites").GetChildCount() - 1);
+		chooseGadget = Math.Abs((int)GD.Randi()) % (GetNode<Node2D>("CompositeSprites").GetChildCount() - 1);
 		List<string> gadgets = new List<string>();
 		gadgets.Add("CompositeSprites/SmokeBomb");
+		gadgets.Add("CompositeSprites/Shield");
+		gadgets.Add("CompositeSprites/Reactor");
+		gadgets.Add("CompositeSprites/Oil");
+		gadgets.Add("CompositeSprites/Hologram");
 		gadgetAnimation = GetNode<AnimatedSprite2D>(gadgets[chooseGadget]);
+		gadgetAnimation.Visible = true;
+
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+
 		label = GetNode<Label>("Label");
-		label.Text = ((Math.Abs((int)GD.Randi()) % 5) + 1).ToString();
+		amount = (Math.Abs((int)GD.Randi()) % 5) + 1;
+		label.Text = amount.ToString();
 		
 		Position = new Vector2(256, (Math.Abs((int)GD.Randi()) % 185) + 32);
 
@@ -36,6 +44,7 @@ public partial class Bubble : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if(GameData.Instance.GetIsPaused()) return;
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
 			deltaSum = 0;
@@ -60,11 +69,12 @@ public partial class Bubble : Area2D
 	private void OnAreaEntered(Area2D area)
 	{
 		if(area is PlayerChase) {
-			GD.Print("Player received gadget");
 			gadgetAnimation.Visible = false;
 			label.Visible = false;
 			bubbleAnimation.Stop();
 			bubbleAnimation.Play("pop");
+			if(GameData.Instance.GetTotalItems() == 0) GameData.Instance.SetSelectedGadget(chooseGadget);
+			GameData.Instance.AddToInventory(chooseGadget, (uint)amount);
 		}
 	}
 
@@ -81,4 +91,6 @@ public partial class Bubble : Area2D
 	private CharacterMovement movement;
 	private Timer spawnTimer;
 	private double deltaSum = 0;
+	private int amount;
+	private int chooseGadget;
 }
