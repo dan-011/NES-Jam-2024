@@ -164,6 +164,7 @@ namespace General {
 			inventory.Add(0);
 			selectedGadget = 0;
 			totalItems = 0;
+			buttonTracker = new Tuple<string, string>("", "");
 		}
 
 		public void DecrementHealth(float val) {
@@ -240,6 +241,14 @@ namespace General {
 			return selectedGadget;
 		}
 
+		public bool CanPress(string menuType, string button) {
+			return buttonTracker.Item1.Equals(menuType) && buttonTracker.Item2.Equals(button);
+		}
+
+		public void SetButtonTracker(string menuType, string button) {
+			buttonTracker = new Tuple<string, string>(menuType, button);
+		}
+
 		public static GameData Instance
 		{
 			get
@@ -264,5 +273,7 @@ namespace General {
 		private bool isReactor;
 		private int selectedGadget;
 		private uint totalItems;
+
+		private Tuple<string, string> buttonTracker;
 }
 }

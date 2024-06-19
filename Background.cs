@@ -23,6 +23,7 @@ public partial class Background : Node
 	Timer npcTimer;
 	Timer bubbleTimer;
 	PlayerUI playerUI;
+	StartMenu startMenu;
 
 	public override void _Ready()
 	{
@@ -38,6 +39,7 @@ public partial class Background : Node
 		debugBullet = GetNode<AnimatedSprite2D>("DebugBullet");
 		debugBullet.Play();
 		playerUI = GetNode<PlayerUI>("PlayerUI");
+		startMenu = GetNode<StartMenu>("StartMenu");
 	}
 	private AnimatedSprite2D debugBullet;
 
@@ -55,7 +57,10 @@ public partial class Background : Node
 
 	private void InputHandling() {
 		int selectedGadget = GameData.Instance.GetSelectedGadget();
-		if(!player.GetPlayerMovement().GetIsBoosting() && Input.IsActionJustPressed("gadget") && (selectedGadget == 0 || selectedGadget == 3) && GameData.Instance.CanUseItem(selectedGadget)) {
+		if(Input.IsActionJustPressed("start")) {
+			PauseGame();
+		}
+		else if(!player.GetPlayerMovement().GetIsBoosting() && Input.IsActionJustPressed("gadget") && (selectedGadget == 0 || selectedGadget == 3) && GameData.Instance.CanUseItem(selectedGadget)) {
 			if(selectedGadget == 0) {
 				BombGadget gadget = BombGadgetScene.Instantiate<BombGadget>();
 				AddChild(gadget);
@@ -75,6 +80,10 @@ public partial class Background : Node
 		}
 	}
 
+	private void PauseGame() {
+		startMenu.Open();
+		// GetTree().Paused - see what this does
+	}
 	
 	private void OnNPCTimerTimeout()
 	{

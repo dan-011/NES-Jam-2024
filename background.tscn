@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://do8sprmqepf0p"]
+[gd_scene load_steps=82 format=3 uid="uid://do8sprmqepf0p"]
 
 [ext_resource type="Script" path="res://Background.cs" id="1_0cqdy"]
 [ext_resource type="PackedScene" uid="uid://biabqw11xwmsc" path="res://player_chase.tscn" id="2_dk55d"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b2nf10kbeabpl" path="res://player_ui.tscn" id="7_bp0vx"]
 [ext_resource type="Texture2D" uid="uid://ceibnxt23bmni" path="res://Assets/gadgets/bullet.png" id="8_gio3p"]
 [ext_resource type="PackedScene" uid="uid://bduwfye24u0xk" path="res://white_out.tscn" id="9_ihiei"]
+[ext_resource type="PackedScene" uid="uid://cdbt38mmdutp3" path="res://start_menu.tscn" id="11_evyql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig03e"]
 atlas = ExtResource("3_sb46y")
@@ -537,6 +538,9 @@ position = Vector2(-656, -37)
 sprite_frames = SubResource("SpriteFrames_1c6l7")
 
 [node name="WhiteOut" parent="." instance=ExtResource("9_ihiei")]
+
+[node name="StartMenu" parent="." instance=ExtResource("11_evyql")]
+visible = false
 
 [connection signal="timeout" from="NPCTimer" to="." method="OnNPCTimerTimeout"]
 [connection signal="timeout" from="GadgetSpawnTimer" to="." method="OnGadgetSpawnTimerTimeout"]
