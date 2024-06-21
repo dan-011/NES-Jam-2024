@@ -31,19 +31,18 @@ public partial class ControlsMenu : CanvasLayer
 
 	private void InputHandling() {
 		if(Input.IsActionPressed("A")) {
-			GD.Print("A in Controls");
-			Input.ActionRelease("A");
-			if(!Input.IsActionJustPressed("A")) GD.Print("released A");
-
-			backSelector.Visible = false;
-			backLabel.AddThemeColorOverride("font_color", new Color("bcbcbc"));
-
-			selectTimer.Start(0.1);
+			GoBack("A");
 		}
 		if(Input.IsActionJustPressed("B")) {
-			Input.ActionRelease("B");
-			EmitSignal(SignalName.SelectBack);
+			GoBack("B");
 		}
+	}
+
+	private void GoBack(string action) {
+		Input.ActionRelease(action);
+		backSelector.Visible = false;
+		backLabel.AddThemeColorOverride("font_color", new Color("bcbcbc"));
+		selectTimer.Start(0.1);
 	}
 	
 	private void OnSelectTimerTimeout()

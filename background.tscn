@@ -505,6 +505,7 @@ animations = [{
 }]
 
 [node name="Background" type="Node"]
+process_mode = 1
 script = ExtResource("1_0cqdy")
 NPCScene = ExtResource("2_lfecv")
 BombGadgetScene = ExtResource("3_mjawn")

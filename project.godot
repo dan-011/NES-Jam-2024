@@ -11,14 +11,16 @@ config_version=5
 [application]
 
 config/name="NES Jam 2024"
-run/main_scene="res://background.tscn"
+run/main_scene="res://intro.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=256
 window/size/viewport_height=224
+window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

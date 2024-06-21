@@ -50,7 +50,6 @@ Post-Jam Features:
 * Implement gadget cancel?
 
 Up Next:
-* code for start menu
 * add intro
 * add game over
 * add music and SFX

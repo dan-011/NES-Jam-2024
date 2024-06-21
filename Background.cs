@@ -81,6 +81,7 @@ public partial class Background : Node
 	}
 
 	private void PauseGame() {
+		GetTree().Paused = true;
 		startMenu.Open();
 		// GetTree().Paused - see what this does
 	}

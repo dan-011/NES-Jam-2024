@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdbt38mmdutp3"]
+[gd_scene load_steps=24 format=3 uid="uid://cdbt38mmdutp3"]
 
 [ext_resource type="Script" path="res://StartMenu.cs" id="1_pqbos"]
 [ext_resource type="Script" path="res://GeneralMenu.cs" id="2_2yj8j"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_nrnpr"]
 [ext_resource type="Script" path="res://ControlsMenu.cs" id="6_4qebe"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="6_weqif"]
+[ext_resource type="Script" path="res://GadgetsGuideMenu.cs" id="8_5chti"]
+[ext_resource type="Texture2D" uid="uid://chvg3sdtnu7xi" path="res://Assets/gadgets/item-slots.png" id="8_7scja"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_awlww"]
 animations = [{
@@ -41,7 +43,94 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c40jw"]
+atlas = ExtResource("8_7scja")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kesnr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c40jw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1f8s"]
+atlas = ExtResource("8_7scja")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58j1b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1f8s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dioig"]
+atlas = ExtResource("8_7scja")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cy6mc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dioig")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utuu0"]
+atlas = ExtResource("8_7scja")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhxfs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utuu0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dun37"]
+atlas = ExtResource("8_7scja")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4l5m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dun37")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bytdo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_nrnpr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="StartMenu" type="CanvasLayer"]
+process_mode = 2
 script = ExtResource("1_pqbos")
 
 [node name="WhiteBackground" type="ColorRect" parent="."]
@@ -62,7 +151,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="GeneralMenu" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 script = ExtResource("2_2yj8j")
 
 [node name="PauseLabel" type="Label" parent="GeneralMenu"]
@@ -234,7 +322,99 @@ sprite_frames = SubResource("SpriteFrames_gtfed")
 
 [node name="SelectTimer" type="Timer" parent="ControlsMenu"]
 
+[node name="GadgetsGuideMenu" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+script = ExtResource("8_5chti")
+
+[node name="Bomb" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 45)
+sprite_frames = SubResource("SpriteFrames_kesnr")
+
+[node name="Shield" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 75)
+sprite_frames = SubResource("SpriteFrames_58j1b")
+
+[node name="Reactor" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 105)
+sprite_frames = SubResource("SpriteFrames_cy6mc")
+
+[node name="Oil" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 135)
+sprite_frames = SubResource("SpriteFrames_hhxfs")
+
+[node name="Hologram" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(45, 165)
+sprite_frames = SubResource("SpriteFrames_t4l5m")
+
+[node name="BombLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 60.0
+offset_top = 34.0
+offset_right = 224.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("6_weqif")
+theme_override_font_sizes/font_size = 8
+text = "Smoke  Bomb:  creates  smoke
+puff  to  crash  enemy  bikes"
+
+[node name="ShieldLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 60.0
+offset_top = 64.0
+offset_right = 217.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("6_weqif")
+theme_override_font_sizes/font_size = 8
+text = "Shield:  protects  against
+enemy  fire  for  5  seconds"
+
+[node name="ReactorLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 60.0
+offset_top = 94.0
+offset_right = 263.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("6_weqif")
+theme_override_font_sizes/font_size = 8
+text = "Reactor:  destorys  present
+enemies  after  10  shots"
+
+[node name="OilLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 60.0
+offset_top = 123.0
+offset_right = 210.0
+offset_bottom = 146.0
+theme_override_fonts/font = ExtResource("6_weqif")
+theme_override_font_sizes/font_size = 8
+text = "Oil  Ball:  blinds  enemies
+from  aiming"
+
+[node name="HologramLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 60.0
+offset_top = 154.0
+offset_right = 212.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("6_weqif")
+theme_override_font_sizes/font_size = 8
+text = "Hologram:  creates  decoy
+to  draw  enemy  fire"
+
+[node name="BackLabel" type="Label" parent="GadgetsGuideMenu"]
+offset_left = 187.0
+offset_top = 179.0
+offset_right = 227.0
+offset_bottom = 202.0
+theme_override_fonts/font = ExtResource("2_n8nly")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="Selector" type="AnimatedSprite2D" parent="GadgetsGuideMenu"]
+position = Vector2(182, 183)
+sprite_frames = SubResource("SpriteFrames_bytdo")
+
+[node name="SelectorTimer" type="Timer" parent="GadgetsGuideMenu"]
+
 [connection signal="SelectMenuOption" from="GeneralMenu" to="." method="OnGeneralMenuSelect"]
 [connection signal="timeout" from="GeneralMenu/SelectTimer" to="GeneralMenu" method="OnSelectTimerTimeout"]
 [connection signal="SelectBack" from="ControlsMenu" to="." method="OnReturnFromControls"]
 [connection signal="timeout" from="ControlsMenu/SelectTimer" to="ControlsMenu" method="OnSelectTimerTimeout"]
+[connection signal="SelectBack" from="GadgetsGuideMenu" to="." method="OnReturnFromGadgetsGuide"]
+[connection signal="timeout" from="GadgetsGuideMenu/SelectorTimer" to="GadgetsGuideMenu" method="OnSelectorTimerTimeout"]

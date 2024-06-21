@@ -43,19 +43,20 @@ public partial class GeneralMenu : CanvasLayer
 	}
 
 	private void InputHandling() {
-		if(Input.IsActionJustPressed("move_up")) {
+		if(Input.IsActionPressed("move_up")) {
+			Input.ActionRelease("move_up");
 			Deselect();
 			cur--;
 			if(cur < 0) cur = labels.Count - 1;
 			Select();
 		}
-		if(Input.IsActionJustPressed("move_down")) {
+		if(Input.IsActionPressed("move_down")) {
+			Input.ActionRelease("move_down");
 			Deselect();
 			cur = (cur + 1) % labels.Count;
 			Select();
 		}
 		if(Input.IsActionPressed("A")) {
-			GD.Print("A in General");
 			Input.ActionRelease("A");
 			Deselect();
 			selectTimer.Start(0.1);
