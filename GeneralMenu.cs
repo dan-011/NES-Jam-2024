@@ -37,7 +37,6 @@ public partial class GeneralMenu : CanvasLayer
 	public override void _Process(double delta)
 	{
 		if(Visible && GameData.Instance.GetIsPaused()) {
-			//GD.Print(Visible);
 			InputHandling();
 		}
 	}
@@ -56,8 +55,8 @@ public partial class GeneralMenu : CanvasLayer
 			cur = (cur + 1) % labels.Count;
 			Select();
 		}
-		if(Input.IsActionPressed("A")) {
-			Input.ActionRelease("A");
+		if(Input.IsActionPressed(GameData.Instance.GetA())) {
+			Input.ActionRelease(GameData.Instance.GetA());
 			Deselect();
 			selectTimer.Start(0.1);
 		}

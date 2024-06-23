@@ -84,7 +84,7 @@ public partial class NPC : Area2D
 
 	private void HandleWhiteOut() {
 		if(whiteOutDeathTimer.WaitTime > 3) {
-			whiteOutDeathTimer.Start(3);
+			whiteOutDeathTimer.Start(2);
 		}
 	}
 
@@ -121,7 +121,6 @@ public partial class NPC : Area2D
 		animation.Animation = "death";
 		animation.Play();
 		dying = true;
-		GameData.Instance.AddScore((uint)(Math.Abs((int)GD.Randi()) % 12));
 	}
 
 	private void CheckBounds() {

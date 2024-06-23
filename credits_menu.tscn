@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8pou8yvpx6ai"]
+
+[ext_resource type="Script" path="res://CreditsMenu.cs" id="1_00jw0"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="2_7fyp2"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="3_uavct"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_p0nn3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j38nc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_p0nn3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CreditsMenu" type="CanvasLayer"]
+script = ExtResource("1_00jw0")
+
+[node name="CreditLabel" type="Label" parent="."]
+offset_left = -26.0
+offset_top = 66.0
+offset_right = 248.0
+offset_bottom = 195.0
+theme_override_colors/font_color = Color(0.988235, 0.878431, 0.658824, 1)
+theme_override_fonts/font = ExtResource("2_7fyp2")
+theme_override_font_sizes/font_size = 8
+text = "Daniel  Paliulis
+
+Daniel  Paliulis
+
+Tyler  Hinrichs
+
+Daniel  Paliulis
+
+Dylan  Cassidy
+
+Dylan  Cassidy"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="RoleLabel" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 66.0
+offset_right = 282.0
+offset_bottom = 195.0
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_fonts/font = ExtResource("2_7fyp2")
+theme_override_font_sizes/font_size = 8
+text = "Game  Design
+
+Programming
+
+Music
+
+Sprites  &  Animation
+
+Background  Drawing
+
+Sound  Effects"
+vertical_alignment = 1
+
+[node name="BackLabel" type="Label" parent="."]
+offset_left = 187.0
+offset_top = 208.0
+offset_right = 251.0
+offset_bottom = 231.0
+theme_override_fonts/font = ExtResource("3_uavct")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="BackSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(182, 212)
+sprite_frames = SubResource("SpriteFrames_j38nc")
+
+[node name="SelectTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

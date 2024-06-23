@@ -21,7 +21,9 @@ public partial class WhiteOut : CanvasLayer
 	private void HandleWhiteOut() {
 		if(GameData.Instance.GetIsWhiteOut()) {
 			color.Visible = true;
-			timer.Start(3);
+			int len = 2;
+			if(Input.GetConnectedJoypads().Count > 0) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 1, len);
+			timer.Start(len);
 		}
 	}
 	

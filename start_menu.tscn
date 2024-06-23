@@ -1,11 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cdbt38mmdutp3"]
+[gd_scene load_steps=23 format=3 uid="uid://cdbt38mmdutp3"]
 
 [ext_resource type="Script" path="res://StartMenu.cs" id="1_pqbos"]
 [ext_resource type="Script" path="res://GeneralMenu.cs" id="2_2yj8j"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_n8nly"]
 [ext_resource type="Texture2D" uid="uid://dmysu4d3mxcug" path="res://Assets/ui/pause-background.png" id="3_sb8vf"]
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_nrnpr"]
-[ext_resource type="Script" path="res://ControlsMenu.cs" id="6_4qebe"]
+[ext_resource type="PackedScene" uid="uid://c47k02ykjmohb" path="res://controls_menu.tscn" id="6_luhg0"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="6_weqif"]
 [ext_resource type="Script" path="res://GadgetsGuideMenu.cs" id="8_5chti"]
 [ext_resource type="Texture2D" uid="uid://chvg3sdtnu7xi" path="res://Assets/gadgets/item-slots.png" id="8_7scja"]
@@ -22,17 +22,6 @@ animations = [{
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mqmgq"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_nrnpr")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_gtfed"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -151,6 +140,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="GeneralMenu" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 script = ExtResource("2_2yj8j")
 
 [node name="PauseLabel" type="Label" parent="GeneralMenu"]
@@ -237,90 +227,9 @@ sprite_frames = SubResource("SpriteFrames_mqmgq")
 
 [node name="SelectTimer" type="Timer" parent="GeneralMenu"]
 
-[node name="ControlsMenu" type="CanvasLayer" parent="."]
+[node name="ControlsMenu" parent="." instance=ExtResource("6_luhg0")]
 layer = 2
 visible = false
-script = ExtResource("6_4qebe")
-
-[node name="ALabel" type="Label" parent="ControlsMenu"]
-offset_left = 46.0
-offset_top = 45.0
-offset_right = 113.0
-offset_bottom = 68.0
-theme_override_fonts/font = ExtResource("6_weqif")
-theme_override_font_sizes/font_size = 8
-text = "A  (X  Key):
-Use  gadget"
-
-[node name="BLabel" type="Label" parent="ControlsMenu"]
-offset_left = 122.0
-offset_top = 73.0
-offset_right = 210.0
-offset_bottom = 96.0
-theme_override_fonts/font = ExtResource("6_weqif")
-theme_override_font_sizes/font_size = 8
-text = "B  (Z  Key):
-Boost  forward"
-
-[node name="StartLabel" type="Label" parent="ControlsMenu"]
-offset_left = 46.0
-offset_top = 101.0
-offset_right = 135.0
-offset_bottom = 124.0
-theme_override_fonts/font = ExtResource("6_weqif")
-theme_override_font_sizes/font_size = 8
-text = "Start  (S  Key):
-Open  menu
-"
-
-[node name="SelectLabel" type="Label" parent="ControlsMenu"]
-offset_left = 122.0
-offset_top = 129.0
-offset_right = 217.0
-offset_bottom = 152.0
-theme_override_fonts/font = ExtResource("6_weqif")
-theme_override_font_sizes/font_size = 8
-text = "Select  (A  Key):
-Change  gadget"
-
-[node name="DPadLabel" type="Label" parent="ControlsMenu"]
-offset_left = 46.0
-offset_top = 158.0
-offset_right = 197.0
-offset_bottom = 207.0
-theme_override_fonts/font = ExtResource("6_weqif")
-theme_override_font_sizes/font_size = 8
-text = "D-Pad  (Arrow  Keys):
-Move  player"
-
-[node name="BigLabel" type="Label" parent="ControlsMenu"]
-visible = false
-offset_left = 157.0
-offset_top = 173.0
-offset_right = 221.0
-offset_bottom = 196.0
-theme_override_fonts/font = ExtResource("2_n8nly")
-text = "BACK"
-
-[node name="BigSelector" type="AnimatedSprite2D" parent="ControlsMenu"]
-visible = false
-position = Vector2(145, 180)
-sprite_frames = SubResource("SpriteFrames_gtfed")
-
-[node name="BackLabel" type="Label" parent="ControlsMenu"]
-offset_left = 187.0
-offset_top = 179.0
-offset_right = 251.0
-offset_bottom = 202.0
-theme_override_fonts/font = ExtResource("2_n8nly")
-theme_override_font_sizes/font_size = 8
-text = "BACK"
-
-[node name="BackSelector" type="AnimatedSprite2D" parent="ControlsMenu"]
-position = Vector2(182, 183)
-sprite_frames = SubResource("SpriteFrames_gtfed")
-
-[node name="SelectTimer" type="Timer" parent="ControlsMenu"]
 
 [node name="GadgetsGuideMenu" type="CanvasLayer" parent="."]
 layer = 2
@@ -374,8 +283,8 @@ offset_right = 263.0
 offset_bottom = 117.0
 theme_override_fonts/font = ExtResource("6_weqif")
 theme_override_font_sizes/font_size = 8
-text = "Reactor:  destorys  present
-enemies  after  10  shots"
+text = "Reactor:  absorbs  10  shots  
+to  destroy  all  enemies"
 
 [node name="OilLabel" type="Label" parent="GadgetsGuideMenu"]
 offset_left = 60.0
@@ -415,6 +324,5 @@ sprite_frames = SubResource("SpriteFrames_bytdo")
 [connection signal="SelectMenuOption" from="GeneralMenu" to="." method="OnGeneralMenuSelect"]
 [connection signal="timeout" from="GeneralMenu/SelectTimer" to="GeneralMenu" method="OnSelectTimerTimeout"]
 [connection signal="SelectBack" from="ControlsMenu" to="." method="OnReturnFromControls"]
-[connection signal="timeout" from="ControlsMenu/SelectTimer" to="ControlsMenu" method="OnSelectTimerTimeout"]
 [connection signal="SelectBack" from="GadgetsGuideMenu" to="." method="OnReturnFromGadgetsGuide"]
 [connection signal="timeout" from="GadgetsGuideMenu/SelectorTimer" to="GadgetsGuideMenu" method="OnSelectorTimerTimeout"]

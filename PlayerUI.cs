@@ -48,7 +48,7 @@ public partial class PlayerUI : CanvasLayer
 	public override void _Process(double delta)
 	{
 		InputHandling();
-		scoreLabel.Text = GameData.Instance.GetScore().ToString();
+		scoreLabel.Text = GameData.Instance.GetScore().ToString() + "m";
 		float health = GameData.Instance.GetHealth();
 		HandleClearedSlot();
 		if(GameData.Instance.GetSelectedGadget() != cur) SwitchSelectedItem();

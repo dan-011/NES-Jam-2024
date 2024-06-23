@@ -24,6 +24,9 @@ public partial class Background : Node
 	Timer bubbleTimer;
 	PlayerUI playerUI;
 	StartMenu startMenu;
+	Timer scoreTimer;
+	Label beginLabel;
+	AudioStreamPlayer mainGameMusic;
 
 	public override void _Ready()
 	{
@@ -40,6 +43,10 @@ public partial class Background : Node
 		debugBullet.Play();
 		playerUI = GetNode<PlayerUI>("PlayerUI");
 		startMenu = GetNode<StartMenu>("StartMenu");
+		playerUI.Visible = false;
+		scoreTimer = GetNode<Timer>("ScoreTimer");
+		beginLabel = GetNode<Label>("BeginLabel");
+		mainGameMusic = GetNode<AudioStreamPlayer>("MainGameMusic");
 	}
 	private AnimatedSprite2D debugBullet;
 
@@ -55,12 +62,19 @@ public partial class Background : Node
 		if(Input.IsActionPressed("debug_close")) GetTree().Quit();
 	}
 
+	public void Play() {
+		playerUI.Visible = true;
+		scoreTimer.Start(2);
+		mainGameMusic.Play();
+	}
+
 	private void InputHandling() {
 		int selectedGadget = GameData.Instance.GetSelectedGadget();
+		scoreTimer.Paused = GameData.Instance.GetIsPaused();
 		if(Input.IsActionJustPressed("start")) {
 			PauseGame();
 		}
-		else if(!player.GetPlayerMovement().GetIsBoosting() && Input.IsActionJustPressed("gadget") && (selectedGadget == 0 || selectedGadget == 3) && GameData.Instance.CanUseItem(selectedGadget)) {
+		else if(!player.GetPlayerMovement().GetIsBoosting() && Input.IsActionJustPressed(GameData.Instance.GetA()) && (selectedGadget == 0 || selectedGadget == 3) && GameData.Instance.CanUseItem(selectedGadget)) {
 			if(selectedGadget == 0) {
 				BombGadget gadget = BombGadgetScene.Instantiate<BombGadget>();
 				AddChild(gadget);
@@ -71,11 +85,6 @@ public partial class Background : Node
 				AddChild(gadget);
 				gadget.SetStartPos(new Vector2(player.Position.X-10, player.Position.Y));
 			}
-			//BombGadget gadget = BombGadgetScene.Instantiate<BombGadget>();
-			/*gadget.Connect(SignalName.GadgetFinished, Callable.From(() => {
-				GD.Print("Deleting gadget");
-				RemoveChild(gadget);
-			}));*/
 
 		}
 	}
@@ -105,5 +114,17 @@ public partial class Background : Node
 		AddChild(bubble);
 		ResetTimer(bubbleTimer, 10);
 	}	
+	
+	private void OnScoreTimerTimeout()
+	{
+		if(beginLabel.Visible) beginLabel.Visible = false;
+		else GameData.Instance.AddScore(1);
+		scoreTimer.Start(1);
+	}
+	
+	
+	private void OnMainGameMusicFinished()
+	{
+		mainGameMusic.Play();
+	}
 }
-

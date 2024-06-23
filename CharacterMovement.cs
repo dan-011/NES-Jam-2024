@@ -126,7 +126,7 @@ namespace General {
 			vel.Y = Interpolate(goalVel.Y, vel.Y, dt*approachVal);
 		}
 		
-		private bool AtStart() {
+		public bool AtStart() {
 			return Math.Abs(position.X - startPos.X) < 0.00000001;
 		}
 
@@ -147,6 +147,7 @@ namespace General {
 		private static GameData instance = null;
 		private static readonly object padlock = new object();
 		private List<uint> inventory;
+		private Dictionary<string, string> controlMapping;
 
 		GameData()
 		{
@@ -165,6 +166,13 @@ namespace General {
 			selectedGadget = 0;
 			totalItems = 0;
 			buttonTracker = new Tuple<string, string>("", "");
+			controlMapping = new Dictionary<string, string>();
+			controlMapping.Add("A", "A");
+			controlMapping.Add("B", "B");
+			controlMapping.Add("Start", "Start");
+			controlMapping.Add("Select", "Select");
+			controlMapping.Add("D-Pad", "D-Pad/Joystick");
+			flipAB = false;
 		}
 
 		public void DecrementHealth(float val) {
@@ -248,6 +256,63 @@ namespace General {
 		public void SetButtonTracker(string menuType, string button) {
 			buttonTracker = new Tuple<string, string>(menuType, button);
 		}
+		public void SetControls(string gamepad = "") {
+			if(gamepad.Length == 0) {
+				controlMapping["A"] = "X";
+				controlMapping["B"] = "Z";
+				controlMapping["Start"] = "S";
+				controlMapping["Select"] = "A";
+				controlMapping["D-Pad"] = "Arrow Keys";
+			}
+			else {
+				switch (gamepad) {
+				case "XInput Gamepad":
+				case "Xbox Series Controller":
+				case "Xbox 360 Controller":
+				case "Xbox One Controller":
+					flipAB = true;
+					controlMapping["Select"] = "RB/RT";
+					break;
+				case "Switch":
+				case "PowerA Nintendo Switch Controller":
+					controlMapping["Select"] = "R/ZR";
+					break;
+				case "Joy-Con (L)":
+				case "Joy-Con (R)":
+					controlMapping["Select"] = "R";
+					controlMapping["D-Pad"] = "Joystick";
+					break;
+				case "Sony DualSense":
+				case "PS5 Controller":
+				case "PS4 Controller":
+				case "Nacon Revolution Unlimited Pro Controller":
+					controlMapping["A"] = "Cross";
+					controlMapping["B"] = "circle";
+					controlMapping["Select"] = "R1/R2";
+					flipAB = true;
+					break;
+				default:
+					if(gamepad.Contains("X")) {
+						flipAB = true;
+						controlMapping["Select"] = "RB/RT";
+					}
+					else if(gamepad.Contains("Nintendo")) {
+						controlMapping["Select"] = "R/ZR";
+					}
+					break;
+				}
+			}
+		}
+		public string GetA() {
+			return flipAB ? "B" : "A";
+		}
+
+		public string GetB() {
+			return flipAB ? "A" : "B";
+		}
+		public string GetControllerMapping(string control) {
+			return controlMapping[control];
+		}
 
 		public static GameData Instance
 		{
@@ -275,5 +340,6 @@ namespace General {
 		private uint totalItems;
 
 		private Tuple<string, string> buttonTracker;
+		bool flipAB;
 }
 }

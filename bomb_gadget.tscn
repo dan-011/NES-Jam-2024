@@ -119,6 +119,8 @@ metadata/_edit_group_ = true
 [node name="BombAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_iw7js")
 animation = &"bomb"
+frame = 13
+frame_progress = 1.0
 speed_scale = 2.0
 
 [node name="BombCollisionShape" type="CollisionShape2D" parent="."]

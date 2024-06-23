@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://25cjp36xk3at"]
+
+[ext_resource type="Script" path="res://GameRoot.cs" id="1_nmadn"]
+[ext_resource type="PackedScene" uid="uid://bpql0cphji0wf" path="res://intro.tscn" id="2_ac2dg"]
+[ext_resource type="PackedScene" uid="uid://cxopd32v5o7yo" path="res://game_opening.tscn" id="3_csvym"]
+[ext_resource type="PackedScene" uid="uid://do8sprmqepf0p" path="res://background.tscn" id="3_h6eyc"]
+
+[node name="GameRoot" type="Node"]
+script = ExtResource("1_nmadn")
+
+[node name="Intro" parent="." instance=ExtResource("2_ac2dg")]
+
+[node name="GameOpening" parent="." instance=ExtResource("3_csvym")]
+visible = false
+
+[node name="Background" parent="." instance=ExtResource("3_h6eyc")]
+
+[connection signal="BeginGame" from="Intro" to="." method="OnBeginGame"]
+[connection signal="GameOpeningEnded" from="GameOpening" to="." method="OnGameOpeningEnded"]

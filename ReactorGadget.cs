@@ -31,7 +31,7 @@ public partial class ReactorGadget : Area2D
 	
 	
 	private void CheckBullets() {
-		if(bulletCount == maxBullets && animation.Frame == animation.SpriteFrames.GetFrameCount("building") - 1) {
+		if(bulletCount >= maxBullets && animation.Frame == animation.SpriteFrames.GetFrameCount("building") - 1) {
 			bulletCount = 0;
 			animation.Stop();
 			animation.Play("releasing");

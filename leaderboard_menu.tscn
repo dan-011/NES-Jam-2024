@@ -1,0 +1,154 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvg67kjy5wobf"]
+
+[ext_resource type="Script" path="res://LeaderboardMenu.cs" id="1_602eq"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_5xsm3"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="3_60387"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="4_pe1vm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ypkq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_60387")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LeaderboardMenu" type="CanvasLayer"]
+script = ExtResource("1_602eq")
+
+[node name="BackLabel" type="Label" parent="."]
+offset_left = 187.0
+offset_top = 201.0
+offset_right = 251.0
+offset_bottom = 224.0
+theme_override_fonts/font = ExtResource("2_5xsm3")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="BackSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(182, 205)
+sprite_frames = SubResource("SpriteFrames_7ypkq")
+
+[node name="SelectTimer" type="Timer" parent="."]
+
+[node name="FirstLabel" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 70.0
+offset_right = 106.0
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0.972549, 0.721569, 0, 1)
+theme_override_fonts/font = ExtResource("4_pe1vm")
+theme_override_font_sizes/font_size = 8
+text = "1. Dan"
+vertical_alignment = 1
+
+[node name="FirstScore" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 70.0
+offset_right = 226.0
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0.972549, 0.721569, 0, 1)
+theme_override_fonts/font = ExtResource("2_5xsm3")
+theme_override_font_sizes/font_size = 8
+text = "28928"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SecondLabel" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 95.0
+offset_right = 80.0
+offset_bottom = 118.0
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_fonts/font = ExtResource("4_pe1vm")
+theme_override_font_sizes/font_size = 8
+text = "2.  Tyler"
+vertical_alignment = 1
+
+[node name="SecondScore" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 95.0
+offset_right = 226.0
+offset_bottom = 118.0
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_fonts/font = ExtResource("2_5xsm3")
+theme_override_font_sizes/font_size = 8
+text = "28928"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ThirdLabel" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 120.0
+offset_right = 106.0
+offset_bottom = 143.0
+theme_override_colors/font_color = Color(0.67451, 0.486275, 0, 1)
+theme_override_fonts/font = ExtResource("4_pe1vm")
+theme_override_font_sizes/font_size = 8
+text = "3. Dylan
+"
+vertical_alignment = 1
+
+[node name="ThirdScore" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 120.0
+offset_right = 226.0
+offset_bottom = 143.0
+theme_override_colors/font_color = Color(0.67451, 0.486275, 0, 1)
+theme_override_fonts/font = ExtResource("2_5xsm3")
+theme_override_font_sizes/font_size = 8
+text = "28928"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FourthLabel" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 145.0
+offset_right = 106.0
+offset_bottom = 168.0
+theme_override_colors/font_color = Color(0.643137, 0.894118, 0.988235, 1)
+theme_override_fonts/font = ExtResource("4_pe1vm")
+theme_override_font_sizes/font_size = 8
+text = "4.  Hari
+"
+vertical_alignment = 1
+
+[node name="FourthScore" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 145.0
+offset_right = 226.0
+offset_bottom = 168.0
+theme_override_colors/font_color = Color(0.643137, 0.894118, 0.988235, 1)
+theme_override_fonts/font = ExtResource("2_5xsm3")
+theme_override_font_sizes/font_size = 8
+text = "28928"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FifthLabel" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 170.0
+offset_right = 106.0
+offset_bottom = 193.0
+theme_override_colors/font_color = Color(0.972549, 0.643137, 0.752941, 1)
+theme_override_fonts/font = ExtResource("4_pe1vm")
+theme_override_font_sizes/font_size = 8
+text = "5.  Abhi"
+vertical_alignment = 1
+
+[node name="FifthScore" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 170.0
+offset_right = 226.0
+offset_bottom = 193.0
+theme_override_colors/font_color = Color(0.972549, 0.643137, 0.752941, 1)
+theme_override_fonts/font = ExtResource("2_5xsm3")
+theme_override_font_sizes/font_size = 8
+text = "28928"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

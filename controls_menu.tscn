@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://c47k02ykjmohb"]
+
+[ext_resource type="Script" path="res://ControlsMenu.cs" id="1_atx18"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="1_ym6ru"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_xub0h"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="3_m68qt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kueyr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_m68qt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ControlsMenu" type="CanvasLayer"]
+script = ExtResource("1_atx18")
+
+[node name="ALabel" type="Label" parent="."]
+offset_left = 41.0
+offset_top = 51.0
+offset_right = 108.0
+offset_bottom = 74.0
+theme_override_fonts/font = ExtResource("1_ym6ru")
+theme_override_font_sizes/font_size = 8
+text = "A  (X  Key):"
+
+[node name="BLabel" type="Label" parent="."]
+offset_left = 41.0
+offset_top = 69.0
+offset_right = 129.0
+offset_bottom = 92.0
+theme_override_fonts/font = ExtResource("1_ym6ru")
+theme_override_font_sizes/font_size = 8
+text = "B  (Z  Key):"
+
+[node name="StartLabel" type="Label" parent="."]
+offset_left = 41.0
+offset_top = 88.0
+offset_right = 130.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("1_ym6ru")
+theme_override_font_sizes/font_size = 8
+text = "Start  (S  Key):
+"
+
+[node name="SelectLabel" type="Label" parent="."]
+offset_left = 41.0
+offset_top = 106.0
+offset_right = 136.0
+offset_bottom = 129.0
+theme_override_fonts/font = ExtResource("1_ym6ru")
+theme_override_font_sizes/font_size = 8
+text = "Select  (A  Key):"
+
+[node name="DPadLabel" type="Label" parent="."]
+offset_left = 41.0
+offset_top = 124.0
+offset_right = 192.0
+offset_bottom = 173.0
+theme_override_fonts/font = ExtResource("1_ym6ru")
+theme_override_font_sizes/font_size = 8
+text = "D-Pad  (Arrow  Keys):"
+
+[node name="BigLabel" type="Label" parent="."]
+visible = false
+offset_left = 157.0
+offset_top = 173.0
+offset_right = 221.0
+offset_bottom = 196.0
+theme_override_fonts/font = ExtResource("2_xub0h")
+text = "BACK"
+
+[node name="BigSelector" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(145, 180)
+sprite_frames = SubResource("SpriteFrames_kueyr")
+
+[node name="BackLabel" type="Label" parent="."]
+offset_left = 187.0
+offset_top = 179.0
+offset_right = 251.0
+offset_bottom = 202.0
+theme_override_fonts/font = ExtResource("2_xub0h")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="BackSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(182, 183)
+sprite_frames = SubResource("SpriteFrames_kueyr")
+
+[node name="SelectTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

@@ -17,10 +17,12 @@ public partial class PlayerChase : Area2D
 	public override void _Ready()
 	{
 		Vector2 startPos = new Vector2(Position.X+30, 100);
+		GD.Print("official start position", startPos);
 		Position = startPos;
 		movement = new CharacterMovement(startPos, 400, 800);
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		animation.Frame = 0;
 		screenSize = GetViewportRect().Size;
 
 		shieldGadget = GetNode<ShieldGadget>("ShieldGadget");
@@ -98,10 +100,11 @@ public partial class PlayerChase : Area2D
 		if(Input.IsActionPressed("move_down")) {
 			if(canGoDown) movement.MoveDown();
 		}
-		if(Input.IsActionJustPressed("boost")) {
+		if(Input.IsActionJustPressed(GameData.Instance.GetB())) {
+			if(movement.AtStart() && Input.GetConnectedJoypads().Count > 0) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 0, 1);
 			movement.Boost();
 		}
-		else if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsReactor() && !hologramGadget.Visible && !movement.GetIsBoosting() && !hologramGadget.Visible && Input.IsActionJustPressed("gadget")) {
+		else if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsReactor() && !hologramGadget.Visible && !movement.GetIsBoosting() && !hologramGadget.Visible && Input.IsActionJustPressed(GameData.Instance.GetA())) {
 			int selectedGadget = GameData.Instance.GetSelectedGadget();
 			if(GameData.Instance.CanUseItem(selectedGadget)) {
 				animation.Stop();

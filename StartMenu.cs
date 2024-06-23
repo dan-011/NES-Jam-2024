@@ -53,7 +53,7 @@ public partial class StartMenu : CanvasLayer
 
 
 	private void Resume() {
-		Input.ActionRelease("A");
+		Input.ActionRelease(GameData.Instance.GetA());
 		Visible = false;
 		generalMenu.Visible = false;
 		GameData.Instance.PlayAction();
