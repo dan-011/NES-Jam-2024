@@ -45,6 +45,8 @@ public partial class ShieldGadget : Area2D
 	
 	private void OnTimerTimeout()
 	{
+		timer.Stop();
+		animation.Stop();
 		animation.Animation = "collapsing";
 		collision.Disabled = true;
 		animation.Play();

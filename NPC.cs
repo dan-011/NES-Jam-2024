@@ -20,21 +20,21 @@ public partial class NPC : Area2D
 		fireTimer = GetNode<Timer>("FireTimer");
 		oiledAnimation = GetNode<AnimatedSprite2D>("OiledAnimation");
 		List<PathFollow2D> paths = new List<PathFollow2D>();
-		paths.Add(GetNode<PathFollow2D>("ZigZagPath/MobPosition"));
-		paths.Add(GetNode<PathFollow2D>("IrradicPath/MobPosition"));
-		paths.Add(GetNode<PathFollow2D>("StraightPath/MobPosition"));
+		string dir = "Path2/PathFollow2D";
+		for(int i = 0; i < 16; i++) {
+			//dir = "Path" + i.ToString() + "/PathFollow2D";
+			paths.Add(GetNode<PathFollow2D>(dir));
+		}
 		ResetTimer(fireTimer, 5, 3);
 
 		int idx = Math.Abs((int)GD.Randi()) % paths.Count;
 
 		pathPosition = paths[idx];
-		if(idx == paths.Count - 1) {
-			offset += (int)GD.Randi() % 200;
-		}
+		//GD.Print(idx);
 		
 		pathPosition.ProgressRatio = GD.Randf();
 		//Position = new Vector2(-19, pathPosition.Position.Y);
-		Position = new Vector2(-31, 100); // DEBUG
+		GlobalPosition = new Vector2(-31, pathPosition.Position.Y); // DEBUG
 		movement = new CharacterMovement(Position, _isNPC: true);
 		movement.SetGoalVel(new Vector2(100, 0));
 
@@ -53,19 +53,25 @@ public partial class NPC : Area2D
 		if(GameData.Instance.GetIsPaused()) return;
 		if(Position.X > 20) {
 			Vector2 vel = movement.GetVel();
-			vel.X = 0;
+			vel.X = 1;
 			movement.SetGoalVel(vel);
 			movement.SetVel(vel);
 		}
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
+			//GD.Print(movement.GetVel());
+			delta = deltaSum;
 			deltaSum = 0;
-			delta = 0.0167f;
+			//delta = 0.0167f;
 			movement.Update((float)delta);
 			GlobalPosition = movement.GetPos();
 			if(!dying) UpdatePath();
 			movement.SetPos(GlobalPosition);
 		}
+	}
+
+	public bool IsOiled() {
+		return oiledAnimation.Visible;
 	}
 	private void UpdatePath() {
 		pathPosition.ProgressRatio += 0.0005f;

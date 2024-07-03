@@ -36,6 +36,7 @@ public partial class PlayerChase : Area2D
 		itemActions.Add(Throw);
 		itemActions.Add(Hologram);
 
+		DEBUG = GetNode<AnimatedSprite2D>("DEBUG");
 
 		animation.Animation = "idle";
 		animation.Frame = 0;	
@@ -45,6 +46,7 @@ public partial class PlayerChase : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		DEBUG.GlobalPosition = GlobalPosition;
 		if(GameData.Instance.GetIsPaused()) {
 			movement.ReleaseY();
 			return;
@@ -55,21 +57,28 @@ public partial class PlayerChase : Area2D
 		}
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
+			//GD.Print(deltaSum);
+			delta = deltaSum;
 			deltaSum = 0;
-			delta = 0.0167f;
+			//delta = 0.0167f;
+			//
 			movement.Update((float)delta);
 			Position = movement.GetPos();
 			movement.SetPos(Position);
 			// Vector2 globalCenter = new Vector2(GlobalPosition.X + collisionShape.Position.X + collisionShape)
 			GameData.Instance.SetPlayerPos(GlobalPosition);
-			if(GameData.Instance.GetIsReactor()) GameData.Instance.SetPlayerPos(reactorGadget.GlobalPosition);
-			else if(hologramGadget.Visible) GameData.Instance.SetPlayerPos(hologramGadget.GlobalPosition);
+			
+			if(hologramGadget.Visible) GameData.Instance.SetPlayerPos(hologramGadget.GlobalPosition);
+			else if(GameData.Instance.GetIsReactor()) GameData.Instance.SetPlayerPos(reactorGadget.GlobalPosition);
 			if(!isDying) {	
 				HandleBounds();
 				AnimationHandling();
 			}
 		}
-		if(GlobalPosition.Y > 300) GameData.Instance.PauseAction();
+		if(GlobalPosition.Y > 300) {
+			EmitSignal(SignalName.PlayerDeath);
+			GameData.Instance.PauseAction();
+		}
 	}
 	public CharacterMovement GetPlayerMovement() {
 		return movement;
@@ -101,12 +110,12 @@ public partial class PlayerChase : Area2D
 			if(canGoDown) movement.MoveDown();
 		}
 		if(Input.IsActionJustPressed(GameData.Instance.GetB())) {
-			if(movement.AtStart() && Input.GetConnectedJoypads().Count > 0) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 0, 1);
+			if(movement.AtStart() && Input.GetConnectedJoypads().Count > 0 && GameData.Instance.GetCanUseRumble()) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 0, 1);
 			movement.Boost();
 		}
-		else if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsReactor() && !hologramGadget.Visible && !movement.GetIsBoosting() && !hologramGadget.Visible && Input.IsActionJustPressed(GameData.Instance.GetA())) {
+		else if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsReactor() && !movement.GetIsBoosting() && Input.IsActionJustPressed(GameData.Instance.GetA())) {
 			int selectedGadget = GameData.Instance.GetSelectedGadget();
-			if(GameData.Instance.CanUseItem(selectedGadget)) {
+			if(GameData.Instance.CanUseItem(selectedGadget) && PreventItemReuse(selectedGadget)) {
 				animation.Stop();
 				animation.Frame = 0;
 				itemActions[selectedGadget]();
@@ -123,35 +132,56 @@ public partial class PlayerChase : Area2D
 			}
 		}
 	}
+	
+	private bool PreventItemReuse(int idx) {
+		return !hologramGadget.Visible || idx != 4;
+	}
 
 	private void Throw() {
 		isThrowing = true;
 		//animation.Frame = 0;
-		animation.Play("throw");
+		if(hologramGadget.Visible) animation.Play("hologram-throw");
+		else animation.Play("throw");
 	}
 
 	private void Shield() {
-		animation.Play("shield");
+		if(hologramGadget.Visible) animation.Play("hologram-shield");
+		else animation.Play("shield");
 		GameData.Instance.SetIsShielding(true);
 		shieldGadget.Visible = true;
 		shieldGadget.PlayShield();
 	}
 
 	private void Reactor() {
-		animation.Play("shield");
+		if(hologramGadget.Visible) animation.Play("hologram-shield");
+		else animation.Play("shield");
 		GameData.Instance.SetIsReactor(true);
 		reactorGadget.Visible = true;
 		reactorGadget.PlayReactor();
 	}
 
 	private void Hologram() {
+		GD.Print("call hologram");
 		hologramGadget.SetPosition(GlobalPosition);
 		hologramGadget.Visible = true;
 	}
 
 	private void AnimationHandling() {
-		if(GameData.Instance.GetIsShielding() || GameData.Instance.GetIsReactor()) return;
-		if(movement.GetIsBoosting()) {
+		if(GameData.Instance.GetIsShielding() || GameData.Instance.GetIsReactor()) {
+			if(hologramGadget.Visible) {
+				if(!animation.Animation.Equals("hologram-shield")) {
+					animation.Stop();
+					animation.Play("holgram-shield");
+				}
+			}
+			else {
+				if(!animation.Animation.Equals("shield")) {
+					animation.Stop();
+					animation.Play("shield");
+				}
+			}
+		}
+		else if(movement.GetIsBoosting()) {
 			if(hologramGadget.Visible) {
 				if(!animation.Animation.Equals("hologram-boost")) {
 					animation.Stop();
@@ -219,7 +249,7 @@ public partial class PlayerChase : Area2D
 		
 	private void OnAnimationFinished()
 	{
-		if(animation.Animation.Equals("throw")) {
+		if(animation.Animation.Equals("throw") || animation.Animation.Equals("hologram-throw")) {
 			isThrowing = false;
 		}
 		else if(animation.Animation.Equals("dying")) {
@@ -267,5 +297,6 @@ public partial class PlayerChase : Area2D
 	private bool isDying = false;
 	private delegate void VoidMethod();
 	private List<VoidMethod> itemActions;
+	private AnimatedSprite2D DEBUG;
 
 }

@@ -15,6 +15,7 @@ public partial class MainMenu : CanvasLayer
 		labels.Add(GetNode<Label>("Leaderboard"));
 		labels.Add(GetNode<Label>("Controls"));
 		labels.Add(GetNode<Label>("Credits"));
+		labels.Add(GetNode<Label>("Settings"));
 		labels.Add(GetNode<Label>("ExitGame"));
 
 		selectors = new List<AnimatedSprite2D>();
@@ -22,6 +23,7 @@ public partial class MainMenu : CanvasLayer
 		selectors.Add(GetNode<AnimatedSprite2D>("LeaderboardSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("ControlsSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("CreditsSelector"));
+		selectors.Add(GetNode<AnimatedSprite2D>("SettingsSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("ExitGameSelector"));
 
 		selectTimer = GetNode<Timer>("SelectTimer");

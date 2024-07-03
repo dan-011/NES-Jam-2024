@@ -1,4 +1,4 @@
-[gd_scene load_steps=295 format=3 uid="uid://bpql0cphji0wf"]
+[gd_scene load_steps=298 format=3 uid="uid://bpql0cphji0wf"]
 
 [ext_resource type="Texture2D" uid="uid://bolbpx6a6u4of" path="res://Assets/ui/Intro-begin.png" id="1_hjl83"]
 [ext_resource type="Script" path="res://Intro.cs" id="1_shikj"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c47k02ykjmohb" path="res://controls_menu.tscn" id="12_ver8y"]
 [ext_resource type="PackedScene" uid="uid://dvg67kjy5wobf" path="res://leaderboard_menu.tscn" id="13_116h2"]
 [ext_resource type="PackedScene" uid="uid://c8pou8yvpx6ai" path="res://credits_menu.tscn" id="14_xyk5x"]
+[ext_resource type="PackedScene" uid="uid://ckmvjqs6s2b06" path="res://settings_menu.tscn" id="17_i608u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4580o"]
 atlas = ExtResource("1_hjl83")
@@ -2006,6 +2007,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o81ty"]
+atlas = ExtResource("10_7oa6d")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iwciu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o81ty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_alvj7"]
 animations = [{
 "frames": [{
@@ -2127,11 +2143,22 @@ text = "Credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Settings" type="Label" parent="MainMenu"]
+offset_left = 155.0
+offset_top = 189.0
+offset_right = 219.0
+offset_bottom = 212.0
+theme_override_fonts/font = ExtResource("7_qpsgh")
+theme_override_font_sizes/font_size = 8
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ExitGame" type="Label" parent="MainMenu"]
 offset_left = 151.0
-offset_top = 189.0
+offset_top = 203.0
 offset_right = 223.0
-offset_bottom = 212.0
+offset_bottom = 226.0
 theme_override_fonts/font = ExtResource("7_qpsgh")
 theme_override_font_sizes/font_size = 8
 text = "Exit Game"
@@ -2154,8 +2181,12 @@ sprite_frames = SubResource("SpriteFrames_rbu3m")
 position = Vector2(154, 186)
 sprite_frames = SubResource("SpriteFrames_nyb5h")
 
+[node name="SettingsSelector" type="AnimatedSprite2D" parent="MainMenu"]
+position = Vector2(150, 200)
+sprite_frames = SubResource("SpriteFrames_iwciu")
+
 [node name="ExitGameSelector" type="AnimatedSprite2D" parent="MainMenu"]
-position = Vector2(146, 200)
+position = Vector2(146, 214)
 sprite_frames = SubResource("SpriteFrames_alvj7")
 
 [node name="SelectTimer" type="Timer" parent="MainMenu"]
@@ -2169,6 +2200,9 @@ visible = false
 [node name="CreditsMenu" parent="." instance=ExtResource("14_xyk5x")]
 visible = false
 
+[node name="SettingsMenu" parent="." instance=ExtResource("17_i608u")]
+visible = false
+
 [connection signal="animation_finished" from="Cycle" to="." method="OnCycleAnimationFinished"]
 [connection signal="animation_looped" from="Cycle" to="." method="OnCycleAnimationLooped"]
 [connection signal="animation_finished" from="Person" to="." method="OnPersonAnimationFinished"]
@@ -2180,3 +2214,4 @@ visible = false
 [connection signal="SelectBack" from="ControlsMenu" to="." method="OnReturnFromControls"]
 [connection signal="SelectBack" from="LeaderboardMenu" to="." method="OnReturnFromLeaderboard"]
 [connection signal="SelectBack" from="CreditsMenu" to="." method="OnReturnFromCredits"]
+[connection signal="BackSelect" from="SettingsMenu" to="." method="OnReturnFromSettings"]

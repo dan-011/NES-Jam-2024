@@ -50,15 +50,20 @@ Post-Jam Features:
 * Implement gadget cancel?
 
 Up Next:
-* add intro
 * add game over
-* add music and SFX
 * add means to restart
-* fix enemy spawn bug
 * fine tune config data
 	* increasing difficulty?
 	* FIX scoring
-* Optional: Implement throwing while hologrammed
+* SFX
+* Entering leaderboard
+* Add canMove bool to menus
 
 Bugs:
 * Enemies spawinging outside of the boundaries
+* Shield will sometimes not hold for the proper amount of time
+* bomb not reaching enemies when unplugged
+* text moves to slow when unplugged
+* NPC aiming at hologram is off (maybe move fire up and down between a 32 px range?)
+* See what's going on with the oil ball and freeing when the enemy is already oiled
+* Maybe change the oil animation to look more drippy?

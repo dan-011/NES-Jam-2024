@@ -96,6 +96,7 @@ public partial class GameOpening : CanvasLayer
 		InputHandling();
 		deltaSum += delta;
 		if(backgroundSlide.Frame == 24 && !textFinished && backgroundSlide.IsPlaying()) {
+			if(GameData.Instance.GetCanPlayMusic()) descriptionMusic.Play();
 			backgroundSlide.Pause();
 			textTimer.Start(0.01);
 			startLabel.Visible = true;
@@ -103,8 +104,9 @@ public partial class GameOpening : CanvasLayer
 			timer.Stop();
 		}
 		if(deltaSum >= 0.0167) {
+			delta = deltaSum;			
 			deltaSum = 0;
-			delta = 0.0167f;
+			//delta = 0.0167f;
 			if(sendPlayer) {
 				movement.Update((float)delta);
 				tempPlayer.GlobalPosition = movement.GetPos();
@@ -126,7 +128,7 @@ public partial class GameOpening : CanvasLayer
 
 	public void Play() {
 		backgroundSlide.Play();
-		descriptionMusic.Play();	
+		//if(GameData.Instance.GetCanPlayMusic()) descriptionMusic.Play();	
 	}
 
 	public void InputHandling() {
@@ -228,7 +230,7 @@ public partial class GameOpening : CanvasLayer
 
 	private void OnDescriptionMusicFinished()
 	{
-		descriptionMusic.Play();
+		if(GameData.Instance.GetCanPlayMusic()) descriptionMusic.Play();
 	}
 
 	private AnimatedSprite2D backgroundSlide;

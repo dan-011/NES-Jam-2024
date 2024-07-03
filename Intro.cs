@@ -19,6 +19,8 @@ public partial class Intro : CanvasLayer
 		titleLabel = GetNode<Label>("TitleLabel");
 		titleLabel.AddThemeColorOverride("font_color", new Color("008888"));
 		startLabel = GetNode<Label>("StartLabel");
+		startLabel.Text = "PRESS " + GameData.Instance.GetControllerMapping("Start").ToUpper();
+		//startLabel.GlobalPosition = new Vector2(224 / 2, startLabel.GlobalPosition.Y);
 		blinkThreshold = 0.5f;
 
 		mainMenu = GetNode<MainMenu>("MainMenu");
@@ -28,12 +30,16 @@ public partial class Intro : CanvasLayer
 
 		leaderboardMenu = GetNode<LeaderboardMenu>("LeaderboardMenu");
 		creditsMenu = GetNode<CreditsMenu>("CreditsMenu");
+		settingsMenu = GetNode<SettingsMenu>("SettingsMenu");
+
+		settingsMenu.SetSettingsLabelVisible(false);
 
 		selectOptions = new List<VoidMethod>();
 		selectOptions.Add(StartGame);
 		selectOptions.Add(Leaderboard);
 		selectOptions.Add(Controls);
 		selectOptions.Add(Credits);
+		selectOptions.Add(Settings);
 		selectOptions.Add(ExitGame);
 
 		openMenu = new List<VoidMethod>();
@@ -54,8 +60,13 @@ public partial class Intro : CanvasLayer
 	{
 		if(!Visible) return;
 		deltaSum += delta;
-		if(lightning.Frame == 3 && !titleMusic.Playing) {
-			titleMusic.Play();
+		if(playBackgroundMusic && GameData.Instance.GetCanPlayMusic() != titleMusic.Playing) { // TODO: this might not be necessary
+			if(GameData.Instance.GetCanPlayMusic()) titleMusic.Play();
+			else titleMusic.Stop();
+		}
+		if(lightning.Frame == 4 && !titleMusic.Playing) {
+			if(GameData.Instance.GetCanPlayMusic()) titleMusic.Play();
+			playBackgroundMusic = true;
 		}
 		if(!titleLabel.Visible && lightning.Frame == 10 && person.Animation.Equals("enter")) {
 			titleLabel.Visible = true;
@@ -66,6 +77,7 @@ public partial class Intro : CanvasLayer
 			InputHandling();
 		}
 		if(deltaSum >= 1/25) {
+			delta = deltaSum; // TODO adjust velocity of title
 			deltaSum = 0;
 			if(!finishedIntro && person.Animation.Equals("exit") && titleLabel.GlobalPosition.Y < 75) {
 				Vector2 globalPos = titleLabel.GlobalPosition;
@@ -109,6 +121,7 @@ public partial class Intro : CanvasLayer
 	}
 
 	public void Start() {
+		// titleMusic.Play();
 		startLabel.Visible = false;
 		titleLabel.Visible = false;
 		person.Frame = 0;
@@ -125,7 +138,7 @@ public partial class Intro : CanvasLayer
 	}
 
 	private void InputHandling() {
-		if(Input.IsActionJustPressed("start")) {
+		if(Input.IsActionJustPressed("start") && person.Animation.Equals("enter") && person.Frame == person.SpriteFrames.GetFrameCount("enter")-1) {
 			blinkTimer.Stop();
 			blinkThreshold = 0.1f;
 			blinkTimer.Start(blinkThreshold);
@@ -145,6 +158,7 @@ public partial class Intro : CanvasLayer
 		else if(cycle.Animation.Equals("end")) {
 			GD.Print("Start game");
 			titleMusic.Stop();
+			playBackgroundMusic = false;
 			EmitSignal(SignalName.BeginGame);
 		}
 	}
@@ -219,6 +233,11 @@ public partial class Intro : CanvasLayer
 		GoToMenu();
 	}
 
+	private void Settings() {
+		menuAction = settingsMenu.Open;
+		GoToMenu();
+	}
+
 	private void ExitGame() {
 		GetTree().Quit();
 	}
@@ -248,6 +267,11 @@ public partial class Intro : CanvasLayer
 		ReturnFromMenu();
 	}
 
+	private void OnReturnFromSettings()
+	{
+		settingsMenu.Visible = false;
+		ReturnFromMenu();
+	}
 
 	private void GoToMenu() {
 		shiftTitleToCenter = true;
@@ -289,7 +313,7 @@ public partial class Intro : CanvasLayer
 	
 	private void OnTitleMusicFinished()
 	{
-		titleMusic.Play();
+		if(GameData.Instance.GetCanPlayMusic()) titleMusic.Play();
 	}
 
 	private AnimatedSprite2D cycle;
@@ -317,5 +341,6 @@ public partial class Intro : CanvasLayer
 	private CreditsMenu creditsMenu;
 	private bool startingGame = false;
 	private AudioStreamPlayer titleMusic;
+	private SettingsMenu settingsMenu;
+	private bool playBackgroundMusic = false;
 }
-

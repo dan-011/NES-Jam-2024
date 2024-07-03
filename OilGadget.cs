@@ -22,8 +22,9 @@ public partial class OilGadget : Area2D
 		if(GameData.Instance.GetIsPaused()) return;
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
+			delta = deltaSum;
 			deltaSum = 0;
-			delta = 0.0167f;
+			//delta = 0.0167f;
 			movement.Update((float)delta);
 			Position = movement.GetPos();
 			movement.SetPos(Position);
@@ -39,7 +40,7 @@ public partial class OilGadget : Area2D
 	
 	private void OnAreaEntered(Area2D area)
 	{
-		if(area is NPC) {
+		if(area is NPC && !((area as NPC).IsOiled())) {
 			QueueFree();
 		}
 	}

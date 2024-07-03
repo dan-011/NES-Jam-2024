@@ -90,7 +90,7 @@ namespace General {
 		}
 
 		private void UpdatePos(float dt) {
-			position.X += vel.X * dt;
+			position.X += vel.X * 0.0167f; //dt;
 			if(!isNPC) {
 				if(position.X > startPos.X) position.X += vel.X * dt;
 				else position.X = startPos.X;
@@ -173,6 +173,8 @@ namespace General {
 			controlMapping.Add("Select", "Select");
 			controlMapping.Add("D-Pad", "D-Pad/Joystick");
 			flipAB = false;
+			canPlayMusic = true;
+			canUseRumble = true;
 		}
 
 		public void DecrementHealth(float val) {
@@ -186,6 +188,9 @@ namespace General {
 		}
 		public uint GetScore() {
 			return score;
+		}
+		public void ResetScore() {
+			score = 0;
 		}
 		public Vector2 GetPlayerPos() {
 			return playerPos;
@@ -247,6 +252,11 @@ namespace General {
 		}
 		public int GetSelectedGadget() {
 			return selectedGadget;
+		}
+		public void ResetInventory() {
+			for(int i = 0; i < inventory.Count; i++) {
+				inventory[i] = 0;
+			}
 		}
 
 		public bool CanPress(string menuType, string button) {
@@ -329,6 +339,19 @@ namespace General {
 			}
 		}
 
+		public bool GetCanPlayMusic() {
+			return canPlayMusic;
+		}
+		public void SetCanPlayMusic(bool playMusic) {
+			canPlayMusic = playMusic;
+		}
+		public bool GetCanUseRumble() {
+			return canUseRumble;
+		}
+		public void SetCanUseRumble(bool useRumble) {
+			canUseRumble = useRumble;
+		}
+
 		private float health;
 		private uint score;
 		private Vector2 playerPos;
@@ -341,5 +364,7 @@ namespace General {
 
 		private Tuple<string, string> buttonTracker;
 		bool flipAB;
+		bool canPlayMusic;
+		bool canUseRumble;
 }
 }

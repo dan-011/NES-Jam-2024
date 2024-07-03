@@ -11,11 +11,13 @@ public partial class StartMenu : CanvasLayer
 		generalMenu = GetNode<GeneralMenu>("GeneralMenu");
 		controlsMenu = GetNode<ControlsMenu>("ControlsMenu");
 		gadgetsGuideMenu = GetNode<GadgetsGuideMenu>("GadgetsGuideMenu");
+		settingsMenu = GetNode<SettingsMenu>("SettingsMenu");
 
 		selectOptions = new List<VoidMethod>();
 		selectOptions.Add(Resume);
 		selectOptions.Add(Controls);
 		selectOptions.Add(GadgetsGuide);
+		selectOptions.Add(Settings);
 		selectOptions.Add(ExitGame);
 	}
 
@@ -51,6 +53,11 @@ public partial class StartMenu : CanvasLayer
 		generalMenu.Open();
 	}
 
+	private void OnReturnFromSettings()
+	{
+		settingsMenu.Visible = false;
+		generalMenu.Open();
+	}
 
 	private void Resume() {
 		Input.ActionRelease(GameData.Instance.GetA());
@@ -72,6 +79,11 @@ public partial class StartMenu : CanvasLayer
 		gadgetsGuideMenu.Open();
 	}
 
+	private void Settings() {
+		generalMenu.Visible = false;
+		settingsMenu.Open();
+	}
+
 	private void ExitGame() {
 		GetTree().Quit();
 	}
@@ -79,6 +91,7 @@ public partial class StartMenu : CanvasLayer
 	private GeneralMenu generalMenu;
 	private ControlsMenu controlsMenu;
 	private GadgetsGuideMenu gadgetsGuideMenu;
+	private SettingsMenu settingsMenu;
 	private delegate void VoidMethod();
 	private List<VoidMethod> selectOptions;
 }

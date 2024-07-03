@@ -1,0 +1,742 @@
+[gd_scene load_steps=12 format=3 uid="uid://c7t1ch6vdno0v"]
+
+[ext_resource type="Script" path="res://KeyboardComponent.cs" id="1_0is60"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="1_moj76"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_tejn5"]
+[ext_resource type="Texture2D" uid="uid://bagm1e8vaddev" path="res://Assets/ui/textbox.png" id="3_1vuqk"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_j67h4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7y7qj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1vuqk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8355"]
+atlas = ExtResource("4_j67h4")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ywkq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8355")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kcqom"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_j67h4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f0yrv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_j67h4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bek3q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_j67h4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="KeyboardComponent" type="CanvasLayer"]
+script = ExtResource("1_0is60")
+
+[node name="LabelA" type="Label" parent="."]
+offset_left = 48.0
+offset_top = 64.0
+offset_right = 88.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelB" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 64.0
+offset_right = 103.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelC" type="Label" parent="."]
+offset_left = 78.0
+offset_top = 64.0
+offset_right = 118.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelD" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 64.0
+offset_right = 133.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelE" type="Label" parent="."]
+offset_left = 108.0
+offset_top = 64.0
+offset_right = 148.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "E
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelF" type="Label" parent="."]
+offset_left = 123.0
+offset_top = 64.0
+offset_right = 163.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelG" type="Label" parent="."]
+offset_left = 138.0
+offset_top = 64.0
+offset_right = 178.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "G"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelH" type="Label" parent="."]
+offset_left = 153.0
+offset_top = 64.0
+offset_right = 193.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelI" type="Label" parent="."]
+offset_left = 168.0
+offset_top = 64.0
+offset_right = 208.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "I
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelJ" type="Label" parent="."]
+offset_left = 48.0
+offset_top = 79.0
+offset_right = 88.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "J
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelK" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 79.0
+offset_right = 103.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "K
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelL" type="Label" parent="."]
+offset_left = 78.0
+offset_top = 79.0
+offset_right = 118.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "L"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelM" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 79.0
+offset_right = 133.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "M"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelN" type="Label" parent="."]
+offset_left = 108.0
+offset_top = 79.0
+offset_right = 148.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "N
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelO" type="Label" parent="."]
+offset_left = 123.0
+offset_top = 79.0
+offset_right = 163.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "O"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelP" type="Label" parent="."]
+offset_left = 138.0
+offset_top = 79.0
+offset_right = 178.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelQ" type="Label" parent="."]
+offset_left = 153.0
+offset_top = 79.0
+offset_right = 193.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "Q
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelR" type="Label" parent="."]
+offset_left = 168.0
+offset_top = 79.0
+offset_right = 208.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "R"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelS" type="Label" parent="."]
+offset_left = 48.0
+offset_top = 94.0
+offset_right = 88.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "S
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelT" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 94.0
+offset_right = 103.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "T
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelU" type="Label" parent="."]
+offset_left = 78.0
+offset_top = 94.0
+offset_right = 118.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "U"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelV" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 94.0
+offset_right = 133.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "V"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelW" type="Label" parent="."]
+offset_left = 108.0
+offset_top = 94.0
+offset_right = 148.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelX" type="Label" parent="."]
+offset_left = 123.0
+offset_top = 94.0
+offset_right = 163.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelY" type="Label" parent="."]
+offset_left = 138.0
+offset_top = 94.0
+offset_right = 178.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "Y"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelZ" type="Label" parent="."]
+offset_left = 153.0
+offset_top = 94.0
+offset_right = 193.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "Z
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelCase" type="Label" parent="."]
+offset_left = 62.0
+offset_top = 154.0
+offset_right = 102.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("2_tejn5")
+theme_override_font_sizes/font_size = 8
+text = "lower"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelEnter" type="Label" parent="."]
+offset_left = 152.0
+offset_top = 154.0
+offset_right = 192.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("2_tejn5")
+theme_override_font_sizes/font_size = 8
+text = "ENTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelExcl" type="Label" parent="."]
+offset_left = 47.0
+offset_top = 109.0
+offset_right = 87.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelQues" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 109.0
+offset_right = 103.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelComm" type="Label" parent="."]
+offset_left = 152.0
+offset_top = 124.0
+offset_right = 192.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = ","
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelParenL" type="Label" parent="."]
+offset_left = 47.0
+offset_top = 139.0
+offset_right = 87.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "("
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelParenR" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 139.0
+offset_right = 103.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = ")"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelColon" type="Label" parent="."]
+offset_left = 107.0
+offset_top = 124.0
+offset_right = 147.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = ":"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSColon" type="Label" parent="."]
+offset_left = 122.0
+offset_top = 124.0
+offset_right = 162.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = ";"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSBL" type="Label" parent="."]
+offset_left = 77.0
+offset_top = 139.0
+offset_right = 117.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "["
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSBR" type="Label" parent="."]
+offset_left = 92.0
+offset_top = 139.0
+offset_right = 132.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelDash" type="Label" parent="."]
+offset_left = 138.0
+offset_top = 109.0
+offset_right = 178.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelUScr" type="Label" parent="."]
+offset_left = 153.0
+offset_top = 109.0
+offset_right = 193.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "_"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelFSlsh" type="Label" parent="."]
+offset_left = 109.0
+offset_top = 139.0
+offset_right = 149.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelBSlsh" type="Label" parent="."]
+offset_left = 123.0
+offset_top = 139.0
+offset_right = 163.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "\\"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelPer" type="Label" parent="."]
+offset_left = 137.0
+offset_top = 124.0
+offset_right = 177.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelAmp" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 109.0
+offset_right = 133.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "&"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelDollar" type="Label" parent="."]
+offset_left = 78.0
+offset_top = 109.0
+offset_right = 118.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "$"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelAt" type="Label" parent="."]
+offset_left = 48.0
+offset_top = 124.0
+offset_right = 88.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "@"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelPerc" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 124.0
+offset_right = 103.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelPlus" type="Label" parent="."]
+offset_left = 108.0
+offset_top = 109.0
+offset_right = 148.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelEq" type="Label" parent="."]
+offset_left = 168.0
+offset_top = 109.0
+offset_right = 208.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "="
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelTilde" type="Label" parent="."]
+offset_left = 168.0
+offset_top = 124.0
+offset_right = 208.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "~"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelLBrack" type="Label" parent="."]
+offset_left = 137.0
+offset_top = 139.0
+offset_right = 177.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "<"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelRBrack" type="Label" parent="."]
+offset_left = 152.0
+offset_top = 139.0
+offset_right = 192.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelXor" type="Label" parent="."]
+offset_left = 78.0
+offset_top = 124.0
+offset_right = 118.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "^"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelStar" type="Label" parent="."]
+offset_left = 122.0
+offset_top = 111.0
+offset_right = 162.0
+offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "*"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelOr" type="Label" parent="."]
+offset_left = 92.0
+offset_top = 124.0
+offset_right = 132.0
+offset_bottom = 147.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "|"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSpace1" type="Label" parent="."]
+offset_left = 167.0
+offset_top = 94.0
+offset_right = 207.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSpace2" type="Label" parent="."]
+offset_left = 167.0
+offset_top = 139.0
+offset_right = 207.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Textbox" type="AnimatedSprite2D" parent="."]
+position = Vector2(126, 59)
+sprite_frames = SubResource("SpriteFrames_7y7qj")
+
+[node name="LetterSelect" type="AnimatedSprite2D" parent="."]
+position = Vector2(59, 91)
+sprite_frames = SubResource("SpriteFrames_0ywkq")
+
+[node name="EnterSelect" type="AnimatedSprite2D" parent="."]
+position = Vector2(147, 165)
+sprite_frames = SubResource("SpriteFrames_kcqom")
+
+[node name="CaseSelect" type="AnimatedSprite2D" parent="."]
+position = Vector2(58, 165)
+sprite_frames = SubResource("SpriteFrames_f0yrv")
+
+[node name="Text" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 104.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("1_moj76")
+theme_override_font_sizes/font_size = 8
+text = "word"
+vertical_alignment = 1
+
+[node name="SelectTimer" type="Timer" parent="."]
+
+[node name="LabelBack" type="Label" parent="."]
+offset_left = 107.0
+offset_top = 154.0
+offset_right = 147.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("2_tejn5")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackSelect" type="AnimatedSprite2D" parent="."]
+position = Vector2(107, 165)
+sprite_frames = SubResource("SpriteFrames_bek3q")
+
+[node name="TimerFlicker" type="Timer" parent="."]
+
+[connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]
+[connection signal="timeout" from="TimerFlicker" to="." method="OnTimerFlickerTimeout"]

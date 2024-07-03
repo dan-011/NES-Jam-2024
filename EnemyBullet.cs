@@ -20,8 +20,9 @@ public partial class EnemyBullet : Area2D
 		if(GameData.Instance.GetIsPaused()) return;
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
+			delta = deltaSum;
 			deltaSum = 0;
-			delta = 0.0167f;
+			//delta = 0.0167f;
 			movement.Update((float)delta);
 			GlobalPosition = movement.GetPos();
 			movement.SetPos(GlobalPosition);

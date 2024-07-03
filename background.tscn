@@ -567,6 +567,7 @@ wait_time = 3.0
 [node name="MainGameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_2m3qw")
 
+[connection signal="PlayerDeath" from="PlayerChase" to="." method="OnPlayerDeath"]
 [connection signal="timeout" from="NPCTimer" to="." method="OnNPCTimerTimeout"]
 [connection signal="timeout" from="GadgetSpawnTimer" to="." method="OnGadgetSpawnTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]

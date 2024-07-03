@@ -17,12 +17,14 @@ public partial class GeneralMenu : CanvasLayer
 		selectors.Add(GetNode<AnimatedSprite2D>("ResumeSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("ControlsSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("GadgetsGuideSelector"));
+		selectors.Add(GetNode<AnimatedSprite2D>("SettingsSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("ExitGameSelector"));
 
 		labels = new List<Label>();
 		labels.Add(GetNode<Label>("ResumeLabel"));
 		labels.Add(GetNode<Label>("ControlsLabel"));
 		labels.Add(GetNode<Label>("GadgetsGuideLabel"));
+		labels.Add(GetNode<Label>("SettingsLabel"));
 		labels.Add(GetNode<Label>("ExitGameLabel"));
 
 		for(int i = 0; i < labels.Count; i++) {

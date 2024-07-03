@@ -47,6 +47,22 @@ public partial class LeaderboardMenu : CanvasLayer
 		SetScores();
 	}
 
+	public void CompressedView() {
+		rankings[0].GlobalPosition = new Vector2(50, 70);
+		scores[0].GlobalPosition = new Vector2(166, 70);
+		rankings[1].GlobalPosition = new Vector2(50, 85);
+		scores[1].GlobalPosition = new Vector2(166, 84);
+		rankings[2].GlobalPosition = new Vector2(50, 100);
+		scores[2].GlobalPosition = new Vector2(166, 98);
+		rankings[3].GlobalPosition = new Vector2(50, 115);
+		scores[3].GlobalPosition = new Vector2(166, 112);
+		rankings[4].GlobalPosition = new Vector2(50, 130);
+		scores[4].GlobalPosition = new Vector2(166, 126);
+
+		backLabel.GlobalPosition = new Vector2(180, 173);
+		backSelector.GlobalPosition = new Vector2(175, 177);
+	}
+
 	private void InputHandling() {
 		if(Input.IsActionPressed(GameData.Instance.GetA())) {
 			GoBack(GameData.Instance.GetA());
@@ -78,17 +94,16 @@ public partial class LeaderboardMenu : CanvasLayer
 		string line;
 		int rank = 0;
 		while(rank < scores.Count && (line = fileStream.ReadLine()) != null) {
-			string[] words = line.Split(' ');
+			string[] words = line.Split('}');
 			if(words.Length == 0) break;
 			rankings[rank].Text = (rank+1).ToString() + ".";
-			for(int i = 0; i < words.Length - 1; i++) {
-				rankings[rank].Text += "  " + words[i];
-			}
+			rankings[rank].Text += "  " + words[0];
 			scores[rank].Text = words[words.Length - 1];
 			rankings[rank].Visible = true;
 			scores[rank].Visible = true;
 			rank++;
 		}
+		fileStream.Close();
 	}
 
 	private Label backLabel;

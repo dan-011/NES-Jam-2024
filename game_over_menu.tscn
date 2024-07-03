@@ -1,0 +1,211 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg65p35kgc3xb"]
+
+[ext_resource type="Script" path="res://GameOverMenu.cs" id="1_k5ktp"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_cj3li"]
+[ext_resource type="Script" path="res://GeneralGameOverMenu.cs" id="2_rfccc"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="3_ajtmi"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_7oq2v"]
+[ext_resource type="PackedScene" uid="uid://dpdtafyrjca0" path="res://enter_leaderboard_menu.tscn" id="6_md3tw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_usd01"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7oq2v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_crgta"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7oq2v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_djnh8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7oq2v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sbq1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7oq2v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="GameOverMenu" type="Node2D"]
+script = ExtResource("1_k5ktp")
+
+[node name="WhiteBackground" type="ColorRect" parent="."]
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 65.0
+offset_bottom = 65.0
+scale = Vector2(5.1502, 4.35133)
+color = Color(0.988235, 0.988235, 0.988235, 1)
+
+[node name="BlackBackground" type="ColorRect" parent="."]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 70.0
+offset_bottom = 70.0
+scale = Vector2(4.89997, 4.09991)
+color = Color(0, 0, 0, 1)
+
+[node name="GeneralGameOverMenu" type="Node2D" parent="."]
+script = ExtResource("2_rfccc")
+
+[node name="SelectTimer" type="Timer" parent="GeneralGameOverMenu"]
+
+[node name="GameOverLabel" type="Label" parent="GeneralGameOverMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 56.0
+offset_top = 45.0
+offset_right = 200.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_cj3li")
+theme_override_font_sizes/font_size = 16
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="EnterLeaderboardLabel" type="Label" parent="GeneralGameOverMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = 125.5
+offset_right = 196.0
+offset_bottom = 148.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cj3li")
+theme_override_font_sizes/font_size = 8
+text = "Enter Leaderboard"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RestartLabel" type="Label" parent="GeneralGameOverMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = 140.5
+offset_right = 156.0
+offset_bottom = 163.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_cj3li")
+theme_override_font_sizes/font_size = 8
+text = "Restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MainMenuLabel" type="Label" parent="GeneralGameOverMenu"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 92.0
+offset_top = 155.0
+offset_right = 164.0
+offset_bottom = 178.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_cj3li")
+theme_override_font_sizes/font_size = 8
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitGameLabel" type="Label" parent="GeneralGameOverMenu"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 92.0
+offset_top = 169.0
+offset_right = 164.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_cj3li")
+theme_override_font_sizes/font_size = 8
+text = "Exit Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ScoreLabel" type="Label" parent="GeneralGameOverMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 49.0
+offset_top = 62.0
+offset_right = 257.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.972549, 0.847059, 0.470588, 1)
+theme_override_fonts/font = ExtResource("3_ajtmi")
+theme_override_font_sizes/font_size = 8
+text = "Final Score:  1101"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="EnterLeaderboardSelect" type="AnimatedSprite2D" parent="GeneralGameOverMenu"]
+position = Vector2(55, 137)
+sprite_frames = SubResource("SpriteFrames_usd01")
+
+[node name="RestartSelect" type="AnimatedSprite2D" parent="GeneralGameOverMenu"]
+position = Vector2(95, 152)
+sprite_frames = SubResource("SpriteFrames_crgta")
+
+[node name="MainMenuSelect" type="AnimatedSprite2D" parent="GeneralGameOverMenu"]
+position = Vector2(87, 166)
+sprite_frames = SubResource("SpriteFrames_djnh8")
+
+[node name="ExitGameSelect" type="AnimatedSprite2D" parent="GeneralGameOverMenu"]
+position = Vector2(87, 180)
+sprite_frames = SubResource("SpriteFrames_sbq1c")
+
+[node name="EnterLeaderboardMenu" parent="." instance=ExtResource("6_md3tw")]
+process_mode = 2
+visible = false
+
+[connection signal="SelectOption" from="GeneralGameOverMenu" to="." method="OnMenuOptionSelect"]
+[connection signal="timeout" from="GeneralGameOverMenu/SelectTimer" to="GeneralGameOverMenu" method="OnSelectTimerTimout"]
+[connection signal="Return" from="EnterLeaderboardMenu" to="." method="OnEnterLeaderboardReturn"]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpdtafyrjca0"]
+
+[ext_resource type="Script" path="res://EnterLeaderboardMenu.cs" id="1_0uc6w"]
+[ext_resource type="PackedScene" uid="uid://c7t1ch6vdno0v" path="res://keyboard_component.tscn" id="2_eaiox"]
+[ext_resource type="PackedScene" uid="uid://dvg67kjy5wobf" path="res://leaderboard_menu.tscn" id="3_20vfp"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="4_5chiw"]
+
+[node name="EnterLeaderboardMenu" type="CanvasLayer"]
+script = ExtResource("1_0uc6w")
+
+[node name="KeyboardComponent" parent="." instance=ExtResource("2_eaiox")]
+visible = false
+
+[node name="LeaderboardMenu" parent="." instance=ExtResource("3_20vfp")]
+visible = false
+
+[node name="RankLabel" type="Label" parent="LeaderboardMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.0
+offset_top = 43.0
+offset_right = 33.0
+offset_bottom = 66.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_5chiw")
+theme_override_font_sizes/font_size = 16
+text = "Rank:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="SubmitText" from="KeyboardComponent" to="." method="OnKeyboardSubmit"]
+[connection signal="SelectBack" from="LeaderboardMenu" to="." method="OnReturnFromLeaderboard"]

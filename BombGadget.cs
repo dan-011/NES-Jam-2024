@@ -25,8 +25,9 @@ public partial class BombGadget : Area2D
 		if(animation.Frame == 3) collisionShape.Disabled = false;
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
+			delta = deltaSum;
 			deltaSum = 0;
-			delta = 0.0167f;
+			//delta = 0.0167f;
 			if(animation.Frame == 3 && movement.GetVel().Y != 0) {
 				movement.SetVel(new Vector2(horizontalVel, 0));
 				movement.SetGoalVel(new Vector2(horizontalVel, 0));

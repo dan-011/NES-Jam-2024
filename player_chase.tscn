@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://biabqw11xwmsc"]
+[gd_scene load_steps=119 format=3 uid="uid://biabqw11xwmsc"]
 
 [ext_resource type="Script" path="res://PlayerChase.cs" id="1_etr5o"]
 [ext_resource type="Texture2D" uid="uid://b1o31yrr8ugwm" path="res://Assets/chase/player-down2.png" id="2_l5usi"]
@@ -13,8 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://q8k7qyehpvsg" path="res://Assets/chase/player-hologram-idle.png" id="5_w048s"]
 [ext_resource type="Texture2D" uid="uid://bdtew3k50vxlr" path="res://Assets/chase/player-hologram-up.png" id="6_gj68k"]
 [ext_resource type="PackedScene" uid="uid://d2ki7wh4rm5gu" path="res://shield_gadget.tscn" id="7_fvwc1"]
+[ext_resource type="Texture2D" uid="uid://c617ij28efkgr" path="res://Assets/chase/player-hologram-shield.png" id="8_kyjjc"]
+[ext_resource type="Texture2D" uid="uid://dhn2nc3btnmc4" path="res://Assets/chase/player-hologram-throw.png" id="9_jhr5g"]
 [ext_resource type="PackedScene" uid="uid://i5l3flm6pim" path="res://reactor_gadget.tscn" id="9_wt5ou"]
 [ext_resource type="PackedScene" uid="uid://cya8hymunxm6m" path="res://hologram_gadget.tscn" id="13_od706"]
+[ext_resource type="Texture2D" uid="uid://ceibnxt23bmni" path="res://Assets/gadgets/bullet.png" id="16_f71o7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bg5d"]
 atlas = ExtResource("2_wwrbm")
@@ -219,6 +222,42 @@ region = Rect2(192, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ppr86"]
 atlas = ExtResource("5_w048s")
 region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pmjy"]
+atlas = ExtResource("8_kyjjc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbwdc"]
+atlas = ExtResource("8_kyjjc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byyfi"]
+atlas = ExtResource("8_kyjjc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytn4k"]
+atlas = ExtResource("9_jhr5g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1meu"]
+atlas = ExtResource("9_jhr5g")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yloa"]
+atlas = ExtResource("9_jhr5g")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybqs6"]
+atlas = ExtResource("9_jhr5g")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nps8v"]
+atlas = ExtResource("9_jhr5g")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvo7o"]
+atlas = ExtResource("9_jhr5g")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t74gt"]
 atlas = ExtResource("6_gj68k")
@@ -544,6 +583,43 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4pmjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbwdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byyfi")
+}],
+"loop": true,
+"name": &"hologram-shield",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytn4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1meu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yloa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybqs6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nps8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvo7o")
+}],
+"loop": false,
+"name": &"hologram-throw",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_t74gt")
 }, {
 "duration": 1.0,
@@ -670,6 +746,42 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cacwl"]
 size = Vector2(12, 23)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtd10"]
+atlas = ExtResource("16_f71o7")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3hd8"]
+atlas = ExtResource("16_f71o7")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlebr"]
+atlas = ExtResource("16_f71o7")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xklhq"]
+atlas = ExtResource("16_f71o7")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yja80"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtd10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3hd8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlebr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xklhq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="PlayerChase" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_etr5o")
@@ -677,7 +789,7 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cutkk")
-animation = &"idle"
+animation = &"shield"
 speed_scale = 2.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -693,6 +805,10 @@ visible = false
 
 [node name="HologramGadget" parent="." instance=ExtResource("13_od706")]
 visible = false
+
+[node name="DEBUG" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_yja80")
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

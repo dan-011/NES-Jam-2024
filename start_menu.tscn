@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cdbt38mmdutp3"]
+[gd_scene load_steps=26 format=3 uid="uid://cdbt38mmdutp3"]
 
 [ext_resource type="Script" path="res://StartMenu.cs" id="1_pqbos"]
 [ext_resource type="Script" path="res://GeneralMenu.cs" id="2_2yj8j"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="6_weqif"]
 [ext_resource type="Script" path="res://GadgetsGuideMenu.cs" id="8_5chti"]
 [ext_resource type="Texture2D" uid="uid://chvg3sdtnu7xi" path="res://Assets/gadgets/item-slots.png" id="8_7scja"]
+[ext_resource type="PackedScene" uid="uid://ckmvjqs6s2b06" path="res://settings_menu.tscn" id="10_j6tdn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_awlww"]
 animations = [{
@@ -26,6 +27,21 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_nrnpr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5iki"]
+atlas = ExtResource("4_nrnpr")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqxkn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5iki")
 }],
 "loop": true,
 "name": &"default",
@@ -197,11 +213,23 @@ text = "Gadgets Guide"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SettingsLabel" type="Label" parent="GeneralMenu"]
+offset_left = 64.0
+offset_top = 148.0
+offset_right = 128.0
+offset_bottom = 171.0
+theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
+theme_override_fonts/font = ExtResource("2_n8nly")
+theme_override_font_sizes/font_size = 8
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ExitGameLabel" type="Label" parent="GeneralMenu"]
 offset_left = 60.0
-offset_top = 148.0
+offset_top = 162.0
 offset_right = 132.0
-offset_bottom = 171.0
+offset_bottom = 185.0
 theme_override_colors/font_color = Color(0.737255, 0.737255, 0.737255, 1)
 theme_override_fonts/font = ExtResource("2_n8nly")
 theme_override_font_sizes/font_size = 8
@@ -221,8 +249,12 @@ sprite_frames = SubResource("SpriteFrames_mqmgq")
 position = Vector2(39, 145)
 sprite_frames = SubResource("SpriteFrames_mqmgq")
 
+[node name="SettingsSelector" type="AnimatedSprite2D" parent="GeneralMenu"]
+position = Vector2(59, 159)
+sprite_frames = SubResource("SpriteFrames_nqxkn")
+
 [node name="ExitGameSelector" type="AnimatedSprite2D" parent="GeneralMenu"]
-position = Vector2(55, 159)
+position = Vector2(55, 173)
 sprite_frames = SubResource("SpriteFrames_mqmgq")
 
 [node name="SelectTimer" type="Timer" parent="GeneralMenu"]
@@ -321,8 +353,13 @@ sprite_frames = SubResource("SpriteFrames_bytdo")
 
 [node name="SelectorTimer" type="Timer" parent="GadgetsGuideMenu"]
 
+[node name="SettingsMenu" parent="." instance=ExtResource("10_j6tdn")]
+layer = 2
+visible = false
+
 [connection signal="SelectMenuOption" from="GeneralMenu" to="." method="OnGeneralMenuSelect"]
 [connection signal="timeout" from="GeneralMenu/SelectTimer" to="GeneralMenu" method="OnSelectTimerTimeout"]
 [connection signal="SelectBack" from="ControlsMenu" to="." method="OnReturnFromControls"]
 [connection signal="SelectBack" from="GadgetsGuideMenu" to="." method="OnReturnFromGadgetsGuide"]
 [connection signal="timeout" from="GadgetsGuideMenu/SelectorTimer" to="GadgetsGuideMenu" method="OnSelectorTimerTimeout"]
+[connection signal="BackSelect" from="SettingsMenu" to="." method="OnReturnFromSettings"]

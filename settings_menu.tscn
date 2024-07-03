@@ -1,0 +1,166 @@
+[gd_scene load_steps=19 format=3 uid="uid://ckmvjqs6s2b06"]
+
+[ext_resource type="Script" path="res://SettingsMenu.cs" id="1_dhjyg"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="1_q4ysw"]
+[ext_resource type="Texture2D" uid="uid://ck132p7bsn0md" path="res://Assets/ui/check.png" id="2_d8nx7"]
+[ext_resource type="Texture2D" uid="uid://bsko4g1nwh3sy" path="res://Assets/ui/big-select.png" id="3_k8h36"]
+[ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="4_e2pcg"]
+[ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="5_scou8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m85ud"]
+atlas = ExtResource("2_d8nx7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afxgm"]
+atlas = ExtResource("2_d8nx7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xobkh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m85ud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afxgm")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u880"]
+atlas = ExtResource("2_d8nx7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dry73"]
+atlas = ExtResource("2_d8nx7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_urnfx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u880")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dry73")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyagj"]
+atlas = ExtResource("3_k8h36")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jx2rj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyagj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plmx1"]
+atlas = ExtResource("3_k8h36")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qrwiv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plmx1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uti0w"]
+atlas = ExtResource("5_scou8")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7pyuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uti0w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+script = ExtResource("1_dhjyg")
+
+[node name="MusicLabel" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 81.0
+offset_right = 133.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("1_q4ysw")
+theme_override_font_sizes/font_size = 16
+text = "Music"
+
+[node name="MusicCheck" type="AnimatedSprite2D" parent="."]
+position = Vector2(183, 90)
+sprite_frames = SubResource("SpriteFrames_xobkh")
+
+[node name="RumbleLabel" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 131.0
+offset_right = 147.0
+offset_bottom = 154.0
+theme_override_fonts/font = ExtResource("1_q4ysw")
+theme_override_font_sizes/font_size = 16
+text = "Rumble"
+
+[node name="RumbleCheck" type="AnimatedSprite2D" parent="."]
+position = Vector2(183, 140)
+sprite_frames = SubResource("SpriteFrames_urnfx")
+
+[node name="MusicSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(51, 89)
+sprite_frames = SubResource("SpriteFrames_jx2rj")
+
+[node name="RumbleSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(51, 139)
+sprite_frames = SubResource("SpriteFrames_qrwiv")
+
+[node name="BackLabel" type="Label" parent="."]
+offset_left = 187.0
+offset_top = 179.0
+offset_right = 227.0
+offset_bottom = 202.0
+theme_override_fonts/font = ExtResource("4_e2pcg")
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="BackSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(181, 183)
+sprite_frames = SubResource("SpriteFrames_7pyuq")
+
+[node name="SettingsLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 63.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_e2pcg")
+theme_override_font_sizes/font_size = 16
+text = "SETTINGS
+"
+
+[node name="SelectTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

@@ -17,6 +17,8 @@ public partial class Background : Node
 
 	[Signal]
 	public delegate void GadgetFinishedEventHandler();
+	[Signal]
+	public delegate void GameOverEventHandler();
 	// Called when the node enters the scene tree for the first time.
 	PlayerChase player;
 	AnimatedSprite2D backgroundAnimation;
@@ -53,6 +55,10 @@ public partial class Background : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if(GameData.Instance.GetCanPlayMusic() != mainGameMusic.Playing) {
+			if(mainGameMusic.Playing) mainGameMusic.Stop();
+			else mainGameMusic.Play();
+		}
 		if(GameData.Instance.GetIsPaused()) {
 			backgroundAnimation.Pause();
 		}
@@ -62,10 +68,16 @@ public partial class Background : Node
 		if(Input.IsActionPressed("debug_close")) GetTree().Quit();
 	}
 
+	public void Reset() {
+		ResetTimer(npcTimer, 1);
+		ResetTimer(bubbleTimer, 5);
+		backgroundAnimation.Play();
+		debugBullet.Play();
+	}
 	public void Play() {
 		playerUI.Visible = true;
 		scoreTimer.Start(2);
-		mainGameMusic.Play();
+		if(GameData.Instance.GetCanPlayMusic()) mainGameMusic.Play();
 	}
 
 	private void InputHandling() {
@@ -125,6 +137,14 @@ public partial class Background : Node
 	
 	private void OnMainGameMusicFinished()
 	{
-		mainGameMusic.Play();
+		if(GameData.Instance.GetCanPlayMusic()) mainGameMusic.Play();
 	}
+
+	
+	private void OnPlayerDeath()
+	{
+		playerUI.Visible = false;
+		EmitSignal(SignalName.GameOver);
+	}
+
 }

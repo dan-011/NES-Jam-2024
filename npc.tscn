@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://0714yfj03j0i"]
+[gd_scene load_steps=59 format=3 uid="uid://0714yfj03j0i"]
 
 [ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
 [ext_resource type="PackedScene" uid="uid://biw01lw88mc5c" path="res://enemy_bullet.tscn" id="2_lam11"]
@@ -184,13 +184,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Curve2D" id="Curve2D_6iihy"]
-bake_interval = 0.01
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -96, -75, -22.181, 0.577097, 22.181, -0.577097, -6.99999, 82.7446, -16.9897, 5.77097, 16.9897, -5.77097, 56, -76.2228, -18.8775, 4.03968, 18.8775, -4.03968, 64, 72.962, -17.4617, 0.577097, 17.4617, -0.577097, 78, -77.4457, -15.5739, -4.03968, 15.5739, 4.03968, 90, 75.4076, -19.3494, -15.5816, 19.3494, 15.5816, 100, -77.4457, -9.43874, -0.577097, 9.43874, 0.577097, 106, 75.4076, -9.91068, -2.88549, 9.91068, 2.88549, 115, -73.7772, -8.02293, -2.88549, 8.02293, 2.88549, 121, 75.4076, 0, 0, 0, 0, 130, -87.2283)
-}
-point_count = 11
-
 [sub_resource type="Curve2D" id="Curve2D_4bfog"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -80, -40, 0, 0, 0, 0, -58, -30, 0, 0, 0, 0, -69, -10, 0, 0, 0, 0, -77, 41, 0, 0, 0, 0, -41, 48, 0, 0, 0, 0, -42, 74, 0, 0, 0, 0, -37, 80, 0, 0, 0, 0, -5, 65, 0, 0, 0, 0, 10, 23, 0, 0, 0, 0, -111, -12, 0, 0, 0, 0, -22, -15, 0, 0, 0, 0, -1, 3, 0, 0, 0, 0, 81, 32, 0, 0, 0, 0, 67, 54, 0, 0, 0, 0, -55, 57, 0, 0, 0, 0, -57, 90, 0, 0, 0, 0, -30, 6, 0, 0, 0, 0, -11, 63, 0, 0, 0, 0, 12, 53, 0, 0, 0, 0, 28, -55, 0, 0, 0, 0, 65, -10, 0, 0, 0, 0, 72, 73, 0, 0, 0, 0, -10, 106, 0, 0, 0, 0, -5, 13, 0, 0, 0, 0, -34, 95, 0, 0, 0, 0, -83, 48, 0, 0, 0, 0, -17, 14, 0, 0, 0, 0, -22, -19, 0, 0, 0, 0, 64, 46, 0, 0, 0, 0, 64, 45, 0, 0, 0, 0, 104, 107, 0, 0, 0, 0, 81, 11, 0, 0, 0, 0, -12, 5, 0, 0, 0, 0, -53, 36, 0, 0, 0, 0, 21, 7, 0, 0, 0, 0, 23, 43, 0, 0, 0, 0, 70, 31, 0, 0, 0, 0, -17, 66, 0, 0, 0, 0, -176, 30, 0, 0, 0, 0, -57, -2, 0, 0, 0, 0, 35, 34, 0, 0, 0, 0, 21, 50, 0, 0, 0, 0, -83, 46, 0, 0, 0, 0, -102, 62, 0, 0, 0, 0, 50, 39, 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 63, 2)
@@ -270,6 +263,102 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Curve2D" id="Curve2D_0d0cn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -102, -39, -36.8654, 3.56762, 36.8654, -3.56762, -91, 76, -46.3791, -62.4334, 46.3791, 62.4334, -79, -40)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_r3qry"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -100, 40, -29.1356, 1.78381, 29.1356, -1.78381, -78, -51, -36.2708, 4.16222, 36.2708, -4.16222, -76, 71, 0, 0, 0, 0, -60, 38)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_n5183"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -101, 68, -40.433, 2.37841, 40.433, -2.37841, -76, -46, -42.8115, 74.3254, 42.8115, -74.3254, -64, 68)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_d185u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -96, 39.5092, -22.5949, 14.6827, 22.5949, -14.6827, -66, 77.043, -33.8924, -3.52385, 33.8924, 3.52385, -62, -43, 0, 0, 0, 0, -45, 42.4724)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_e0pjn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -96, -17, -38.6492, 10.7029, 38.6492, -10.7029, -77, 71, -21.4057, 0.594603, 21.4057, -0.594603, -64, -54, 0, 0, 0, 0, -54, -10)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_bxlpt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -90, -35, 0, 0, 0, 0, -72, 82, 0, 0, 0, 0, -58, 42, 0, 0, 0, 0, -42, 28, 0, 0, 0, 0, -38, -14, 0, 0, 0, 0, -33, -2, 0, 0, 0, 0, -35, 7, 0, 0, 0, 0, -13, 48, 0, 0, 0, 0, -20, 71, 0, 0, 0, 0, -25, 87, 0, 0, 0, 0, -51, 74, 0, 0, 0, 0, -47, 9, 0, 0, 0, 0, -61, -21, 0, 0, 0, 0, -38, 86, 0, 0, 0, 0, -47, -20, 0, 0, 0, 0, 2, 30, 0, 0, 0, 0, 16, 91, 0, 0, 0, 0, 1, -39, 0, 0, 0, 0, -3, 60, 0, 0, 0, 0, -17, 62, 0, 0, 0, 0, -22, 83, 0, 0, 0, 0, -39, 43, 0, 0, 0, 0, -26, -20, 0, 0, 0, 0, -22, -36)
+}
+point_count = 24
+
+[sub_resource type="Curve2D" id="Curve2D_e8eet"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -93, 46, 0, 0, 0, 0, -65, 69, 0, 0, 0, 0, -89, 6, 0, 0, 0, 0, -83, 44, 0, 0, 0, 0, -34, 60, 0, 0, 0, 0, -14, 54, 0, 0, 0, 0, -56, 13, 0, 0, 0, 0, -81, -40, 0, 0, 0, 0, -52, 76, 0, 0, 0, 0, -57, 26, 0, 0, 0, 0, -52, -47, 0, 0, 0, 0, -44, 34, 0, 0, 0, 0, -40, 0, 0, 0, 0, 0, -17, 37, 0, 0, 0, 0, 33, -20, 0, 0, 0, 0, -20, -9, 0, 0, 0, 0, -56, -39, 0, 0, 0, 0, -44, 45, 0, 0, 0, 0, -39, 46, 0, 0, 0, 0, -22, 77, 0, 0, 0, 0, -28, -9, 0, 0, 0, 0, -5, -44, 0, 0, 0, 0, -24, -26, 0, 0, 0, 0, -24, -43, 0, 0, 0, 0, -40, -48, 0, 0, 0, 0, -29, 32, 0, 0, 0, 0, 26, -59, 0, 0, 0, 0, 11, 17, 0, 0, 0, 0, 8, 51, 0, 0, 0, 0, 12, 74, 0, 0, 0, 0, 18, 38, 0, 0, 0, 0, 20, 45, 0, 0, 0, 0, 50, 28, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, -6, 63, 0, 0, 0, 0, -7, 25, 0, 0, 0, 0, -8, 48)
+}
+point_count = 37
+
+[sub_resource type="Curve2D" id="Curve2D_s3cpu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -87, 86, 0, 0, 0, 0, -80, 8, 0, 0, 0, 0, -77, 55, 0, 0, 0, 0, -71, 72, 0, 0, 0, 0, -88, 11, 0, 0, 0, 0, -62, 88, 0, 0, 0, 0, -56, 22, 0, 0, 0, 0, -50, 50, 0, 0, 0, 0, -57, -36, 0, 0, 0, 0, -58, 13, 0, 0, 0, 0, -58, 33, 0, 0, 0, 0, -61, 46, 0, 0, 0, 0, -60, 54, 0, 0, 0, 0, -58, 4, 0, 0, 0, 0, -53, 34, 0, 0, 0, 0, -23, 49, 0, 0, 0, 0, -21, 72, 0, 0, 0, 0, -40, 68, 0, 0, 0, 0, -48, 89, 0, 0, 0, 0, -21, 68, 0, 0, 0, 0, -48, 53, 0, 0, 0, 0, -36, -15, 0, 0, 0, 0, 45, 3, 0, 0, 0, 0, -8, 76, 0, 0, 0, 0, -29, -5, 0, 0, 0, 0, -26, -31, 0, 0, 0, 0, -2, 86, 0, 0, 0, 0, -31, 53, 0, 0, 0, 0, 36, 63, 0, 0, 0, 0, 4, 67, 0, 0, 0, 0, 4, 77, 0, 0, 0, 0, -8, 24, 0, 0, 0, 0, -1, -13, 0, 0, 0, 0, 11, 65, 0, 0, 0, 0, 21, -1, 0, 0, 0, 0, 24, 6, 0, 0, 0, 0, 55, -35, 0, 0, 0, 0, 28, -34, 0, 0, 0, 0, 2, -9, 0, 0, 0, 0, 40, 12, 0, 0, 0, 0, 45, 37, 0, 0, 0, 0, 21, 62, 0, 0, 0, 0, 36, 89)
+}
+point_count = 43
+
+[sub_resource type="Curve2D" id="Curve2D_br8ud"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -90, -27, 0, 0, 0, 0, -88, 59, 0, 0, 0, 0, -65, 48, 0, 0, 0, 0, -72, 61, 0, 0, 0, 0, -80, 26, 0, 0, 0, 0, -61, 67, 0, 0, 0, 0, -55, 33, 0, 0, 0, 0, -47, -19, 0, 0, 0, 0, -48, 79, 0, 0, 0, 0, -9, 56, 0, 0, 0, 0, 8, -9, 0, 0, 0, 0, -68, -16, 0, 0, 0, 0, -61, 15, 0, 0, 0, 0, -51, 4, 0, 0, 0, 0, -43, 30, 0, 0, 0, 0, -31, -14, 0, 0, 0, 0, -25, -23, 0, 0, 0, 0, -17, 35, 0, 0, 0, 0, -17, 57, 0, 0, 0, 0, 6, 73, 0, 0, 0, 0, 10, 53, 0, 0, 0, 0, -27, 41, 0, 0, 0, 0, -38, -2, 0, 0, 0, 0, -26, 31, 0, 0, 0, 0, -4, 60, 0, 0, 0, 0, -77, 8, 0, 0, 0, 0, -9, -37, 0, 0, 0, 0, -10, -40, 0, 0, 0, 0, -24, -8, 0, 0, 0, 0, -19, 13, 0, 0, 0, 0, -2, -14, 0, 0, 0, 0, 1, -25, 0, 0, 0, 0, 9, -42, 0, 0, 0, 0, 15, -25)
+}
+point_count = 34
+
+[sub_resource type="Curve2D" id="Curve2D_horwg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -89, 15, 0, 0, 0, 0, -80, 70, 0, 0, 0, 0, -46, 35, 0, 0, 0, 0, -50, 70, 0, 0, 0, 0, -54, 51, 0, 0, 0, 0, -73, 57, 0, 0, 0, 0, -71, 50, 0, 0, 0, 0, -60, 66, 0, 0, 0, 0, -68, -2, 0, 0, 0, 0, -75, 51, 0, 0, 0, 0, -77, 3, 0, 0, 0, 0, -83, 41, 0, 0, 0, 0, -68, -21, 0, 0, 0, 0, -53, 27, 0, 0, 0, 0, -45, -8, 0, 0, 0, 0, -35, 76, 0, 0, 0, 0, -27, 75, 0, 0, 0, 0, -4, 62, 0, 0, 0, 0, -18, 60, 0, 0, 0, 0, -34, 62, 0, 0, 0, 0, -25, -1, 0, 0, 0, 0, -20, -26, 0, 0, 0, 0, -19, 60, 0, 0, 0, 0, -12, -25, 0, 0, 0, 0, -8, -46, 0, 0, 0, 0, 11, 4, 0, 0, 0, 0, 22, -37, 0, 0, 0, 0, 20, 55, 0, 0, 0, 0, 11, 73, 0, 0, 0, 0, -1, 20, 0, 0, 0, 0, -2, 62, 0, 0, 0, 0, 3, 69, 0, 0, 0, 0, -35, -22, 0, 0, 0, 0, 57, -17, 0, 0, 0, 0, 36, 46, 0, 0, 0, 0, 31, -13, 0, 0, 0, 0, 31, -44, 0, 0, 0, 0, -3, -10, 0, 0, 0, 0, 6, 44, 0, 0, 0, 0, 24, 65, 0, 0, 0, 0, 61, 46, 0, 0, 0, 0, 40, -6, 0, 0, 0, 0, 49, 60, 0, 0, 0, 0, 66, 69, 0, 0, 0, 0, 71, 62, 0, 0, 0, 0, 62, 1, 0, 0, 0, 0, 82, 14)
+}
+point_count = 47
+
+[sub_resource type="Curve2D" id="Curve2D_gnqgu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -97, -38, 0, 0, 0, 0, -80, -38)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qk82l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -101, 43, 0, 0, 0, 0, -79, 43)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uxs51"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -102, -1, 0, 0, 0, 0, -81, -1)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_37ktc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -104, 88, 0, 0, 0, 0, -97, 88, 0, 0, 0, 0, -86.25, 87.75, 0, 0, 0, 0, -75, 88)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_5egsk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -101, -22, 0, 0, 0, 0, -83, -22)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_u4b7v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -102, 30, 0, 0, 0, 0, -78, 30)
+}
+point_count = 2
+
 [node name="NPC" type="Area2D"]
 position = Vector2(105, 76)
 collision_layer = 2
@@ -287,16 +376,8 @@ sprite_frames = SubResource("SpriteFrames_76x1d")
 animation = &"death"
 speed_scale = 1.75
 
-[node name="ZigZagPath" type="Path2D" parent="."]
-position = Vector2(-7.62939e-06, 27.3333)
-scale = Vector2(1, 0.817778)
-curve = SubResource("Curve2D_6iihy")
-
-[node name="MobPosition" type="PathFollow2D" parent="ZigZagPath"]
-position = Vector2(-96, -75)
-rotation = 1.05711
-
 [node name="IrradicPathOld" type="Path2D" parent="."]
+visible = false
 position = Vector2(30.0857, 0)
 scale = Vector2(0.710714, 1)
 curve = SubResource("Curve2D_4bfog")
@@ -306,6 +387,7 @@ position = Vector2(-80, -40)
 rotation = 0.426627
 
 [node name="StraightPath" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_8yogv")
 
 [node name="MobPosition" type="PathFollow2D" parent="StraightPath"]
@@ -320,6 +402,7 @@ frame_progress = 1.0
 [node name="FireTimer" type="Timer" parent="."]
 
 [node name="IrradicPath" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_gerhu")
 
 [node name="MobPosition" type="PathFollow2D" parent="IrradicPath"]
@@ -331,6 +414,133 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_jok77")
 
 [node name="WhiteOutDeath" type="Timer" parent="."]
+
+[node name="Path0" type="Path2D" parent="."]
+visible = false
+position = Vector2(31, -20)
+curve = SubResource("Curve2D_0d0cn")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path0"]
+position = Vector2(-102, -39)
+rotation = 1.47543
+
+[node name="Path1" type="Path2D" parent="."]
+visible = false
+position = Vector2(13, -21)
+curve = SubResource("Curve2D_r3qry")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path1"]
+position = Vector2(-100, 40)
+rotation = -1.33359
+
+[node name="Path2" type="Path2D" parent="."]
+position = Vector2(7, -23)
+curve = SubResource("Curve2D_n5183")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2"]
+position = Vector2(-101, 68)
+rotation = -1.35492
+
+[node name="Path3" type="Path2D" parent="."]
+visible = false
+position = Vector2(-2, -25)
+scale = Vector2(1, 1.01242)
+curve = SubResource("Curve2D_d185u")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path3"]
+position = Vector2(-96, 39.5092)
+rotation = 0.896495
+
+[node name="Path4" type="Path2D" parent="."]
+visible = false
+position = Vector2(9, -15)
+curve = SubResource("Curve2D_e0pjn")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path4"]
+position = Vector2(-96, -17)
+rotation = 1.35815
+
+[node name="Path5" type="Path2D" parent="."]
+visible = false
+position = Vector2(4, -28)
+curve = SubResource("Curve2D_bxlpt")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path5"]
+position = Vector2(-90, -35)
+rotation = 1.41815
+
+[node name="Path6" type="Path2D" parent="."]
+visible = false
+position = Vector2(5, -12)
+curve = SubResource("Curve2D_e8eet")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path6"]
+position = Vector2(-93, 46)
+rotation = 0.687671
+
+[node name="Path7" type="Path2D" parent="."]
+visible = false
+position = Vector2(-10, -36)
+curve = SubResource("Curve2D_s3cpu")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path7"]
+position = Vector2(-87, 86)
+rotation = -1.48129
+
+[node name="Path8" type="Path2D" parent="."]
+visible = false
+position = Vector2(5, -24)
+curve = SubResource("Curve2D_br8ud")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path8"]
+position = Vector2(-90, -27)
+rotation = 1.54754
+
+[node name="Path9" type="Path2D" parent="."]
+visible = false
+position = Vector2(0, -19)
+curve = SubResource("Curve2D_horwg")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path9"]
+position = Vector2(-89, 15)
+rotation = 1.4086
+
+[node name="Path10" type="Path2D" parent="."]
+curve = SubResource("Curve2D_gnqgu")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path10"]
+position = Vector2(-97, -38)
+
+[node name="Path11" type="Path2D" parent="."]
+curve = SubResource("Curve2D_qk82l")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path11"]
+position = Vector2(-101, 43)
+
+[node name="Path12" type="Path2D" parent="."]
+curve = SubResource("Curve2D_uxs51")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path12"]
+position = Vector2(-102, -1)
+
+[node name="Path13" type="Path2D" parent="."]
+position = Vector2(4, -79)
+curve = SubResource("Curve2D_37ktc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path13"]
+position = Vector2(-104, 88)
+
+[node name="Path14" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5egsk")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path14"]
+position = Vector2(-101, -22)
+
+[node name="Path15" type="Path2D" parent="."]
+curve = SubResource("Curve2D_u4b7v")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path15"]
+position = Vector2(-102, 30)
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="FireAnimation" to="." method="OnFireAnimationFinished"]

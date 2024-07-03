@@ -8,10 +8,12 @@ public partial class GameRoot : Node
 	public override void _Ready()
 	{
 		GetTree().Paused = true;
+		Input.MouseMode = Input.MouseModeEnum.Hidden;
 		GameData.Instance.SetControls(Input.GetConnectedJoypads().Count > 0 ? Input.GetJoyName(Input.GetConnectedJoypads()[0]) : "");
 		start = GetNode<Intro>("Intro");
 		game = GetNode<Background>("Background");
 		opening = GetNode<GameOpening>("GameOpening");
+		gameOverMenu = GetNode<GameOverMenu>("GameOverMenu");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,8 +37,16 @@ public partial class GameRoot : Node
 		GetTree().Paused = false;
 	}
 	
+	private void OnGameOver()
+	{
+		GD.Print("received game over");
+		gameOverMenu.Open();
+		GetTree().Paused = true;
+	}
+
 
 	private Intro start;
 	private Background game;
 	private GameOpening opening;
+	private GameOverMenu gameOverMenu;
 }

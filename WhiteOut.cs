@@ -22,7 +22,7 @@ public partial class WhiteOut : CanvasLayer
 		if(GameData.Instance.GetIsWhiteOut()) {
 			color.Visible = true;
 			int len = 2;
-			if(Input.GetConnectedJoypads().Count > 0) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 1, len);
+			if(Input.GetConnectedJoypads().Count > 0 && GameData.Instance.GetCanUseRumble()) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 1, len);
 			timer.Start(len);
 		}
 	}
