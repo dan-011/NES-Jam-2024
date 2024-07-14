@@ -10,23 +10,23 @@ public partial class Bubble : Area2D
 	{
 		bubbleAnimation = GetNode<AnimatedSprite2D>("CompositeSprites/Bubble");
 		bubbleAnimation.Animation = "bubble";
-		chooseGadget = Math.Abs((int)GD.Randi()) % (GetNode<Node2D>("CompositeSprites").GetChildCount() - 1);
-		List<string> gadgets = new List<string>();
-		gadgets.Add("CompositeSprites/SmokeBomb");
-		gadgets.Add("CompositeSprites/Shield");
-		gadgets.Add("CompositeSprites/Reactor");
-		gadgets.Add("CompositeSprites/Oil");
-		gadgets.Add("CompositeSprites/Hologram");
-		gadgetAnimation = GetNode<AnimatedSprite2D>(gadgets[chooseGadget]);
+		gadgetAnimation = GetNode<AnimatedSprite2D>("CompositeSprites/Item");
+		chooseGadget = Math.Abs((int)GD.Randi()) % gadgetAnimation.SpriteFrames.GetFrameCount("default");
+		gadgetAnimation.Frame = chooseGadget;
+		//if(tutorialGadgetCount == 0 && doingTutorial) chooseGadget = 1;
+		//else if(tutorialGadgetCount == 1 && doingTutorial) chooseGadget = 0;
 		gadgetAnimation.Visible = true;
 
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+		popSound = GetNode<AudioStreamPlayer>("PopSound");
 
 		label = GetNode<Label>("Label");
 		amount = (Math.Abs((int)GD.Randi()) % 5) + 1;
 		label.Text = amount.ToString();
+
+		int yPos = (Math.Abs((int)GD.Randi()) % 180) + 32;
 		
-		Position = new Vector2(256, (Math.Abs((int)GD.Randi()) % 185) + 32);
+		Position = new Vector2(256, yPos);
 
 		movement = new CharacterMovement(Position, _isNPC: true);
 		float startXVel = -1 * ((Math.Abs((int)GD.Randi()) % 50) + 20);
@@ -37,8 +37,12 @@ public partial class Bubble : Area2D
 		movement.SetGoalVel(startVel);
 		movement.SetVel(startVel);
 
-		gadgetAnimation.Play();
 		bubbleAnimation.Play();
+	}
+
+	public void SetCustomItem(int item) {
+		chooseGadget = item;
+		gadgetAnimation.Frame = chooseGadget;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,6 +78,7 @@ public partial class Bubble : Area2D
 			label.Visible = false;
 			bubbleAnimation.Stop();
 			bubbleAnimation.Play("pop");
+			if(GameData.Instance.GetCanPlaySFX()) popSound.Play();
 			if(GameData.Instance.GetTotalItems() == 0) GameData.Instance.SetSelectedGadget(chooseGadget);
 			GameData.Instance.AddToInventory(chooseGadget, (uint)amount);
 		}
@@ -94,4 +99,5 @@ public partial class Bubble : Area2D
 	private double deltaSum = 0;
 	private int amount;
 	private int chooseGadget;
+	private AudioStreamPlayer popSound;
 }

@@ -24,6 +24,10 @@ public partial class EnterLeaderboardMenu : CanvasLayer
 		else keyboard.Open();
 	}
 
+	public void Reset() {
+		enteredLeaderboard = false;
+	}
+
 	public void Close() {
 		leaderboardMenu.Visible = false;
 		keyboard.Visible = false;
@@ -37,7 +41,7 @@ public partial class EnterLeaderboardMenu : CanvasLayer
 	
 	private void OnKeyboardSubmit(string text)
 	{
-		StreamReader readStream = new StreamReader("Leaderboard.txt");
+		StreamReader readStream = new StreamReader(GameData.Instance.GetLeaderboardFilePath());
 		string line;
 		List<Tuple<string, int>> scores = new List<Tuple<string, int>>();
 		while((line = readStream.ReadLine()) != null) {
@@ -51,7 +55,7 @@ public partial class EnterLeaderboardMenu : CanvasLayer
 
 		int rank = 0;
 
-		StreamWriter writeStream = new StreamWriter("Leaderboard.txt", false);
+		StreamWriter writeStream = new StreamWriter(GameData.Instance.GetLeaderboardFilePath(), false);
 		foreach(var score in scores) {
 			rank++;
 			if(rank > 0 && score.Item1.Equals(text) && score.Item2 == GameData.Instance.GetScore()) {
@@ -75,6 +79,6 @@ public partial class EnterLeaderboardMenu : CanvasLayer
 
 	private KeyboardComponent keyboard;
 	private LeaderboardMenu leaderboardMenu;
-	private bool enteredLeaderboard = false;
+	private bool enteredLeaderboard;
 	private Label rankLabel;
 }

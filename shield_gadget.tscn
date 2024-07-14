@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://d2ki7wh4rm5gu"]
+[gd_scene load_steps=27 format=3 uid="uid://d2ki7wh4rm5gu"]
 
 [ext_resource type="Script" path="res://ShieldGadget.cs" id="1_7nre6"]
 [ext_resource type="Texture2D" uid="uid://bv0n8mmqca8lq" path="res://Assets/gadgets/shield.png" id="1_wdm32"]
+[ext_resource type="AudioStream" uid="uid://ol5f0a7kukmm" path="res://Assets/sfx/Shield.wav" id="3_1ytgx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l4e4d"]
 atlas = ExtResource("1_wdm32")
@@ -184,5 +185,10 @@ shape = SubResource("CapsuleShape2D_708an")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="ShieldSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1ytgx")
+volume_db = 18.378
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnSheildAnimationFinished"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="finished" from="ShieldSound" to="." method="OnShieldSoundFinished"]

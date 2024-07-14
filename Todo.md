@@ -50,20 +50,16 @@ Post-Jam Features:
 * Implement gadget cancel?
 
 Up Next:
-* add game over
-* add means to restart
 * fine tune config data
 	* increasing difficulty?
-	* FIX scoring
+		> Shorter time in between enemy spawns
+		> higher bullet velocity
+		> higher npc velocity
+		> Longer time between bubble spawns
 * SFX
-* Entering leaderboard
-* Add canMove bool to menus
+* Make sure adding "1" to the player chase collision mask doesn't cause any problems
+	> Check with the npcs
 
 Bugs:
-* Enemies spawinging outside of the boundaries
-* Shield will sometimes not hold for the proper amount of time
-* bomb not reaching enemies when unplugged
-* text moves to slow when unplugged
-* NPC aiming at hologram is off (maybe move fire up and down between a 32 px range?)
-* See what's going on with the oil ball and freeing when the enemy is already oiled
-* Maybe change the oil animation to look more drippy?
+* hologram then boost, then when hologram dies you're stuck boosting in invisible modes
+* Fine tune menu tick sound

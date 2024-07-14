@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://do8sprmqepf0p"]
+[gd_scene load_steps=86 format=3 uid="uid://do8sprmqepf0p"]
 
 [ext_resource type="Script" path="res://Background.cs" id="1_0cqdy"]
 [ext_resource type="PackedScene" uid="uid://biabqw11xwmsc" path="res://player_chase.tscn" id="2_dk55d"]
@@ -13,6 +13,8 @@
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="10_djj8e"]
 [ext_resource type="PackedScene" uid="uid://cdbt38mmdutp3" path="res://start_menu.tscn" id="11_evyql"]
 [ext_resource type="AudioStream" uid="uid://cfcncn0e6al4i" path="res://Assets/music/track_1.wav" id="13_2m3qw"]
+[ext_resource type="Script" path="res://TutorialDialog.cs" id="14_0ln85"]
+[ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="14_dle5a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig03e"]
 atlas = ExtResource("3_sb46y")
@@ -567,8 +569,66 @@ wait_time = 3.0
 [node name="MainGameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_2m3qw")
 
+[node name="TutorialTimer" type="Timer" parent="."]
+
+[node name="TutorialDialog" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+script = ExtResource("14_0ln85")
+
+[node name="BehindDialog" type="ColorRect" parent="TutorialDialog"]
+offset_left = 7.0
+offset_top = 133.0
+offset_right = 250.0
+offset_bottom = 203.0
+color = Color(0.988235, 0.988235, 0.988235, 1)
+
+[node name="DialogBlock" type="ColorRect" parent="TutorialDialog"]
+offset_left = 10.0
+offset_top = 136.0
+offset_right = 247.0
+offset_bottom = 200.0
+color = Color(0, 0, 0, 1)
+
+[node name="DialogText" type="Label" parent="TutorialDialog"]
+offset_left = 16.0
+offset_top = 140.0
+offset_right = 212.0
+offset_bottom = 163.0
+theme_override_fonts/font = ExtResource("14_dle5a")
+theme_override_font_sizes/font_size = 8
+text = "Use the D-Pad to move up and down"
+vertical_alignment = 1
+
+[node name="ALabel" type="Label" parent="TutorialDialog"]
+offset_left = 93.0
+offset_top = 167.0
+offset_right = 245.0
+offset_bottom = 190.0
+theme_override_fonts/font = ExtResource("10_djj8e")
+theme_override_font_sizes/font_size = 8
+text = "Press A to continue"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StartLabel" type="Label" parent="TutorialDialog"]
+offset_left = 21.0
+offset_top = 181.0
+offset_right = 245.0
+offset_bottom = 204.0
+theme_override_fonts/font = ExtResource("10_djj8e")
+theme_override_font_sizes/font_size = 8
+text = "Press Start to skip tutorial"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="ContinueTutorial" from="PlayerChase" to="." method="OnPlayerContinueTutorial"]
 [connection signal="PlayerDeath" from="PlayerChase" to="." method="OnPlayerDeath"]
 [connection signal="timeout" from="NPCTimer" to="." method="OnNPCTimerTimeout"]
 [connection signal="timeout" from="GadgetSpawnTimer" to="." method="OnGadgetSpawnTimerTimeout"]
+[connection signal="StartMainMenu" from="StartMenu" to="." method="OnStartMenuMainMenu"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="finished" from="MainGameMusic" to="." method="OnMainGameMusicFinished"]
+[connection signal="timeout" from="TutorialTimer" to="." method="OnTutorialTimerTimeout"]
+[connection signal="ContinueTutorial" from="TutorialDialog" to="." method="OnContinueTutorial"]
+[connection signal="SkipTutorial" from="TutorialDialog" to="." method="OnSkipTutorial"]

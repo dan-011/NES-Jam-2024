@@ -24,6 +24,7 @@ public partial class GeneralGameOverMenu : Node2D
 
 		scoreLabel = GetNode<Label>("ScoreLabel");
 		selectTimer = GetNode<Timer>("SelectTimer");
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
 
 		cur = 0;
 	}
@@ -52,6 +53,7 @@ public partial class GeneralGameOverMenu : Node2D
 	private void InputHandling() {
 		if(Input.IsActionPressed("move_up")) {
 			Input.ActionRelease("move_up");
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			ToggleSelect(cur);
 			cur--;
 			if(cur < 0) cur = labels.Count - 1;
@@ -59,12 +61,14 @@ public partial class GeneralGameOverMenu : Node2D
 		}
 		if(Input.IsActionPressed("move_down")) {
 			Input.ActionRelease("move_down");
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			ToggleSelect(cur);
 			cur = (cur + 1) % labels.Count;
 			ToggleSelect(cur);
 		}
 		if(Input.IsActionPressed(GameData.Instance.GetA())) {
 			Input.ActionRelease(GameData.Instance.GetA());
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			ToggleSelect(cur);
 			selectTimer.Start(0.1);
 			canMove = false;
@@ -81,8 +85,11 @@ public partial class GeneralGameOverMenu : Node2D
 	{
 		selectTimer.Stop();
 		canMove = true;
-		GD.Print("Emit signal");
 		EmitSignal(SignalName.SelectOption, cur);
+	}
+
+	public void SetSelection(int selection) {
+		cur = selection;
 	}
 
 	private List<Label> labels;
@@ -91,4 +98,5 @@ public partial class GeneralGameOverMenu : Node2D
 	private int cur;
 	private Timer selectTimer;
 	bool canMove;
+	private AudioStreamPlayer menuTick;
 }

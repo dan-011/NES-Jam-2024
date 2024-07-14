@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bmybtl343xrrl"]
+[gd_scene load_steps=28 format=3 uid="uid://bmybtl343xrrl"]
 
 [ext_resource type="Texture2D" uid="uid://cwrng0fm13olh" path="res://Assets/gadgets/bubble.png" id="1_wab36"]
 [ext_resource type="Script" path="res://Bubble.cs" id="1_xbmvo"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dfkiia5hdkswd" path="res://Assets/gadgets/reactor.png" id="4_22bam"]
 [ext_resource type="Texture2D" uid="uid://jrr28ldnq0bo" path="res://Assets/gadgets/hologram-symbol.png" id="5_xqnpg"]
 [ext_resource type="Texture2D" uid="uid://cdehmb7bltxtk" path="res://Assets/gadgets/oil.png" id="6_r3n2q"]
+[ext_resource type="Texture2D" uid="uid://b1kaebf8ob1dr" path="res://Assets/gadgets/reactor-centered.png" id="7_rbxpl"]
+[ext_resource type="AudioStream" uid="uid://d3jlexbgf2tx8" path="res://Assets/sfx/ItemGet.wav" id="10_man3r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqnqi"]
 atlas = ExtResource("2_j41tb")
@@ -73,6 +75,29 @@ animations = [{
 "texture": SubResource("AtlasTexture_ooi5c")
 }],
 "loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mrfjc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqnqi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kuof4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rbxpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ooi5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xqnpg")
+}],
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
@@ -159,6 +184,9 @@ sprite_frames = SubResource("SpriteFrames_0eip0")
 visible = false
 sprite_frames = SubResource("SpriteFrames_lxeeq")
 
+[node name="Item" type="AnimatedSprite2D" parent="CompositeSprites"]
+sprite_frames = SubResource("SpriteFrames_mrfjc")
+
 [node name="Bubble" type="AnimatedSprite2D" parent="CompositeSprites"]
 sprite_frames = SubResource("SpriteFrames_0v33t")
 animation = &"bubble"
@@ -174,6 +202,10 @@ offset_right = 11.0
 offset_bottom = 11.0
 theme_override_fonts/font = ExtResource("4_2mxhv")
 theme_override_font_sizes/font_size = 8
+
+[node name="PopSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_man3r")
+volume_db = 7.496
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="CompositeSprites/Bubble" to="." method="OnBubbleAnimationFinished"]

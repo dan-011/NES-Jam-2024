@@ -27,26 +27,14 @@ public partial class EnemyBullet : Area2D
 			GlobalPosition = movement.GetPos();
 			movement.SetPos(GlobalPosition);
 		}
-		// GD.Print(movement.GetVel());
 	}
 
 	public void SetPoints(Vector2 start, Vector2 end, bool isOiled) {
-		Vector2 vel;
-		float scale = 100f;
-		if(isOiled) {
-			vel = new Vector2(scale, 0);
-		}
-		else {
-			vel = new Vector2(end.X - start.X, end.Y - start.Y);
-			float norm = (float)Math.Sqrt((vel.X * vel.X) + (vel.Y * vel.Y));
-			vel.X *= scale/norm;
-			vel.Y *= scale/norm;
-		}
+		float scale = GameData.Instance.GetLevelData().GetBulletVelScale();
+		if(isOiled) end = new Vector2(start.X + 1, start.Y);
+		movement.AnimateToPoint(start, end, scale, false);
 
 		GlobalPosition = start;
-		movement.SetPos(GlobalPosition);
-		movement.SetGoalVel(vel);
-		movement.SetVel(vel);
 	}
 
 	private void CheckBounds() {
@@ -59,7 +47,7 @@ public partial class EnemyBullet : Area2D
 			QueueFree();
 		}
 		else if(area is PlayerChase) {
-			if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsWhiteOut()) GameData.Instance.DecrementHealth(7);
+			if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsWhiteOut()) GameData.Instance.DecrementHealth(GameData.Instance.GetLevelData().GetBulletDamage());
 			QueueFree();
 		}
 	}

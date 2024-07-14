@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public partial class StartMenu : CanvasLayer
 {
+	[Signal]
+	public delegate void StartMainMenuEventHandler();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -18,6 +20,7 @@ public partial class StartMenu : CanvasLayer
 		selectOptions.Add(Controls);
 		selectOptions.Add(GadgetsGuide);
 		selectOptions.Add(Settings);
+		selectOptions.Add(MainMenu);
 		selectOptions.Add(ExitGame);
 	}
 
@@ -27,7 +30,6 @@ public partial class StartMenu : CanvasLayer
 	}
 
 	public void Open() {
-		GD.Print("open");
 		GameData.Instance.PauseAction();
 		Visible = true;
 		generalMenu.Open();
@@ -41,14 +43,12 @@ public partial class StartMenu : CanvasLayer
 		
 	private void OnReturnFromControls()
 	{
-		GD.Print("return from controls");
 		controlsMenu.Visible = false;
 		generalMenu.Open();
 	}
 
 	private void OnReturnFromGadgetsGuide()
 	{
-		GD.Print("return from gadgets guide");
 		gadgetsGuideMenu.Visible = false;
 		generalMenu.Open();
 	}
@@ -62,6 +62,7 @@ public partial class StartMenu : CanvasLayer
 	private void Resume() {
 		Input.ActionRelease(GameData.Instance.GetA());
 		Visible = false;
+		generalMenu.SetSelectPosition(0);
 		generalMenu.Visible = false;
 		GameData.Instance.PlayAction();
 		GetTree().Paused = false;
@@ -70,8 +71,6 @@ public partial class StartMenu : CanvasLayer
 	private void Controls() {
 		generalMenu.Visible = false;
 		controlsMenu.Open();
-		GD.Print("general menu ", generalMenu.Visible);
-		GD.Print("controls menu ", controlsMenu.Visible);
 	}
 
 	private void GadgetsGuide() {
@@ -82,6 +81,11 @@ public partial class StartMenu : CanvasLayer
 	private void Settings() {
 		generalMenu.Visible = false;
 		settingsMenu.Open();
+	}
+
+	private void MainMenu() {
+		Resume();
+		EmitSignal(SignalName.StartMainMenu);
 	}
 
 	private void ExitGame() {

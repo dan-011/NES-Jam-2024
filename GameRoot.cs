@@ -7,6 +7,7 @@ public partial class GameRoot : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Seed((ulong)Math.Floor(Time.GetUnixTimeFromSystem()));
 		GetTree().Paused = true;
 		Input.MouseMode = Input.MouseModeEnum.Hidden;
 		GameData.Instance.SetControls(Input.GetConnectedJoypads().Count > 0 ? Input.GetJoyName(Input.GetConnectedJoypads()[0]) : "");
@@ -14,6 +15,8 @@ public partial class GameRoot : Node
 		game = GetNode<Background>("Background");
 		opening = GetNode<GameOpening>("GameOpening");
 		gameOverMenu = GetNode<GameOverMenu>("GameOverMenu");
+
+		start.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,7 +27,6 @@ public partial class GameRoot : Node
 	private void OnBeginGame()
 	{
 		start.Visible = false;
-		opening.Visible = true;
 		opening.Play();
 	}
 
@@ -39,11 +41,25 @@ public partial class GameRoot : Node
 	
 	private void OnGameOver()
 	{
-		GD.Print("received game over");
 		gameOverMenu.Open();
 		GetTree().Paused = true;
+	}	
+
+	private void OnGameOverMainMenu()
+	{
+		GetTree().Paused = true;
+		start.Start();
 	}
 
+	private void OnGameOverRestartSelect()
+	{
+		OnGameOpeningEnded();
+	}
+	
+	private void OnMainMenuFromStart()
+	{
+		OnGameOverMainMenu();
+	}
 
 	private Intro start;
 	private Background game;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg65p35kgc3xb"]
+[gd_scene load_steps=14 format=3 uid="uid://dg65p35kgc3xb"]
 
 [ext_resource type="Script" path="res://GameOverMenu.cs" id="1_k5ktp"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_cj3li"]
@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="3_ajtmi"]
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_7oq2v"]
 [ext_resource type="PackedScene" uid="uid://dpdtafyrjca0" path="res://enter_leaderboard_menu.tscn" id="6_md3tw"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="6_nu8tu"]
+[ext_resource type="Texture2D" uid="uid://dii34yekyoco4" path="res://Assets/ui/skull.png" id="7_rqkjk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_usd01"]
 animations = [{
@@ -45,6 +47,17 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_7oq2v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nn1ao"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_rqkjk")
 }],
 "loop": true,
 "name": &"default",
@@ -201,6 +214,14 @@ sprite_frames = SubResource("SpriteFrames_djnh8")
 [node name="ExitGameSelect" type="AnimatedSprite2D" parent="GeneralGameOverMenu"]
 position = Vector2(87, 180)
 sprite_frames = SubResource("SpriteFrames_sbq1c")
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="GeneralGameOverMenu"]
+stream = ExtResource("6_nu8tu")
+volume_db = 4.0
+
+[node name="Skull" type="AnimatedSprite2D" parent="GeneralGameOverMenu"]
+position = Vector2(128, 104)
+sprite_frames = SubResource("SpriteFrames_nn1ao")
 
 [node name="EnterLeaderboardMenu" parent="." instance=ExtResource("6_md3tw")]
 process_mode = 2

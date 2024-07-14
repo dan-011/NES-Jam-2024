@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvg67kjy5wobf"]
+[gd_scene load_steps=7 format=3 uid="uid://dvg67kjy5wobf"]
 
 [ext_resource type="Script" path="res://LeaderboardMenu.cs" id="1_602eq"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_5xsm3"]
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="3_60387"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="4_pe1vm"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="5_7ri0v"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7ypkq"]
 animations = [{
@@ -150,5 +151,9 @@ theme_override_font_sizes/font_size = 8
 text = "28928"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7ri0v")
+volume_db = 4.0
 
 [connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

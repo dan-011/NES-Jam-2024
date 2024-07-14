@@ -23,4 +23,7 @@ z_index = 1
 
 [connection signal="BeginGame" from="Intro" to="." method="OnBeginGame"]
 [connection signal="GameOpeningEnded" from="GameOpening" to="." method="OnGameOpeningEnded"]
+[connection signal="MainMenuSelect" from="GameOverMenu" to="." method="OnGameOverMainMenu"]
+[connection signal="RestartSelect" from="GameOverMenu" to="." method="OnGameOverRestartSelect"]
 [connection signal="GameOver" from="Background" to="." method="OnGameOver"]
+[connection signal="MainMenuFromStart" from="Background" to="." method="OnMainMenuFromStart"]

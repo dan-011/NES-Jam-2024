@@ -12,31 +12,36 @@ public partial class SettingsMenu : CanvasLayer
 	{
 		labels = new List<Label>();
 		labels.Add(GetNode<Label>("MusicLabel"));
+		labels.Add(GetNode<Label>("SFXLabel"));
 		labels.Add(GetNode<Label>("RumbleLabel"));
 		labels.Add(GetNode<Label>("BackLabel"));
 
 		selectors = new List<AnimatedSprite2D>();
 		selectors.Add(GetNode<AnimatedSprite2D>("MusicSelector"));
+		selectors.Add(GetNode<AnimatedSprite2D>("SFXSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("RumbleSelector"));
 		selectors.Add(GetNode<AnimatedSprite2D>("BackSelector"));
 
 		checkboxes = new List<AnimatedSprite2D>();
 		checkboxes.Add(GetNode<AnimatedSprite2D>("MusicCheck"));
+		checkboxes.Add(GetNode<AnimatedSprite2D>("SFXCheck"));
 		checkboxes.Add(GetNode<AnimatedSprite2D>("RumbleCheck"));
 
 		selectOptions = new List<VoidMethod>();
 		selectOptions.Add(CheckMusic);
+		selectOptions.Add(CheckSFX);
 		selectOptions.Add(CheckRumble);
 		selectOptions.Add(Back);
 
 		selectTimer = GetNode<Timer>("SelectTimer");
 		settingsLabel = GetNode<Label>("SettingsLabel");
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Visible) {
+		if(Visible && canSelect) {
 			InputHandling();
 		}
 	}
@@ -48,7 +53,8 @@ public partial class SettingsMenu : CanvasLayer
 		}
 
 		checkboxes[0].Frame = GameData.Instance.GetCanPlayMusic() ? 1 : 0;
-		checkboxes[1].Frame = GameData.Instance.GetCanUseRumble() ? 1 : 0;
+		checkboxes[1].Frame = GameData.Instance.GetCanPlaySFX() ? 1 : 0;
+		checkboxes[2].Frame = GameData.Instance.GetCanUseRumble() ? 1 : 0;
 
 		selection = 0;
 		canSelect = true;
@@ -61,27 +67,32 @@ public partial class SettingsMenu : CanvasLayer
 	}
 
 	private void InputHandling() {
-		if(canSelect) {
-			if(Input.IsActionPressed("move_up")) {
-				Input.ActionRelease("move_up");
-				ToggleSelection(selection);
-				selection--;
-				if(selection < 0) selection = labels.Count - 1;
-				ToggleSelection(selection);
-			}
-			if(Input.IsActionPressed("move_down")) {
-				Input.ActionRelease("move_down");
-				ToggleSelection(selection);
-				selection = (selection + 1) % labels.Count;
-				ToggleSelection(selection);
-			}
-			if(Input.IsActionPressed(GameData.Instance.GetA())) {
-				GD.Print("select");
-				Input.ActionRelease(GameData.Instance.GetA());
-				ToggleSelection(selection);
-				selectTimer.Start(0.1);
-				canSelect = false;
-			}
+		if(Input.IsActionPressed("move_up")) {
+			Input.ActionRelease("move_up");
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
+			ToggleSelection(selection);
+			selection--;
+			if(selection < 0) selection = labels.Count - 1;
+			ToggleSelection(selection);
+		}
+		if(Input.IsActionPressed("move_down")) {
+			Input.ActionRelease("move_down");
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
+			ToggleSelection(selection);
+			selection = (selection + 1) % labels.Count;
+			ToggleSelection(selection);
+		}
+		if(Input.IsActionPressed(GameData.Instance.GetA())) {
+			Input.ActionRelease(GameData.Instance.GetA());
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
+			ToggleSelection(selection);
+			selectTimer.Start(0.1);
+			canSelect = false;
+		}
+		if(Input.IsActionPressed(GameData.Instance.GetB())) {
+			Input.ActionRelease(GameData.Instance.GetB());
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
+			Back();
 		}
 	}
 
@@ -102,6 +113,12 @@ public partial class SettingsMenu : CanvasLayer
 	private void CheckMusic() {
 		checkboxes[selection].Frame = (checkboxes[selection].Frame + 1) % 2;
 		GameData.Instance.SetCanPlayMusic(!GameData.Instance.GetCanPlayMusic());
+		ToggleSelection(selection);
+	}
+
+	private void CheckSFX() {
+		checkboxes[selection].Frame = (checkboxes[selection].Frame + 1) % 2;
+		GameData.Instance.SetCanPlaySFX(!GameData.Instance.GetCanPlaySFX());
 		ToggleSelection(selection);
 	}
 
@@ -133,4 +150,5 @@ public partial class SettingsMenu : CanvasLayer
 	private Timer selectTimer;
 	private bool canSelect;
 	private Label settingsLabel;
+	private AudioStreamPlayer menuTick;
 }

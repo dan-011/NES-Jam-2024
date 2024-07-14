@@ -14,6 +14,7 @@ public partial class BombGadget : Area2D
 		collisionShape.Disabled = true;
 		movement.SetGoalVel(new Vector2(horizontalVel, 50));
 		movement.SetVel(new Vector2(horizontalVel, 0));
+		bombSound = GetNode<AudioStreamPlayer>("BombSound");
 
 		animation.Frame = 0;
 	}
@@ -29,6 +30,7 @@ public partial class BombGadget : Area2D
 			deltaSum = 0;
 			//delta = 0.0167f;
 			if(animation.Frame == 3 && movement.GetVel().Y != 0) {
+				if(!bombSound.Playing && GameData.Instance.GetCanPlaySFX()) bombSound.Play();
 				movement.SetVel(new Vector2(horizontalVel, 0));
 				movement.SetGoalVel(new Vector2(horizontalVel, 0));
 			}
@@ -55,6 +57,7 @@ public partial class BombGadget : Area2D
 	private AnimatedSprite2D animation;
 	private CharacterMovement movement;
 	private CollisionShape2D collisionShape;
+	private AudioStreamPlayer bombSound;
 	private float horizontalVel = -135f;
 	double deltaSum = 0;
 }

@@ -29,13 +29,13 @@ public partial class ControlsMenu : CanvasLayer
 		labels.Add(dPadLabel);
 
 		GameData.Instance.SetControls(Input.GetConnectedJoypads().Count > 0 ? Input.GetJoyName(Input.GetConnectedJoypads()[0]) : "");
-		if(Input.GetConnectedJoypads().Count > 0) GD.Print(Input.GetJoyName(Input.GetConnectedJoypads()[0]));
+		// if(Input.GetConnectedJoypads().Count > 0) GD.Print(Input.GetJoyName(Input.GetConnectedJoypads()[0]));
 		aLabel.Text = GameData.Instance.GetControllerMapping("A") + ":  Use  gadget";
 		bLabel.Text = GameData.Instance.GetControllerMapping("B") + ":  Boost  forward";
 		startLabel.Text = GameData.Instance.GetControllerMapping("Start") + ":  Open  menu";
 		selectLabel.Text = GameData.Instance.GetControllerMapping("Select") + ":  Change gadget";
 		dPadLabel.Text = GameData.Instance.GetControllerMapping("D-Pad") + ":  Move  player";
-
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,9 +54,11 @@ public partial class ControlsMenu : CanvasLayer
 
 	private void InputHandling() {
 		if(Input.IsActionPressed(GameData.Instance.GetA())) {
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			GoBack(GameData.Instance.GetA());
 		}
 		if(Input.IsActionJustPressed(GameData.Instance.GetB())) {
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			GoBack(GameData.Instance.GetB());
 		}
 	}
@@ -110,4 +112,5 @@ public partial class ControlsMenu : CanvasLayer
 	private Label selectLabel;
 	private Label dPadLabel;
 	private List<Label> labels;
+	private AudioStreamPlayer menuTick;
 }

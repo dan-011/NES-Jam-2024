@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7t1ch6vdno0v"]
+[gd_scene load_steps=13 format=3 uid="uid://c7t1ch6vdno0v"]
 
 [ext_resource type="Script" path="res://KeyboardComponent.cs" id="1_0is60"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="1_moj76"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="2_tejn5"]
 [ext_resource type="Texture2D" uid="uid://bagm1e8vaddev" path="res://Assets/ui/textbox.png" id="3_1vuqk"]
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_j67h4"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="6_wpn6j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7y7qj"]
 animations = [{
@@ -737,6 +738,10 @@ position = Vector2(107, 165)
 sprite_frames = SubResource("SpriteFrames_bek3q")
 
 [node name="TimerFlicker" type="Timer" parent="."]
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wpn6j")
+volume_db = 4.0
 
 [connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]
 [connection signal="timeout" from="TimerFlicker" to="." method="OnTimerFlickerTimeout"]

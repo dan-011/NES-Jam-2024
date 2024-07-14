@@ -1,11 +1,14 @@
-[gd_scene load_steps=59 format=3 uid="uid://0714yfj03j0i"]
+[gd_scene load_steps=62 format=3 uid="uid://0714yfj03j0i"]
 
 [ext_resource type="Script" path="res://NPC.cs" id="1_kt8dl"]
 [ext_resource type="PackedScene" uid="uid://biw01lw88mc5c" path="res://enemy_bullet.tscn" id="2_lam11"]
 [ext_resource type="Texture2D" uid="uid://bu8ubqp3thibs" path="res://Assets/chase/bike-sheet.png" id="2_nhlu8"]
 [ext_resource type="Texture2D" uid="uid://m8nlvyn5mc1h" path="res://Assets/chase/enemy-fire.png" id="3_0lp05"]
 [ext_resource type="Texture2D" uid="uid://d4dafpww7r03u" path="res://Assets/chase/enemy-die.png" id="4_ko12r"]
-[ext_resource type="Texture2D" uid="uid://ddn6fl3xvs3vd" path="res://Assets/chase/enemy-oiled.asprite.png" id="6_h000b"]
+[ext_resource type="Texture2D" uid="uid://vynci1mlthwp" path="res://Assets/chase/enemy-oiled.png" id="6_3fcr3"]
+[ext_resource type="AudioStream" uid="uid://dlwpqo4o45e27" path="res://Assets/sfx/EnemyCrash.wav" id="7_15gww"]
+[ext_resource type="AudioStream" uid="uid://cqjxaydcxe20j" path="res://Assets/sfx/laser.wav" id="8_3hqp2"]
+[ext_resource type="AudioStream" uid="uid://b34ng3n03nc24" path="res://Assets/sfx/Splash.wav" id="9_6ttfs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbivc"]
 size = Vector2(0.954407, 18.3461)
@@ -256,7 +259,7 @@ point_count = 16
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_h000b")
+"texture": ExtResource("6_3fcr3")
 }],
 "loop": true,
 "name": &"default",
@@ -541,6 +544,17 @@ curve = SubResource("Curve2D_u4b7v")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path15"]
 position = Vector2(-102, 30)
+
+[node name="CrashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_15gww")
+
+[node name="BulletSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_3hqp2")
+volume_db = -8.431
+
+[node name="OilSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_6ttfs")
+volume_db = 7.495
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="FireAnimation" to="." method="OnFireAnimationFinished"]

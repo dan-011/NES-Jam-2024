@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://biabqw11xwmsc"]
+[gd_scene load_steps=121 format=3 uid="uid://biabqw11xwmsc"]
 
 [ext_resource type="Script" path="res://PlayerChase.cs" id="1_etr5o"]
 [ext_resource type="Texture2D" uid="uid://b1o31yrr8ugwm" path="res://Assets/chase/player-down2.png" id="2_l5usi"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://i5l3flm6pim" path="res://reactor_gadget.tscn" id="9_wt5ou"]
 [ext_resource type="PackedScene" uid="uid://cya8hymunxm6m" path="res://hologram_gadget.tscn" id="13_od706"]
 [ext_resource type="Texture2D" uid="uid://ceibnxt23bmni" path="res://Assets/gadgets/bullet.png" id="16_f71o7"]
+[ext_resource type="AudioStream" uid="uid://v0yjo2yiv83w" path="res://Assets/sfx/crash.wav" id="19_6jian"]
+[ext_resource type="AudioStream" uid="uid://bjcmu38qluh5f" path="res://Assets/sfx/SpeedUp.wav" id="20_kb2c6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bg5d"]
 atlas = ExtResource("2_wwrbm")
@@ -783,7 +785,7 @@ animations = [{
 }]
 
 [node name="PlayerChase" type="Area2D"]
-collision_mask = 2
+collision_mask = 3
 script = ExtResource("1_etr5o")
 metadata/_edit_group_ = true
 
@@ -809,6 +811,13 @@ visible = false
 [node name="DEBUG" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_yja80")
+
+[node name="CrashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_6jian")
+
+[node name="BoostSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_kb2c6")
+volume_db = 4.685
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

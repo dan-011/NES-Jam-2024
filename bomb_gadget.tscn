@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bhdsgykj0y4xl"]
+[gd_scene load_steps=20 format=3 uid="uid://bhdsgykj0y4xl"]
 
 [ext_resource type="Script" path="res://BombGadget.cs" id="1_tndb6"]
 [ext_resource type="Texture2D" uid="uid://b01eop5qhd1l3" path="res://Assets/gadgets/smoke_bomb_old.png" id="2_c176o"]
+[ext_resource type="AudioStream" uid="uid://brthl17nsfpxp" path="res://Assets/sfx/bomb.wav" id="3_vdr3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jdo4l"]
 atlas = ExtResource("2_c176o")
@@ -126,5 +127,8 @@ speed_scale = 2.0
 [node name="BombCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tyhk6")
 disabled = true
+
+[node name="BombSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vdr3w")
 
 [connection signal="animation_finished" from="BombAnimation" to="." method="OnBombAnimationFinished"]

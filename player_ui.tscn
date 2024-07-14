@@ -1,10 +1,11 @@
-[gd_scene load_steps=36 format=3 uid="uid://b2nf10kbeabpl"]
+[gd_scene load_steps=37 format=3 uid="uid://b2nf10kbeabpl"]
 
 [ext_resource type="Script" path="res://PlayerUI.cs" id="1_3l1ce"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="1_rohul"]
 [ext_resource type="Texture2D" uid="uid://bul04gucpic0s" path="res://Assets/ui/health.png" id="2_x168k"]
 [ext_resource type="Texture2D" uid="uid://chvg3sdtnu7xi" path="res://Assets/gadgets/item-slots.png" id="4_6yjt4"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="5_ti1xf"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="6_5h65i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6der5"]
 atlas = ExtResource("2_x168k")
@@ -370,3 +371,7 @@ theme_override_fonts/font = ExtResource("5_ti1xf")
 theme_override_font_sizes/font_size = 16
 text = "10"
 horizontal_alignment = 2
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_5h65i")
+volume_db = 4.0

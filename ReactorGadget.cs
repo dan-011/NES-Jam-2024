@@ -15,18 +15,29 @@ public partial class ReactorGadget : Area2D
 		animation.Animation = "building";
 
 		collision = GetNode<CollisionShape2D>("CollisionShape2D");
+		chargingSound = GetNode<AudioStreamPlayer>("ChargingSound");
+		boomSound = GetNode<AudioStreamPlayer>("BoomSound");
 		collision.Disabled = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Visible) CheckBullets();
+		if(Visible) {
+			CheckBullets();
+		}
 	}
 
 	public void PlayReactor() {
 		collision.Disabled = false;
+		if(GameData.Instance.GetCanPlaySFX()) chargingSound.Play();
 		animation.Play();
+		bulletCount = 0;
+	}
+
+	public void Stop() {
+		chargingSound.Stop();
+		animation.Stop();
 	}
 	
 	
@@ -40,13 +51,14 @@ public partial class ReactorGadget : Area2D
 
 	private void OnAnimationFinished()
 	{
-		if(animation.Animation.Equals("releasing")) {
+		chargingSound.Stop();
+		if(animation.Animation.Equals("releasing") && Visible) {
 			collision.Disabled = true;
 			GameData.Instance.PauseAction();
 			GameData.Instance.SetIsWhiteOut(true);
 
 			animation.Animation = "building";
-
+			if(GameData.Instance.GetCanPlaySFX()) boomSound.Play();
 			EmitSignal(SignalName.ReactorFinished);
 		}
 	}
@@ -57,9 +69,16 @@ public partial class ReactorGadget : Area2D
 			bulletCount++;
 		}
 	}
+		
+	private void OnChargingSoundFinished()
+	{
+		if(GameData.Instance.GetCanPlaySFX()) chargingSound.Play();
+	}
 
 	private uint bulletCount;
 	private uint maxBullets = 10;
 	private AnimatedSprite2D animation;
 	private CollisionShape2D collision;
+	private AudioStreamPlayer chargingSound;
+	private AudioStreamPlayer boomSound;
 }

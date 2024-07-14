@@ -1,3 +1,4 @@
+using General;
 using Godot;
 using System;
 
@@ -14,6 +15,9 @@ public partial class HologramGadget : Area2D
 
 		collision = GetNode<CollisionShape2D>("CollisionShape2D");
 		collision.Disabled = true;
+
+		hologramSound = GetNode<AudioStreamPlayer>("HologramSound");
+		hologramReverseSound = GetNode<AudioStreamPlayer>("HologramReverseSound");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,6 +38,7 @@ public partial class HologramGadget : Area2D
 		GlobalPosition = new Vector2(playerPos.X, yPos);
 		position = GlobalPosition;
 		animation.Play();
+		if(GameData.Instance.GetCanPlaySFX()) hologramSound.Play();
 	}
 
 	private void OnAreaEntered(Area2D area)
@@ -44,6 +49,7 @@ public partial class HologramGadget : Area2D
 				animation.Animation = "erase";
 				animation.Frame = 0;
 				animation.Play();
+				if(GameData.Instance.GetCanPlaySFX()) hologramReverseSound.Play();
 			}
 			else {
 				animation.Frame = lives - 1;
@@ -68,4 +74,6 @@ public partial class HologramGadget : Area2D
 	private int lives = 10;
 	private Vector2 position;
 	private CollisionShape2D collision;
+	private AudioStreamPlayer hologramSound;
+	private AudioStreamPlayer hologramReverseSound;
 }

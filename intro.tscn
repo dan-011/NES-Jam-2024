@@ -1,4 +1,4 @@
-[gd_scene load_steps=298 format=3 uid="uid://bpql0cphji0wf"]
+[gd_scene load_steps=299 format=3 uid="uid://bpql0cphji0wf"]
 
 [ext_resource type="Texture2D" uid="uid://bolbpx6a6u4of" path="res://Assets/ui/Intro-begin.png" id="1_hjl83"]
 [ext_resource type="Script" path="res://Intro.cs" id="1_shikj"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://l7nrk82gelhe" path="res://Assets/music/track_3.wav" id="11_6e718"]
 [ext_resource type="PackedScene" uid="uid://c47k02ykjmohb" path="res://controls_menu.tscn" id="12_ver8y"]
 [ext_resource type="PackedScene" uid="uid://dvg67kjy5wobf" path="res://leaderboard_menu.tscn" id="13_116h2"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="14_ggov0"]
 [ext_resource type="PackedScene" uid="uid://c8pou8yvpx6ai" path="res://credits_menu.tscn" id="14_xyk5x"]
 [ext_resource type="PackedScene" uid="uid://ckmvjqs6s2b06" path="res://settings_menu.tscn" id="17_i608u"]
 
@@ -2040,28 +2041,12 @@ script = ExtResource("1_shikj")
 [node name="Cycle" type="AnimatedSprite2D" parent="."]
 position = Vector2(128, 112)
 sprite_frames = SubResource("SpriteFrames_yixnw")
-animation = &"cycle"
+animation = &"end"
 
 [node name="Lightning" type="AnimatedSprite2D" parent="."]
 position = Vector2(128, 112)
 sprite_frames = SubResource("SpriteFrames_8v08b")
 animation = &"enter"
-
-[node name="TitleLabel" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -57.0
-offset_top = 4.0
-offset_right = 57.0
-offset_bottom = 63.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("6_1s68g")
-theme_override_font_sizes/font_size = 32
-text = "Ryder's
-Edge"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Person" type="AnimatedSprite2D" parent="."]
 position = Vector2(128, 112)
@@ -2086,6 +2071,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BlinkTimer" type="Timer" parent="."]
+
+[node name="TitleLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.0
+offset_top = 4.0
+offset_right = 57.0
+offset_bottom = 63.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_1s68g")
+theme_override_font_sizes/font_size = 32
+text = "Ryder's
+Edge"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Shoes" type="AnimatedSprite2D" parent="."]
 position = Vector2(128, 112)
@@ -2190,6 +2191,10 @@ position = Vector2(146, 214)
 sprite_frames = SubResource("SpriteFrames_alvj7")
 
 [node name="SelectTimer" type="Timer" parent="MainMenu"]
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="MainMenu"]
+stream = ExtResource("14_ggov0")
+volume_db = 4.0
 
 [node name="ControlsMenu" parent="." instance=ExtResource("12_ver8y")]
 visible = false

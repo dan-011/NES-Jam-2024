@@ -27,24 +27,24 @@ public partial class MainMenu : CanvasLayer
 		selectors.Add(GetNode<AnimatedSprite2D>("ExitGameSelector"));
 
 		selectTimer = GetNode<Timer>("SelectTimer");
-
-		for(int i = 0; i < labels.Count; i++) {
-			RemoveSelection(i);
-		}
-
 		cur = 0;
-		AddSelection(cur);
+
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
 	}
 
 	public void Open() {
-		Visible = true;
+		for(int i = 0; i < labels.Count; i++) {
+			RemoveSelection(i);
+		}
 		AddSelection(cur);
+		Visible = true;
+		canSelect = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Visible) {
+		if(Visible && canSelect) {
 			InputHandling();
 		}
 	}
@@ -62,15 +62,19 @@ public partial class MainMenu : CanvasLayer
 	private void InputHandling() {
 		if(Input.IsActionPressed(GameData.Instance.GetA())) {
 			Input.ActionRelease(GameData.Instance.GetA());
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			RemoveSelection(cur);
 			selectTimer.Start(0.1);
+			canSelect = false;
 		}
 		if(Input.IsActionJustPressed("move_down")) {
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			RemoveSelection(cur);
 			cur = (cur + 1) % labels.Count;
 			AddSelection(cur);
 		}
 		if(Input.IsActionJustPressed("move_up")) {
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			RemoveSelection(cur);
 			cur--;
 			cur = cur < 0 ? labels.Count - 1 : cur;
@@ -82,6 +86,7 @@ public partial class MainMenu : CanvasLayer
 	private void OnSelectTimerTimeout()
 	{
 		selectTimer.Stop();
+		canSelect = true;
 		EmitSignal(SignalName.SelectMenu);
 	}
 
@@ -89,9 +94,15 @@ public partial class MainMenu : CanvasLayer
 		return cur;
 	}
 
+	public void SetSelection(int selection) {
+		cur = selection;
+	}
+
 
 	private List<Label> labels;
 	private List<AnimatedSprite2D> selectors;
 	private Timer selectTimer;
 	private int cur;
+	private AudioStreamPlayer menuTick;
+	private bool canSelect;
 }

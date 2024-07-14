@@ -21,7 +21,6 @@ public partial class Intro : CanvasLayer
 		startLabel = GetNode<Label>("StartLabel");
 		startLabel.Text = "PRESS " + GameData.Instance.GetControllerMapping("Start").ToUpper();
 		//startLabel.GlobalPosition = new Vector2(224 / 2, startLabel.GlobalPosition.Y);
-		blinkThreshold = 0.5f;
 
 		mainMenu = GetNode<MainMenu>("MainMenu");
 		controlsMenu = GetNode<ControlsMenu>("ControlsMenu");
@@ -49,10 +48,10 @@ public partial class Intro : CanvasLayer
 		titleOrigin = new Vector2(131, 75);
 
 		GameData.Instance.SetControls(Input.GetConnectedJoypads().Count > 0 ? Input.GetJoyName(Input.GetConnectedJoypads()[0]) : "");
-		titleLabel.GlobalPosition = new Vector2(131, 20);
+		titleLabelStartPos = new Vector2(131, 20);
+		titleLabel.GlobalPosition = titleLabelStartPos;
 		titleMusic = GetNode<AudioStreamPlayer>("TitleMusic");
-
-		Start();
+		titleMovement = new CharacterMovement(titleLabel.GlobalPosition, _isNPC: true);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,46 +75,46 @@ public partial class Intro : CanvasLayer
 		if(titleLabel.Visible && !mainMenu.Visible) {
 			InputHandling();
 		}
-		if(deltaSum >= 1/25) {
+		if(deltaSum >= 0.0167f) {
 			delta = deltaSum; // TODO adjust velocity of title
 			deltaSum = 0;
-			if(!finishedIntro && person.Animation.Equals("exit") && titleLabel.GlobalPosition.Y < 75) {
-				Vector2 globalPos = titleLabel.GlobalPosition;
-				globalPos.Y += 1;
-				titleLabel.GlobalPosition = globalPos;
+			if(!finishedIntro && person.Animation.Equals("exit")) {
+				if(titleMovement.GetVel().Y == 0) titleMovement.AnimateToPoint(titleLabel.GlobalPosition, titleOrigin, 65);
+				titleMovement.Update((float)delta);
+				titleLabel.GlobalPosition = titleMovement.GetPos();
+				titleMovement.SetPos(titleLabel.GlobalPosition);
+				if(titleMovement.IsAnimationDone()) finishedIntro = true;
 			}
-			else if(!finishedIntro && titleLabel.GlobalPosition.Y >= 75) finishedIntro = true;
 			if(shiftTitleToCenter) {
 				Vector2 globalPos = titleLabel.GlobalPosition;
-				Vector2 slope = new Vector2(titleCenterPos.X - globalPos.X, titleCenterPos.Y - globalPos.Y);
-				float magnitude = (float)Math.Sqrt((slope.X * slope.X) + (slope.Y * slope.Y));
-				globalPos.X += slope.X / magnitude;
-				globalPos.Y += slope.Y / magnitude;
-				titleLabel.GlobalPosition = globalPos;
-				if(Math.Ceiling(globalPos.X) == titleCenterPos.X && Math.Ceiling(globalPos.Y) == titleCenterPos.Y) {
-					titleLabel.GlobalPosition = titleCenterPos;
+				if(titleMovement.GetVel().X == 0) titleMovement.AnimateToPoint(globalPos, titleCenterPos, 150);
+				titleMovement.Update((float)delta);
+				titleLabel.GlobalPosition = titleMovement.GetPos();
+				titleMovement.SetPos(titleLabel.GlobalPosition);
+				if(titleMovement.IsAnimationDone()) {
 					menuAction();
 					shiftTitleToCenter = false;
 				}
 			}
 			if(shiftTitleToOrigin) {
 				Vector2 globalPos = titleLabel.GlobalPosition;
-				Vector2 slope = new Vector2(titleOrigin.X - globalPos.X, titleOrigin.Y - globalPos.Y);
-				float magnitude = (float)Math.Sqrt((slope.X * slope.X) + (slope.Y * slope.Y));
-				globalPos.X += slope.X / magnitude;
-				globalPos.Y += slope.Y / magnitude;
-				titleLabel.GlobalPosition = globalPos;
-				if(Math.Abs(titleOrigin.X - globalPos.X) < 0.0001f && Math.Abs(titleOrigin.Y - globalPos.Y) < 0.0001f) shiftTitleToOrigin = false;
-				if(Math.Floor(globalPos.X) == titleOrigin.X && Math.Floor(globalPos.Y) == titleOrigin.Y) {
-					titleLabel.GlobalPosition = titleOrigin;
-					mainMenu.Open();
+				if(titleMovement.GetVel().X == 0) titleMovement.AnimateToPoint(globalPos, titleOrigin, 150);
+				titleMovement.Update((float)delta);
+				titleLabel.GlobalPosition = titleMovement.GetPos();
+				titleMovement.SetPos(titleLabel.GlobalPosition);
+				if(titleMovement.IsAnimationDone()) {
 					shiftTitleToOrigin = false;
+					mainMenu.Open();
 				}
 			}
-			if(startingGame && titleLabel.GlobalPosition.X > -125) {
-				Vector2 globalPos = titleLabel.GlobalPosition;
-				globalPos.X -= 1.5f;
-				titleLabel.GlobalPosition = globalPos;
+			if(moveTitleToRight) {
+				if(titleMovement.GetVel().X == 0) titleMovement.AnimateToPoint(titleLabel.GlobalPosition, new Vector2(-120, titleLabel.GlobalPosition.Y), 250); // old vel: 200
+				titleMovement.Update((float)delta);
+				titleLabel.GlobalPosition = titleMovement.GetPos();
+				titleMovement.SetPos(titleLabel.GlobalPosition);
+				if(titleMovement.IsAnimationDone()) {
+					moveTitleToRight = false;
+				}
 			}
 		}
 	}
@@ -124,6 +123,10 @@ public partial class Intro : CanvasLayer
 		// titleMusic.Play();
 		startLabel.Visible = false;
 		titleLabel.Visible = false;
+		titleLabel.GlobalPosition = titleLabelStartPos;
+		titleMovement.SetPos(titleLabel.GlobalPosition);
+		titleMovement.SetGoalVel(new Vector2(0, 0));
+		titleMovement.SetVel(new Vector2(0, 0));
 		person.Frame = 0;
 		lightning.Animation = "enter";
 		lightning.Frame = 0;
@@ -135,6 +138,15 @@ public partial class Intro : CanvasLayer
 		person.Frame = 0;
 		shoes.Animation = "enter";
 		shoes.Frame = 0;
+		shiftTitleToCenter = false;
+		shiftTitleToOrigin = false;
+		moveTitleToRight = false;
+		finishedIntro = false;
+		startingGame = false;
+		playBackgroundMusic = false;
+		blinkThreshold = 0.5f;
+		mainMenu.SetSelection(0);
+		Visible = true;
 	}
 
 	private void InputHandling() {
@@ -156,9 +168,9 @@ public partial class Intro : CanvasLayer
 			timer.Start(blinkThreshold);
 		}
 		else if(cycle.Animation.Equals("end")) {
-			GD.Print("Start game");
 			titleMusic.Stop();
 			playBackgroundMusic = false;
+			titleLabel.Visible = false;
 			EmitSignal(SignalName.BeginGame);
 		}
 	}
@@ -168,7 +180,7 @@ public partial class Intro : CanvasLayer
 	{
 		if(person.Animation.Equals("enter")) timer.Start(0.05);
 		else {
-			mainMenu.Visible = true;
+			mainMenu.Open();
 		}
 	}
 
@@ -208,27 +220,24 @@ public partial class Intro : CanvasLayer
 	}
 
 	private void StartGame() {
-		GD.Print("start game");
 		startingGame = true;
+		moveTitleToRight = true;
 		mainMenu.Visible = false;
 		ClearShoes();
 		ClearBuildings();
 	}
 
 	private void Leaderboard() {
-		GD.Print("leaderboard");
 		menuAction = leaderboardMenu.Open;
 		GoToMenu();
 	}
 
 	private void Controls() {
-		GD.Print("controls");
 		menuAction = controlsMenu.Open;
 		GoToMenu();
 	}
 
 	private void Credits() {
-		GD.Print("credits");
 		menuAction = creditsMenu.Open;
 		GoToMenu();
 	}
@@ -324,6 +333,7 @@ public partial class Intro : CanvasLayer
 	private Timer blinkTimer;
 	private Label titleLabel;
 	private Label startLabel;
+	private CharacterMovement titleMovement;
 	private float blinkThreshold;
 	private double deltaSum = 0;
 	private MainMenu mainMenu;
@@ -340,7 +350,9 @@ public partial class Intro : CanvasLayer
 	private LeaderboardMenu leaderboardMenu;
 	private CreditsMenu creditsMenu;
 	private bool startingGame = false;
+	private bool moveTitleToRight;
 	private AudioStreamPlayer titleMusic;
 	private SettingsMenu settingsMenu;
 	private bool playBackgroundMusic = false;
+	private Vector2 titleLabelStartPos;
 }

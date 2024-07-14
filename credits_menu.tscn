@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8pou8yvpx6ai"]
+[gd_scene load_steps=7 format=3 uid="uid://c8pou8yvpx6ai"]
 
 [ext_resource type="Script" path="res://CreditsMenu.cs" id="1_00jw0"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="2_7fyp2"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="3_uavct"]
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="4_p0nn3"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="5_7jtuv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j38nc"]
 animations = [{
@@ -76,5 +77,9 @@ position = Vector2(182, 212)
 sprite_frames = SubResource("SpriteFrames_j38nc")
 
 [node name="SelectTimer" type="Timer" parent="."]
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7jtuv")
+volume_db = 4.0
 
 [connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

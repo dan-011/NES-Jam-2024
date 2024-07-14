@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 public partial class GameOverMenu : Node2D
 {
+	[Signal]
+	public delegate void RestartSelectEventHandler();
+	[Signal]
+	public delegate void MainMenuSelectEventHandler();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -22,11 +26,14 @@ public partial class GameOverMenu : Node2D
 	}
 
 	public void Open() {
+		enterLeaderboardMenu.Reset();
 		GlobalPosition = new Vector2(0, -200);
 		movement.SetPos(GlobalPosition);
 		Visible = true;
 		movement.SetGoalVel(new Vector2(0, 200));
 		movement.SetVel(new Vector2(0, 200));
+
+		generalGameOverMenu.SetSelection(0);
 
 		generalGameOverMenu.Open();
 	}
@@ -61,10 +68,12 @@ public partial class GameOverMenu : Node2D
 		enterLeaderboardMenu.Open();
 	}
 	private void Restart() {
-
+		Reset();
+		EmitSignal(SignalName.RestartSelect);
 	}
 	private void MainMenu() {
-
+		Reset();
+		EmitSignal(SignalName.MainMenuSelect);
 	}
 	private void ExitGame() {
 		GetTree().Quit();
@@ -77,7 +86,12 @@ public partial class GameOverMenu : Node2D
 		enterLeaderboardMenu.Visible = false;
 		generalGameOverMenu.Open();
 	}
-	
+	public void Reset() {
+		GlobalPosition = new Vector2(0, -200);
+		movement.SetPos(GlobalPosition);
+		Visible = false;
+		enterLeaderboardMenu.Reset();
+	}
 	private CharacterMovement movement;
 	private double deltaSum = 0;
 	private delegate void VoidMethod();

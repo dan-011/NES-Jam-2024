@@ -25,21 +25,24 @@ public partial class NPC : Area2D
 			//dir = "Path" + i.ToString() + "/PathFollow2D";
 			paths.Add(GetNode<PathFollow2D>(dir));
 		}
-		ResetTimer(fireTimer, 5, 3);
+		ResetTimer(fireTimer, GameData.Instance.GetLevelData().GetFireModVal(), 3);
 
 		int idx = Math.Abs((int)GD.Randi()) % paths.Count;
 
 		pathPosition = paths[idx];
-		//GD.Print(idx);
 		
 		pathPosition.ProgressRatio = GD.Randf();
 		//Position = new Vector2(-19, pathPosition.Position.Y);
 		GlobalPosition = new Vector2(-31, pathPosition.Position.Y); // DEBUG
 		movement = new CharacterMovement(Position, _isNPC: true);
-		movement.SetGoalVel(new Vector2(100, 0));
+		movement.SetGoalVel(new Vector2(GameData.Instance.GetLevelData().GetNPCVel(), 0));
 
 		whiteOutDeathTimer = GetNode<Timer>("WhiteOutDeath");
 		whiteOutDeathTimer.WaitTime = 4;
+
+		crashSound = GetNode<AudioStreamPlayer>("CrashSound");
+		bulletSound = GetNode<AudioStreamPlayer>("BulletSound");
+		oilSound = GetNode<AudioStreamPlayer>("OilSound");
 		
 		animation.Play();
 	}
@@ -59,7 +62,6 @@ public partial class NPC : Area2D
 		}
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
-			//GD.Print(movement.GetVel());
 			delta = deltaSum;
 			deltaSum = 0;
 			//delta = 0.0167f;
@@ -75,6 +77,8 @@ public partial class NPC : Area2D
 	}
 	private void UpdatePath() {
 		pathPosition.ProgressRatio += 0.0005f;
+
+		// this was why we had enemies spawning out of bounds... oh well
 		GlobalPosition = new Vector2(Position.X, pathPosition.Position.Y + 100 + offset);
 	}
 		
@@ -83,14 +87,25 @@ public partial class NPC : Area2D
 		if(area is BombGadget) {
 			Die();
 		}
-		else if(area is OilGadget) {
+		else if(false && area is OilGadget) {
 			oiledAnimation.Visible = true;
+			if(GameData.Instance.GetCanPlaySFX()) oilSound.Play();
 		}
 	}
 
+	public void Oil() {
+		oiledAnimation.Visible = true;
+		if(GameData.Instance.GetCanPlaySFX()) oilSound.Play();
+	}
+
 	private void HandleWhiteOut() {
+		fireTimer.Stop();
+		bulletSound.Stop();
+		fireAnimation.Stop();
+		fireAnimation.Visible = false;
 		if(whiteOutDeathTimer.WaitTime > 3) {
 			whiteOutDeathTimer.Start(2);
+			playCrash = false;
 		}
 	}
 
@@ -109,6 +124,7 @@ public partial class NPC : Area2D
 		Vector2 startPos = new Vector2(GlobalPosition.X + 30, GlobalPosition.Y + 12);
 		bullet.GlobalPosition = startPos;
 		bullet.SetPoints(startPos, GameData.Instance.GetPlayerPos(), oiledAnimation.Visible);
+		if(GameData.Instance.GetCanPlaySFX()) bulletSound.Play();
 	}
 	
 		
@@ -120,17 +136,19 @@ public partial class NPC : Area2D
 	}
 
 	private void Die() {
+		fireAnimation.Stop();
 		fireTimer.Stop();
 		movement.SetVel(new Vector2(100, 100));
 		movement.SetGoalVel(new Vector2(100, 100));
 		oiledAnimation.Visible = false;
 		animation.Animation = "death";
 		animation.Play();
+		if(GameData.Instance.GetCanPlaySFX() && playCrash) crashSound.Play();
 		dying = true;
 	}
 
 	private void CheckBounds() {
-		if(GlobalPosition.X > 256 || GlobalPosition.Y < 0 || GlobalPosition.Y > 224) {
+		if(GlobalPosition.X > 256 || GlobalPosition.Y < 0 || GlobalPosition.Y > 220) {
 			QueueFree();
 		}
 	}
@@ -138,6 +156,7 @@ public partial class NPC : Area2D
 	
 	private void OnWhiteOutDeathTimerTimeout()
 	{
+		whiteOutDeathTimer.Stop();
 		Die();
 		whiteOutDeathTimer.WaitTime = 4;
 	}
@@ -152,4 +171,8 @@ public partial class NPC : Area2D
 	private Timer whiteOutDeathTimer;
 	private double deltaSum = 0;
 	private bool dying = false;
+	private AudioStreamPlayer crashSound;
+	private AudioStreamPlayer bulletSound;
+	private AudioStreamPlayer oilSound;
+	bool playCrash = true;
 }

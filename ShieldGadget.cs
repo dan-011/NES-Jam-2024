@@ -1,3 +1,4 @@
+using General;
 using Godot;
 using System;
 
@@ -17,6 +18,7 @@ public partial class ShieldGadget : Area2D
 
 		collision = GetNode<CollisionShape2D>("CollisionShape2D");
 		collision.Disabled = true;
+		shieldSound = GetNode<AudioStreamPlayer>("ShieldSound");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,6 +31,11 @@ public partial class ShieldGadget : Area2D
 		animation.Play();
 	}
 	
+	public void Stop() {
+		animation.Stop();
+		shieldSound.Stop();
+	}
+
 	private void OnSheildAnimationFinished()
 	{
 		if(animation.Animation.Equals("collapsing")) {
@@ -39,21 +46,29 @@ public partial class ShieldGadget : Area2D
 		}
 		else {
 			collision.Disabled = false;
+			if(GameData.Instance.GetCanPlaySFX()) shieldSound.Play();
 			timer.Start(5);
 		}
 	}
 	
 	private void OnTimerTimeout()
 	{
+		shieldSound.Stop();
 		timer.Stop();
 		animation.Stop();
 		animation.Animation = "collapsing";
 		collision.Disabled = true;
 		animation.Play();
 	}
+	
+	private void OnShieldSoundFinished()
+	{
+		if(GameData.Instance.GetCanPlaySFX()) shieldSound.Play();
+	}
 
 
 	private AnimatedSprite2D animation;
 	private Timer timer;
 	private CollisionShape2D collision;
+	private AudioStreamPlayer shieldSound;
 }

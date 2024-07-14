@@ -1,8 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://cya8hymunxm6m"]
+[gd_scene load_steps=42 format=3 uid="uid://cya8hymunxm6m"]
 
 [ext_resource type="Texture2D" uid="uid://cfhndo7kis1mn" path="res://Assets/gadgets/hologram.png" id="1_a5vww"]
 [ext_resource type="Script" path="res://HologramGadget.cs" id="1_ji6gc"]
 [ext_resource type="Texture2D" uid="uid://b6su3m1xdgxtr" path="res://Assets/gadgets/hologram-erase.png" id="1_m63ph"]
+[ext_resource type="AudioStream" uid="uid://6y2og8qngp1" path="res://Assets/sfx/Hologram-Rev.wav" id="4_e4qsr"]
+[ext_resource type="AudioStream" uid="uid://yn5twjbteimd" path="res://Assets/sfx/Hologram.wav" id="5_7gfok"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v6vom"]
 atlas = ExtResource("1_m63ph")
@@ -273,6 +275,12 @@ animation = &"load"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -2.5)
 shape = SubResource("RectangleShape2D_2gejh")
+
+[node name="HologramSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_e4qsr")
+
+[node name="HologramReverseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7gfok")
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

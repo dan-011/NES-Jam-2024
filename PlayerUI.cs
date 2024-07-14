@@ -41,6 +41,8 @@ public partial class PlayerUI : CanvasLayer
 		itemSlots[3].Frame = 0;
 		itemSlots[4].Frame = 0;
 
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
+
 		itemSelectors[0].Visible = true;
 	}
 
@@ -69,6 +71,7 @@ public partial class PlayerUI : CanvasLayer
 
 	private void InputHandling() {
 		if(Input.IsActionJustPressed("select")) {
+			if(GameData.Instance.GetCanPlaySFX() && GameData.Instance.GetNumberOfFilledSlots() != 1) menuTick.Play();
 			SwitchSelectedItem();
 		}
 	}
@@ -176,4 +179,5 @@ public partial class PlayerUI : CanvasLayer
 	private List<Label> itemAmounts;
 	private int prev = 0;
 	private int cur = 0;
+	private AudioStreamPlayer menuTick;
 }

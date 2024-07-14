@@ -29,19 +29,22 @@ public partial class LeaderboardMenu : CanvasLayer
 		scores.Add(GetNode<Label>("FourthScore"));
 		scores.Add(GetNode<Label>("FifthScore"));
 
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
+
 		SetScores();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Visible) {
+		if(Visible && canSelect) {
 			InputHandling();
 		}
 	}
 
 	public void Open() {
 		Visible = true;
+		canSelect = true;
 		backSelector.Visible = true;
 		backLabel.AddThemeColorOverride("font_color", new Color("fcfcfc"));
 		SetScores();
@@ -65,9 +68,13 @@ public partial class LeaderboardMenu : CanvasLayer
 
 	private void InputHandling() {
 		if(Input.IsActionPressed(GameData.Instance.GetA())) {
+			canSelect = false;
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			GoBack(GameData.Instance.GetA());
 		}
 		if(Input.IsActionJustPressed(GameData.Instance.GetB())) {
+			canSelect = false;
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			GoBack(GameData.Instance.GetB());
 		}
 	}
@@ -81,6 +88,7 @@ public partial class LeaderboardMenu : CanvasLayer
 	
 	private void OnSelectTimerTimeout()
 	{
+		canSelect = true;
 		selectTimer.Stop();
 		EmitSignal(SignalName.SelectBack);
 	}
@@ -90,7 +98,7 @@ public partial class LeaderboardMenu : CanvasLayer
 			rankings[i].Visible = false;
 			scores[i].Visible = false;
 		}
-		StreamReader fileStream = new StreamReader("Leaderboard.txt");
+		StreamReader fileStream = new StreamReader(GameData.Instance.GetLeaderboardFilePath());
 		string line;
 		int rank = 0;
 		while(rank < scores.Count && (line = fileStream.ReadLine()) != null) {
@@ -111,4 +119,6 @@ public partial class LeaderboardMenu : CanvasLayer
 	private Timer selectTimer;
 	private List<Label> rankings;
 	private List<Label> scores;
+	private bool canSelect;
+	private AudioStreamPlayer menuTick;
 }

@@ -41,6 +41,7 @@ public partial class OilGadget : Area2D
 	private void OnAreaEntered(Area2D area)
 	{
 		if(area is NPC && !((area as NPC).IsOiled())) {
+			(area as NPC).Oil();
 			QueueFree();
 		}
 	}

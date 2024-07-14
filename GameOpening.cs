@@ -16,21 +16,6 @@ public partial class GameOpening : CanvasLayer
 		tempPlayer = GetNode<AnimatedSprite2D>("TempPlayer");
 		timer = GetNode<Timer>("Timer");
 
-		Vector2 pos = new Vector2(-30, 100);
-		movement = new CharacterMovement(pos, _isNPC: true);
-		int vel = 50;
-		movement.SetGoalVel(new Vector2(vel, 0));
-		movement.SetVel(new Vector2(vel, 0));
-		tempPlayer.GlobalPosition = pos;
-
-		backgroundSlide.Frame = 0;
-		backgroundBegin.Frame = 0;
-		tempPlayer.Frame = 0;
-
-		paragraph = 0;
-		sentence = 0;
-		letter = 0;
-
 		aLabel = GetNode<Label>("ALabel");
 		aLabel.Text = "Press " + GameData.Instance.GetControllerMapping("A") + " to continue";
 
@@ -38,7 +23,6 @@ public partial class GameOpening : CanvasLayer
 		startLabel.Text = "Press " + GameData.Instance.GetControllerMapping("Start") + " to skip";
 
 		descriptionLabel = GetNode<Label>("DescriptionLabel");
-		descriptionLabel.Text = "";
 
 		description = new List<List<string>>();
 		description.Add(new List<string>());
@@ -60,7 +44,7 @@ public partial class GameOpening : CanvasLayer
 
 		description[2].Add("While  the  poor  struggle  to  survive,");
 		description[2].Add("BraxCorp  just  becomes  more  rich  and");
-		description[2].Add("powerful,  carelessly overlooking  the");
+		description[2].Add("powerful,  carelessly  overlooking  the");
 		description[2].Add("chaos  in  their  obsidian  tower,");
 		description[2].Add("The  Obelisk...");
 
@@ -71,7 +55,7 @@ public partial class GameOpening : CanvasLayer
 
 		description[4].Add("Today,  you  broke  into  the  Obelisk");
 		description[4].Add("and  gathered  a  piece  of  information");
-		description[4].Add("which might put down  BraxCorp  for");
+		description[4].Add("which  might  put  down  BraxCorp  for");
 		description[4].Add("good,  but  you  set  off  an  alarm,");
 		description[4].Add("alerting  the  guards  in  the  process...");
 
@@ -85,15 +69,13 @@ public partial class GameOpening : CanvasLayer
 		textTimer = GetNode<Timer>("TextTimer");
 		
 		descriptionMusic = GetNode<AudioStreamPlayer>("DescriptionMusic");
-
-		tempPlayer.Play();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if(!Visible) return;
-		InputHandling();
+		if(!backgroundSlide.IsPlaying() && backgroundSlide.Frame == 24) InputHandling();
 		deltaSum += delta;
 		if(backgroundSlide.Frame == 24 && !textFinished && backgroundSlide.IsPlaying()) {
 			if(GameData.Instance.GetCanPlayMusic()) descriptionMusic.Play();
@@ -127,7 +109,34 @@ public partial class GameOpening : CanvasLayer
 	}
 
 	public void Play() {
+		textTimer.Stop();
+		backgroundSlide.Stop();
+		backgroundBegin.Stop();
+		backgroundBegin.Visible = false;
+		backgroundSlide.Visible = true;
+		backgroundSlide.Frame = 0;
+		backgroundBegin.Frame = 0;
+		tempPlayer.Frame = 0;
+
+		paragraph = 0;
+		sentence = 0;
+		letter = 0;
+		descriptionLabel.Text = "";
+
+		Vector2 pos = new Vector2(-30, 100);
+		movement = new CharacterMovement(pos, _isNPC: true);
+		int vel = 50;
+		movement.SetGoalVel(new Vector2(vel, 0));
+		movement.SetVel(new Vector2(vel, 0));
+		tempPlayer.GlobalPosition = pos;
+		tempPlayer.Play();
 		backgroundSlide.Play();
+		deltaSum = 0;
+		sendPlayer = false;
+		startGame =  false;
+		textFinished = false;
+		backgroundBegin.SpeedScale = 1;
+		Visible = true;
 		//if(GameData.Instance.GetCanPlayMusic()) descriptionMusic.Play();	
 	}
 

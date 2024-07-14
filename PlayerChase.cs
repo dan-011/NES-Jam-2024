@@ -14,15 +14,12 @@ public partial class PlayerChase : Area2D
 	// Called when the node enters the scene tree for the first time.
 	[Signal]
 	public delegate void PlayerDeathEventHandler();
+	[Signal]
+	public delegate void ContinueTutorialEventHandler();
 	public override void _Ready()
 	{
-		Vector2 startPos = new Vector2(Position.X+30, 100);
-		GD.Print("official start position", startPos);
-		Position = startPos;
-		movement = new CharacterMovement(startPos, 400, 800);
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		animation.Frame = 0;
 		screenSize = GetViewportRect().Size;
 
 		shieldGadget = GetNode<ShieldGadget>("ShieldGadget");
@@ -37,9 +34,24 @@ public partial class PlayerChase : Area2D
 		itemActions.Add(Hologram);
 
 		DEBUG = GetNode<AnimatedSprite2D>("DEBUG");
+		crashSound = GetNode<AudioStreamPlayer>("CrashSound");
+		boostSound = GetNode<AudioStreamPlayer>("BoostSound");
+	}
 
+	public void Start() {
+		Vector2 startPos = new Vector2(158, 100);
+		Position = startPos;
+		movement = new CharacterMovement(startPos, 400, 800);
+		animation.Frame = 0;
 		animation.Animation = "idle";
-		animation.Frame = 0;	
+		animation.Frame = 0;
+		canGoDown = true;
+		canGoUp = true;
+		isThrowing = false;
+		deltaSum = 0;
+		isDying = false;
+		tutorialInstruction = 0;
+		tutorialBubbleCount = 0;
 		animation.Play();
 	}
 
@@ -48,7 +60,7 @@ public partial class PlayerChase : Area2D
 	{
 		DEBUG.GlobalPosition = GlobalPosition;
 		if(GameData.Instance.GetIsPaused()) {
-			movement.ReleaseY();
+			ResetYVel();
 			return;
 		}
 		InputHandling();
@@ -57,7 +69,6 @@ public partial class PlayerChase : Area2D
 		}
 		deltaSum += delta;
 		if(deltaSum >= 0.0167f) {
-			//GD.Print(deltaSum);
 			delta = deltaSum;
 			deltaSum = 0;
 			//delta = 0.0167f;
@@ -76,6 +87,7 @@ public partial class PlayerChase : Area2D
 			}
 		}
 		if(GlobalPosition.Y > 300) {
+			//crashSound.Stop();
 			EmitSignal(SignalName.PlayerDeath);
 			GameData.Instance.PauseAction();
 		}
@@ -83,10 +95,23 @@ public partial class PlayerChase : Area2D
 	public CharacterMovement GetPlayerMovement() {
 		return movement;
 	}
+	public void ResetYVel() {
+		movement.ReleaseY();
+	}
+	public void IncrementTutorialInstruction() {
+		tutorialInstruction++;
+	}
+	public void SetTutorialInstruction(int instruction) {
+		tutorialInstruction = instruction;
+	}
 	private void Die() {
+		//crashSound.Play();
+		boostSound.Stop();
 		shieldGadget.Visible = false;
 		reactorGadget.Visible = false;
 		hologramGadget.Visible = false;
+		reactorGadget.Stop();
+		shieldGadget.Stop();
 		movement.SetGoalVel(new Vector2(10, 10));
 		movement.SetVel(new Vector2(10, 10));
 		animation.Stop();
@@ -98,6 +123,7 @@ public partial class PlayerChase : Area2D
 	private void InputHandling() {
 		if(animation.Animation.Equals("dying") || animation.Animation.Equals("die")) return;
 		if(Input.IsActionJustReleased("move_up")) {
+			
 			movement.ReleaseY();
 		}
 		if(Input.IsActionJustReleased("move_down")) {
@@ -105,22 +131,26 @@ public partial class PlayerChase : Area2D
 		}
 		if(Input.IsActionPressed("move_up")) {
 			if(canGoUp) movement.MoveUp();
+			if(tutorialInstruction == 1) EmitSignal(SignalName.ContinueTutorial);
 		}
 		if(Input.IsActionPressed("move_down")) {
 			if(canGoDown) movement.MoveDown();
+			if(tutorialInstruction == 1) EmitSignal(SignalName.ContinueTutorial);
 		}
 		if(Input.IsActionJustPressed(GameData.Instance.GetB())) {
 			if(movement.AtStart() && Input.GetConnectedJoypads().Count > 0 && GameData.Instance.GetCanUseRumble()) Input.StartJoyVibration(Input.GetConnectedJoypads()[0], 1, 0, 1);
 			movement.Boost();
+			if(GameData.Instance.GetCanPlaySFX()) boostSound.Play();
+			if(tutorialInstruction == 2) EmitSignal(SignalName.ContinueTutorial);
 		}
 		else if(!GameData.Instance.GetIsShielding() && !GameData.Instance.GetIsReactor() && !movement.GetIsBoosting() && Input.IsActionJustPressed(GameData.Instance.GetA())) {
 			int selectedGadget = GameData.Instance.GetSelectedGadget();
+			if(tutorialInstruction == 5) EmitSignal(SignalName.ContinueTutorial);
 			if(GameData.Instance.CanUseItem(selectedGadget) && PreventItemReuse(selectedGadget)) {
 				animation.Stop();
 				animation.Frame = 0;
 				itemActions[selectedGadget]();
 				
-				//GD.Print(animation.Animation);
 				GameData.Instance.UseItem(selectedGadget);
 				
 				//animation.Stop();
@@ -130,6 +160,9 @@ public partial class PlayerChase : Area2D
 				//Reactor();
 				//Hologram();
 			}
+		}
+		if(tutorialInstruction == 4 && Input.IsActionJustPressed("select")) {
+			EmitSignal(SignalName.ContinueTutorial);
 		}
 	}
 	
@@ -161,7 +194,6 @@ public partial class PlayerChase : Area2D
 	}
 
 	private void Hologram() {
-		GD.Print("call hologram");
 		hologramGadget.SetPosition(GlobalPosition);
 		hologramGadget.Visible = true;
 	}
@@ -241,11 +273,7 @@ public partial class PlayerChase : Area2D
 		else canGoDown = true;
 	}
 	
-	private void OnAreaEntered(Area2D area)
-	{
-		GD.Print("Player hit");
-	}
-	
+
 		
 	private void OnAnimationFinished()
 	{
@@ -283,6 +311,14 @@ public partial class PlayerChase : Area2D
 	}
 
 
+	private void OnAreaEntered(Area2D area)
+	{
+		if(tutorialInstruction == 3 && area is Bubble && GameData.Instance.ShowTutorial()) {
+			if(tutorialBubbleCount < 1) tutorialBubbleCount++;
+			else EmitSignal(SignalName.ContinueTutorial);
+		}
+	}
+
 	private CharacterMovement movement;
 	private Vector2 screenSize;
 	private CollisionShape2D collisionShape;
@@ -298,5 +334,8 @@ public partial class PlayerChase : Area2D
 	private delegate void VoidMethod();
 	private List<VoidMethod> itemActions;
 	private AnimatedSprite2D DEBUG;
-
+	private AudioStreamPlayer crashSound;
+	private AudioStreamPlayer boostSound;
+	private int tutorialInstruction;
+	private int tutorialBubbleCount;
 }

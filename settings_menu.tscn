@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ckmvjqs6s2b06"]
+[gd_scene load_steps=24 format=3 uid="uid://ckmvjqs6s2b06"]
 
 [ext_resource type="Script" path="res://SettingsMenu.cs" id="1_dhjyg"]
 [ext_resource type="FontFile" uid="uid://b8sq1umpmlt3e" path="res://Assets/fonts/Code.ttf" id="1_q4ysw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bsko4g1nwh3sy" path="res://Assets/ui/big-select.png" id="3_k8h36"]
 [ext_resource type="FontFile" uid="uid://dh31g770f22tv" path="res://Assets/fonts/PressStart.ttf" id="4_e2pcg"]
 [ext_resource type="Texture2D" uid="uid://dyxvrltw8p7c1" path="res://Assets/ui/menu-select.png" id="5_scou8"]
+[ext_resource type="AudioStream" uid="uid://kujebciian4d" path="res://Assets/sfx/menutick.wav" id="7_a308m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m85ud"]
 atlas = ExtResource("2_d8nx7")
@@ -96,6 +97,39 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6j1b"]
+atlas = ExtResource("2_d8nx7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdka8"]
+atlas = ExtResource("2_d8nx7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hg2n5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6j1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdka8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e4l07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_k8h36")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="SettingsMenu" type="CanvasLayer"]
 script = ExtResource("1_dhjyg")
 
@@ -114,15 +148,15 @@ sprite_frames = SubResource("SpriteFrames_xobkh")
 
 [node name="RumbleLabel" type="Label" parent="."]
 offset_left = 65.0
-offset_top = 131.0
+offset_top = 137.0
 offset_right = 147.0
-offset_bottom = 154.0
+offset_bottom = 160.0
 theme_override_fonts/font = ExtResource("1_q4ysw")
 theme_override_font_sizes/font_size = 16
 text = "Rumble"
 
 [node name="RumbleCheck" type="AnimatedSprite2D" parent="."]
-position = Vector2(183, 140)
+position = Vector2(183, 146)
 sprite_frames = SubResource("SpriteFrames_urnfx")
 
 [node name="MusicSelector" type="AnimatedSprite2D" parent="."]
@@ -130,7 +164,7 @@ position = Vector2(51, 89)
 sprite_frames = SubResource("SpriteFrames_jx2rj")
 
 [node name="RumbleSelector" type="AnimatedSprite2D" parent="."]
-position = Vector2(51, 139)
+position = Vector2(51, 145)
 sprite_frames = SubResource("SpriteFrames_qrwiv")
 
 [node name="BackLabel" type="Label" parent="."]
@@ -162,5 +196,26 @@ text = "SETTINGS
 
 [node name="SelectTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="SFXCheck" type="AnimatedSprite2D" parent="."]
+position = Vector2(183, 118)
+sprite_frames = SubResource("SpriteFrames_hg2n5")
+
+[node name="SFXLabel" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 109.0
+offset_right = 107.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("1_q4ysw")
+theme_override_font_sizes/font_size = 16
+text = "SFX"
+
+[node name="SFXSelector" type="AnimatedSprite2D" parent="."]
+position = Vector2(51, 117)
+sprite_frames = SubResource("SpriteFrames_e4l07")
+
+[node name="MenuTick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_a308m")
+volume_db = 4.0
 
 [connection signal="timeout" from="SelectTimer" to="." method="OnSelectTimerTimeout"]

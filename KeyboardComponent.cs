@@ -95,6 +95,7 @@ public partial class KeyboardComponent : CanvasLayer
 
 		topLeft = new Vector2(60, 76);
 		bottomRight =  new Vector2(180, 151);
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
 	}
 
 	public void Open() {
@@ -129,6 +130,7 @@ public partial class KeyboardComponent : CanvasLayer
 	private void InputHandling() {
 		if(Input.IsActionJustPressed("right")) {
 			ToggleSelect(row, col);
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			col++;
 			if(col == selectables[row].Count) {
 				col = 0;
@@ -149,6 +151,7 @@ public partial class KeyboardComponent : CanvasLayer
 		}
 		if(Input.IsActionJustPressed("left")) {
 			ToggleSelect(row, col);
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			col--;
 			if(col < 0) {
 				col = selectables[row].Count - 1;
@@ -169,6 +172,7 @@ public partial class KeyboardComponent : CanvasLayer
 		}
 		if(Input.IsActionJustPressed("move_up")) {
 			ToggleSelect(row, col);
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			bool wasAtBottom = false;
 			if(AtBottom()) {
 				wasAtBottom = true;
@@ -179,44 +183,64 @@ public partial class KeyboardComponent : CanvasLayer
 			if(row < 0) { // at bottom
 				row = selectables.Count - 1;
 				letterSelect.Visible = false;
-				col = 0;
+				col = CalculateBottomOption();
 				bottomSelectors[col].Visible = true;
 			}
 			else if(wasAtBottom) {
-				letterSelect.GlobalPosition = new Vector2(topLeft.X, bottomRight.Y);
-				col = 0;
+				col = CalculateFromBottom();
+				letterSelect.GlobalPosition = new Vector2(topLeft.X + (col * 15), bottomRight.Y);
 			}
 			else letterSelect.GlobalPosition = new Vector2(letterSelect.GlobalPosition.X, letterSelect.GlobalPosition.Y - 15);
 			ToggleSelect(row, col);
 		}
 		if(Input.IsActionJustPressed("move_down")) {
 			ToggleSelect(row, col);
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			if(AtBottom()) ResetBottomSelectors();
 			row++;
 			letterSelect.Visible = true;
 			if(row == selectables.Count) { // was at bottom
 				row = 0;
-				col = 0;
-				letterSelect.GlobalPosition = topLeft;
+				col = CalculateFromBottom();
+				Vector2 newPosition = topLeft;
+				newPosition.X += col * 15;
+				letterSelect.GlobalPosition = newPosition;
 			}
 			else if(AtBottom()) {
 				letterSelect.Visible = false;
-				col = 0;
+				col = CalculateBottomOption();
 				bottomSelectors[col].Visible = true;
 			}
 			else letterSelect.GlobalPosition = new Vector2(letterSelect.GlobalPosition.X, letterSelect.GlobalPosition.Y + 15);
 			ToggleSelect(row, col);
 		}
 		if(Input.IsActionPressed(GameData.Instance.GetA())) {
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			Input.ActionRelease(GameData.Instance.GetA());
 			StartTimer();
 		}
 		else if(Input.IsActionJustPressed(GameData.Instance.GetB())) {
+			if(GameData.Instance.GetCanPlaySFX() && GetRealTextLength() > 0) menuTick.Play();
 			Backspace();
 		}
-		else if(Input.IsActionJustPressed("start")) {
-			EmitSignal(SignalName.SubmitText, text.Text);
+		else if(Input.IsActionJustPressed("start") && GetRealTextLength() > 0) {
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
+			SendText();
 		}
+	}
+
+	private int GetRealTextLength() {
+		bool prevUnderscore = showUnderscore;
+		SetUnderscoreVisibility(false);
+		int length = text.Text.Length;
+		SetUnderscoreVisibility(prevUnderscore);
+		return length;
+	}
+
+	private void SendText() {
+		timerFlicker.Stop();
+		SetUnderscoreVisibility(false);
+		EmitSignal(SignalName.SubmitText, text.Text);
 	}
 
 	private void ToggleSelect(int i, int j) {
@@ -226,6 +250,22 @@ public partial class KeyboardComponent : CanvasLayer
 		else {
 			selectables[i][j].AddThemeColorOverride("font_color", new Color("fcfcfc"));
 		}
+	}
+
+	private int CalculateBottomOption() {
+		int column = 0;
+		if(col < 3) column = 0;
+		else if(col < 6) column = 1;
+		else if(col < 9) column = 2;
+		return column;
+	}
+
+	private int CalculateFromBottom() {
+		int column = 0;
+		if(col == 0) column = 0;
+		else if(col == 1) column = 3;
+		else if(col == 2) column = 6;
+		return column;
 	}
 
 	private void ResetBottomSelectors() {
@@ -286,10 +326,7 @@ public partial class KeyboardComponent : CanvasLayer
 			}
 			else {
 				if(text.Text.Trim().Length > 0) {
-					timerFlicker.Stop();
-					SetUnderscoreVisibility(false);
-					EmitSignal(SignalName.SubmitText, text.Text);
-					GD.Print(text.Text);
+					SendText();
 					bottomSelectors[col].Visible = true;
 				}
 			}
@@ -343,4 +380,5 @@ public partial class KeyboardComponent : CanvasLayer
 	private Vector2 bottomRight;
 	private Timer timerFlicker;
 	private bool showUnderscore;
+	private AudioStreamPlayer menuTick;
 }

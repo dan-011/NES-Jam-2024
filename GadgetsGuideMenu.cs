@@ -12,27 +12,33 @@ public partial class GadgetsGuideMenu : CanvasLayer
 		selectTimer = GetNode<Timer>("SelectorTimer");
 		backLabel = GetNode<Label>("BackLabel");
 		selector = GetNode<AnimatedSprite2D>("Selector");
+		menuTick = GetNode<AudioStreamPlayer>("MenuTick");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(Visible && GameData.Instance.GetIsPaused()) {
+		if(Visible && GameData.Instance.GetIsPaused() && canSelect) {
 			InputHandling();
 		}
 	}
 
 	public void Open() {
+		canSelect = true;
 		Visible = true;
 		selector.Visible = true;
 		backLabel.AddThemeColorOverride("font_color", new Color("fcfcfc"));
 	}
 	
 	private void InputHandling() {
-		if(Input.IsActionPressed("A")) {
+		if(Input.IsActionJustPressed("A")) {
+			canSelect = false;
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			GoBack("A");
 		}
 		if(Input.IsActionJustPressed("B")) {
+			canSelect = false;
+			if(GameData.Instance.GetCanPlaySFX()) menuTick.Play();
 			GoBack("B");
 		}
 	}
@@ -46,6 +52,7 @@ public partial class GadgetsGuideMenu : CanvasLayer
 	
 	private void OnSelectorTimerTimeout()
 	{
+		canSelect = true;
 		selectTimer.Stop();
 		EmitSignal(SignalName.SelectBack);
 	}
@@ -53,4 +60,6 @@ public partial class GadgetsGuideMenu : CanvasLayer
 	private Timer selectTimer;
 	private Label backLabel;
 	private AnimatedSprite2D selector;
+	private AudioStreamPlayer menuTick;
+	private bool canSelect;
 }
