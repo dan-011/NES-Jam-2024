@@ -3,7 +3,7 @@ Ryder's Edge is a futuristic shooter game inspired by the classic Nintendo Enter
 
 # Running Instructions
 ## Windows
-Download and extract Ryder.s.Edge.windows.zip. Open the folder and run "Ryder's Edge.exe". When running for the first time, Windows will show an alert for the unknown executable. Click "more" and select "Run Anyway" (I promise this is not a virus).
+Download and extract Ryder.s.Edge.windows.zip. Open the folder and run "Ryder's Edge.exe". When running for the first time, Windows will show an alert for the unknown executable. Click "More Info" and select "Run Anyway" (I promise this is not a virus).
 
 ## Mac
 Download and extract Ryder.s.Edge.mac.zip. Open the folder and navigate to "Ryder's Edge.app/Contents/MacOS". Run "Ryder's Edge" and approve the warning for the unknown executable (I promise this is not a virus).
